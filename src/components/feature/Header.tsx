@@ -20,6 +20,18 @@ export default function Header() {
     setIsServicesOpen(false);
   }, [location]);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const services = [
     { name: 'Festgeld', path: '/leistungen/festgeld', icon: 'ri-safe-line', desc: 'Stabile Renditen' },
     { name: 'Flexgeld', path: '/leistungen/flexgeld', icon: 'ri-exchange-line', desc: 'Flexible Laufzeiten' },
@@ -217,83 +229,137 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-neutral-200 shadow-xl">
-          <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
-            <Link 
-              to="/" 
-              className="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200"
-            >
-              Startseite
-            </Link>
-            
-            <Link 
-              to="/ueber-uns" 
-              className="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200"
-            >
-              Über Uns
-            </Link>
-            
-            <Link 
-              to="/team" 
-              className="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200"
-            >
-              Unser Team
-            </Link>
-            
-            <div className="px-4 py-3">
-              <div className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">Leistungen</div>
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Mobile Menu */}
+      <div
+        className={`lg:hidden fixed top-20 left-0 right-0 bg-white border-t border-neutral-200 shadow-2xl z-50 transition-all duration-300 ease-in-out transform ${
+          isMobileMenuOpen
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}
+        style={{ maxHeight: 'calc(100vh - 5rem)', overflowY: 'auto' }}
+      >
+        <div className="max-w-7xl mx-auto px-4 py-4 space-y-1">
+          <Link
+            to="/"
+            className={`flex items-center space-x-3 px-4 py-3 text-sm font-semibold rounded-lg transition-all duration-200 ${
+              location.pathname === '/'
+                ? 'text-amber-500 bg-amber-50'
+                : 'text-neutral-700 hover:text-amber-500 hover:bg-amber-50'
+            }`}
+          >
+            <i className="ri-home-line text-lg"></i>
+            <span>Startseite</span>
+          </Link>
+
+          <Link
+            to="/ueber-uns"
+            className={`flex items-center space-x-3 px-4 py-3 text-sm font-semibold rounded-lg transition-all duration-200 ${
+              location.pathname === '/ueber-uns'
+                ? 'text-amber-500 bg-amber-50'
+                : 'text-neutral-700 hover:text-amber-500 hover:bg-amber-50'
+            }`}
+          >
+            <i className="ri-building-line text-lg"></i>
+            <span>Über Uns</span>
+          </Link>
+
+          <Link
+            to="/team"
+            className={`flex items-center space-x-3 px-4 py-3 text-sm font-semibold rounded-lg transition-all duration-200 ${
+              location.pathname === '/team'
+                ? 'text-amber-500 bg-amber-50'
+                : 'text-neutral-700 hover:text-amber-500 hover:bg-amber-50'
+            }`}
+          >
+            <i className="ri-team-line text-lg"></i>
+            <span>Unser Team</span>
+          </Link>
+
+          <div className="px-4 py-3 bg-neutral-50 rounded-lg my-2">
+            <div className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3 flex items-center space-x-2">
+              <i className="ri-service-line"></i>
+              <span>Leistungen</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
               {services.map((service) => (
                 <Link
                   key={service.path}
                   to={service.path}
-                  className="flex items-center space-x-3 px-3 py-2.5 hover:bg-amber-50 rounded-lg transition-all duration-200 mb-1"
+                  className={`flex items-center space-x-2 px-3 py-2.5 rounded-lg transition-all duration-200 ${
+                    location.pathname === service.path
+                      ? 'bg-amber-100 text-amber-600'
+                      : 'bg-white hover:bg-amber-50 text-neutral-700 hover:text-amber-500'
+                  }`}
                 >
-                  <i className={`${service.icon} text-lg text-amber-500`}></i>
-                  <span className="text-sm font-semibold text-neutral-700">{service.name}</span>
+                  <i className={`${service.icon} text-base text-amber-500`}></i>
+                  <span className="text-sm font-semibold">{service.name}</span>
                 </Link>
               ))}
             </div>
+          </div>
 
-            <Link 
-              to="/maerkte" 
-              className="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200"
+          <Link
+            to="/maerkte"
+            className={`flex items-center space-x-3 px-4 py-3 text-sm font-semibold rounded-lg transition-all duration-200 ${
+              location.pathname === '/maerkte'
+                ? 'text-amber-500 bg-amber-50'
+                : 'text-neutral-700 hover:text-amber-500 hover:bg-amber-50'
+            }`}
+          >
+            <i className="ri-stock-line text-lg"></i>
+            <span>Märkte</span>
+          </Link>
+
+          <Link
+            to="/blog"
+            className={`flex items-center space-x-3 px-4 py-3 text-sm font-semibold rounded-lg transition-all duration-200 ${
+              location.pathname === '/blog'
+                ? 'text-amber-500 bg-amber-50'
+                : 'text-neutral-700 hover:text-amber-500 hover:bg-amber-50'
+            }`}
+          >
+            <i className="ri-newspaper-line text-lg"></i>
+            <span>Blog & News</span>
+          </Link>
+
+          <Link
+            to="/kontakt"
+            className={`flex items-center space-x-3 px-4 py-3 text-sm font-semibold rounded-lg transition-all duration-200 ${
+              location.pathname === '/kontakt'
+                ? 'text-amber-500 bg-amber-50'
+                : 'text-neutral-700 hover:text-amber-500 hover:bg-amber-50'
+            }`}
+          >
+            <i className="ri-mail-line text-lg"></i>
+            <span>Kontakt</span>
+          </Link>
+
+          <div className="pt-4 pb-2 space-y-3 border-t border-neutral-200 mt-4">
+            <Link
+              to="/login"
+              className="flex items-center justify-center space-x-2 w-full px-6 py-3 text-sm font-bold text-neutral-700 border-2 border-neutral-300 rounded-xl hover:border-amber-500 hover:text-amber-500 transition-all duration-200"
             >
-              Märkte
+              <i className="ri-login-box-line text-lg"></i>
+              <span>Anmelden</span>
             </Link>
-            
-            <Link 
-              to="/blog" 
-              className="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200"
+            <Link
+              to="/kontakt"
+              className="flex items-center justify-center space-x-2 w-full px-6 py-3 text-sm font-bold bg-gradient-to-r from-amber-400 to-amber-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
             >
-              Blog & News
+              <i className="ri-rocket-line text-lg"></i>
+              <span>Jetzt starten</span>
             </Link>
-            
-            <Link 
-              to="/kontakt" 
-              className="block px-4 py-3 text-sm font-semibold text-neutral-700 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-all duration-200"
-            >
-              Kontakt
-            </Link>
-            
-            <div className="pt-3 space-y-2">
-              <Link 
-                to="/login" 
-                className="block w-full px-6 py-3 text-center text-sm font-bold text-neutral-700 border-2 border-neutral-300 rounded-lg hover:border-amber-500 hover:text-amber-500 transition-all duration-200 whitespace-nowrap"
-              >
-                Anmelden
-              </Link>
-              <Link 
-                to="/kontakt" 
-                className="block w-full px-6 py-3 text-center text-sm font-bold bg-gradient-to-r from-amber-400 to-amber-600 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 whitespace-nowrap"
-              >
-                Jetzt starten
-              </Link>
-            </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

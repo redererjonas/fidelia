@@ -43,8 +43,8 @@ export default function ImpressumPage() {
               <div>
                 <h2 className="text-2xl font-heading font-bold text-primary mb-4">Registereintrag</h2>
                 <div className="space-y-2 text-neutral-700">
-                  <p><span className="font-semibold">Handelsregister:</span> Amtsgericht Hamburg</p>
-                  <p><span className="font-semibold">Registernummer:</span> HRB 123456</p>
+                  <p><span className="font-semibold">BaFin-ID:</span> <a href="https://portal.mvp.bafin.de/database/InstInfo/institutDetails.do?cmd=loadInstitutAction&institutId=146931" target="_blank" rel="noopener noreferrer" className="text-accent-gold hover:underline">10146931</a></p>
+                  <p><span className="font-semibold">Bak Nr.:</span> 146931</p>
                   <p><span className="font-semibold">LEI-Code:</span> 529900ABCDEFGHIJK123</p>
                   <p><span className="font-semibold">EUID:</span> DE.HRB.123456.HH</p>
                 </div>

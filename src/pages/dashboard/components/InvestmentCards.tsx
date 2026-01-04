@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Investment } from '../../../data/users';
 
 interface InvestmentCardsProps {
@@ -90,8 +91,8 @@ export default function InvestmentCards({ investments }: InvestmentCardsProps) {
             whileHover={{ y: -8, scale: 1.02 }}
             className="group"
           >
-            <a
-              href={`/dashboard/${investment.type}`}
+            <Link
+              to={`/dashboard/${investment.type}`}
               className="block bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-neutral-100 hover:border-amber-200"
             >
               {/* Header mit Gradient */}
@@ -219,7 +220,7 @@ export default function InvestmentCards({ investments }: InvestmentCardsProps) {
                   </div>
                 </div>
               </div>
-            </a>
+            </Link>
           </motion.div>
         );
       })}

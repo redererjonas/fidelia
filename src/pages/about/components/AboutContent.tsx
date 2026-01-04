@@ -97,17 +97,22 @@ export default function AboutContent() {
 
               {/* Key Facts */}
               <div className="grid grid-cols-2 gap-4 mt-8">
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                <a
+                  href="https://portal.mvp.bafin.de/database/InstInfo/institutDetails.do?cmd=loadInstitutAction&institutId=146931"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 block"
+                >
                   <div className="flex items-center space-x-3 mb-3">
                     <div className="w-12 h-12 bg-gradient-to-br from-primary/10 to-accent-gold/10 rounded-xl flex items-center justify-center">
-                      <i className="ri-building-line text-2xl text-primary"></i>
+                      <i className="ri-shield-star-line text-2xl text-primary"></i>
                     </div>
                     <div>
-                      <p className="text-sm text-neutral-600 font-medium">Handelsregister</p>
-                      <p className="text-lg font-bold text-neutral-900">HRB 123456</p>
+                      <p className="text-sm text-neutral-600 font-medium">BaFin-ID</p>
+                      <p className="text-lg font-bold text-neutral-900">10146931</p>
                     </div>
                   </div>
-                </div>
+                </a>
 
                 <div className="bg-white rounded-2xl p-6 shadow-lg">
                   <div className="flex items-center space-x-3 mb-3">

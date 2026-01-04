@@ -3,7 +3,7 @@ export default function Timeline() {
     {
       year: '2010',
       title: 'Gründung in Hamburg',
-      description: 'Gründung der FIDELIA Kapitalverwaltungsgesellschaft mbH mit Fokus auf institutionelle Kapitalverwaltung. Eintragung ins Handelsregister Hamburg.',
+      description: 'Gründung der FIDELIA Kapitalverwaltungsgesellschaft mbH mit Fokus auf institutionelle Kapitalverwaltung. BaFin-ID: 10146931.',
       icon: 'ri-building-line'
     },
     {

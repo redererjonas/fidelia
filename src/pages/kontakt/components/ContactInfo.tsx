@@ -25,8 +25,8 @@ const ContactInfo = () => {
   ];
 
   const legalInfo = [
-    { label: 'Handelsregister', value: 'HRB 123456' },
-    { label: 'Registergericht', value: 'Amtsgericht Hamburg' },
+    { label: 'BaFin-ID', value: '10146931', link: 'https://portal.mvp.bafin.de/database/InstInfo/institutDetails.do?cmd=loadInstitutAction&institutId=146931' },
+    { label: 'Bak Nr.', value: '146931' },
     { label: 'LEI', value: 'XXXXXXXXXXXXXXXXXXXXXX' },
     { label: 'EUID', value: 'DE.XXXXXX.XXXXXXXX' },
     { label: 'Registrierung', value: 'Nach §44 iVm §2 Abs.4 KAGB' }
@@ -79,9 +79,20 @@ const ContactInfo = () => {
               <span className="text-sm font-semibold text-neutral-600">
                 {info.label}
               </span>
-              <span className="text-sm text-primary font-medium text-right">
-                {info.value}
-              </span>
+              {'link' in info && info.link ? (
+                <a
+                  href={info.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-accent-gold font-medium text-right hover:underline"
+                >
+                  {info.value}
+                </a>
+              ) : (
+                <span className="text-sm text-primary font-medium text-right">
+                  {info.value}
+                </span>
+              )}
             </div>
           ))}
         </div>

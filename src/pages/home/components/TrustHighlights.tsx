@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function TrustHighlights() {
   const [isVisible, setIsVisible] = useState(false);
@@ -37,11 +38,12 @@ export default function TrustHighlights() {
       color: 'from-emerald-500 to-emerald-600'
     },
     {
-      icon: 'ri-file-list-line',
-      title: 'Handelsregister',
-      description: 'HRB 123456',
-      detail: 'Amtsgericht Hamburg',
-      color: 'from-violet-500 to-violet-600'
+      icon: 'ri-shield-star-line',
+      title: 'BaFin Registriert',
+      description: 'BaFin-ID: 10146931',
+      detail: 'Bak Nr.: 146931',
+      color: 'from-violet-500 to-violet-600',
+      link: 'https://portal.mvp.bafin.de/database/InstInfo/institutDetails.do?cmd=loadInstitutAction&institutId=146931'
     },
     {
       icon: 'ri-global-line',
@@ -95,12 +97,8 @@ export default function TrustHighlights() {
 
         {/* Highlights Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {highlights.map((highlight, index) => (
-            <div
-              key={index}
-              className={`group relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: `${index * 100}ms` }}
-            >
+          {highlights.map((highlight, index) => {
+            const content = (
               <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 hover:bg-white/15 hover:border-accent-gold/50 transition-all duration-300">
                 {/* Icon */}
                 <div className="relative mb-6">
@@ -126,8 +124,24 @@ export default function TrustHighlights() {
                   <i className="ri-arrow-right-up-line text-2xl text-accent-gold"></i>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+
+            return (
+              <div
+                key={index}
+                className={`group relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                {'link' in highlight && highlight.link ? (
+                  <a href={highlight.link} target="_blank" rel="noopener noreferrer">
+                    {content}
+                  </a>
+                ) : (
+                  content
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Bottom CTA */}
@@ -142,8 +156,8 @@ export default function TrustHighlights() {
                 <p className="text-xl font-bold text-white">Wir beraten Sie gerne</p>
               </div>
             </div>
-            <a 
-              href="/kontakt"
+            <Link
+              to="/kontakt"
               className="group relative"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-accent-gold to-accent-gold-light rounded-xl blur-lg opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -151,7 +165,7 @@ export default function TrustHighlights() {
                 <span>Kontakt aufnehmen</span>
                 <i className="ri-arrow-right-line text-xl group-hover:translate-x-1 transition-transform duration-300"></i>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

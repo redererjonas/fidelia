@@ -63,13 +63,18 @@ export default function Footer() {
                 </div>
                 <p className="text-xs text-white/60">§44 iVm §2 Abs.4</p>
               </div>
-              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+              <a
+                href="https://portal.mvp.bafin.de/database/InstInfo/institutDetails.do?cmd=loadInstitutAction&institutId=146931"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 block"
+              >
                 <div className="flex items-center space-x-2 mb-2">
-                  <i className="ri-building-line text-xl text-accent-gold"></i>
-                  <p className="text-xs font-bold text-white/90">Handelsregister</p>
+                  <i className="ri-shield-star-line text-xl text-accent-gold"></i>
+                  <p className="text-xs font-bold text-white/90">BaFin-ID</p>
                 </div>
-                <p className="text-xs text-white/60">HRB 123456</p>
-              </div>
+                <p className="text-xs text-white/60">10146931 | Bak Nr.: 146931</p>
+              </a>
             </div>
 
             {/* Social Media */}
@@ -206,17 +211,22 @@ export default function Footer() {
               </div>
             </div>
             
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-accent-gold/30 transition-all duration-300">
+            <a
+              href="https://portal.mvp.bafin.de/database/InstInfo/institutDetails.do?cmd=loadInstitutAction&institutId=146931"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-accent-gold/30 transition-all duration-300 block"
+            >
               <div className="flex items-center space-x-4">
                 <div className="w-14 h-14 bg-gradient-to-br from-accent-gold/20 to-accent-gold-light/20 rounded-xl flex items-center justify-center">
-                  <i className="ri-building-line text-2xl text-accent-gold"></i>
+                  <i className="ri-shield-star-line text-2xl text-accent-gold"></i>
                 </div>
                 <div>
-                  <p className="text-xs text-white/60 font-medium mb-1">Handelsregister</p>
-                  <p className="text-sm text-white font-bold">HRB 123456</p>
+                  <p className="text-xs text-white/60 font-medium mb-1">BaFin-ID</p>
+                  <p className="text-sm text-white font-bold">10146931 | Bak Nr.: 146931</p>
                 </div>
               </div>
-            </div>
+            </a>
             
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-accent-gold/30 transition-all duration-300">
               <div className="flex items-center space-x-4">

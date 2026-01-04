@@ -110,7 +110,7 @@ export default function RechtlicheHinweisePage() {
                 <div className="space-y-4 text-neutral-700">
                   <p><span className="font-semibold">Registrierung:</span> Die FIDELIA Kapitalverwaltungsgesellschaft mbH ist registriert nach §44 iVm §2 Abs.4 KAGB als Verwaltungsgesellschaft für Spezial-AIF mit einem verwalteten Vermögen bis zu 500 Millionen Euro.</p>
                   <p><span className="font-semibold">Aufsicht:</span> Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin), Graurheindorfer Straße 108, 53117 Bonn</p>
-                  <p><span className="font-semibold">Handelsregister:</span> Amtsgericht Hamburg, HRB 123456</p>
+                  <p><span className="font-semibold">BaFin-ID:</span> <a href="https://portal.mvp.bafin.de/database/InstInfo/institutDetails.do?cmd=loadInstitutAction&institutId=146931" target="_blank" rel="noopener noreferrer" className="text-accent-gold hover:underline">10146931</a> | Bak Nr.: 146931</p>
                   <p><span className="font-semibold">LEI-Code:</span> 529900ABCDEFGHIJK123</p>
                 </div>
               </div>

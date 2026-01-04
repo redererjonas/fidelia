@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function ServicesOverview() {
   const [isVisible, setIsVisible] = useState(false);
@@ -136,13 +137,13 @@ export default function ServicesOverview() {
                 </div>
 
                 {/* CTA */}
-                <a 
-                  href={service.path}
+                <Link
+                  to={service.path}
                   className="inline-flex items-center space-x-2 text-primary font-bold group-hover:text-accent-gold transition-colors duration-300"
                 >
                   <span>Mehr erfahren</span>
                   <i className="ri-arrow-right-line text-lg group-hover:translate-x-2 transition-transform duration-300"></i>
-                </a>
+                </Link>
               </div>
 
               {/* Hover Border Effect */}
@@ -199,13 +200,13 @@ export default function ServicesOverview() {
               </div>
 
               {/* CTA */}
-              <a 
-                href={services[4].path}
+              <Link
+                to={services[4].path}
                 className="inline-flex items-center space-x-2 text-primary font-bold text-lg group-hover:text-accent-gold transition-colors duration-300"
               >
                 <span>Mehr erfahren</span>
                 <i className="ri-arrow-right-line text-xl group-hover:translate-x-2 transition-transform duration-300"></i>
-              </a>
+              </Link>
             </div>
           </div>
 

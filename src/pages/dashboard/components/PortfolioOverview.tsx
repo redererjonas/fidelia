@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Investment } from '../../../data/users';
+
+const MotionLink = motion(Link);
 
 interface PortfolioOverviewProps {
   investments: Investment[];
@@ -97,9 +100,9 @@ export default function PortfolioOverview({ investments }: PortfolioOverviewProp
             const profitPercentage = (item.profit / item.amount) * 100;
 
             return (
-              <motion.a
+              <MotionLink
                 key={item.type}
-                href={`/dashboard/${item.type}`}
+                to={`/dashboard/${item.type}`}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.1 }}
@@ -162,7 +165,7 @@ export default function PortfolioOverview({ investments }: PortfolioOverviewProp
                     <i className="ri-arrow-right-line text-lg text-accent-gold group-hover:translate-x-2 transition-transform"></i>
                   </div>
                 </div>
-              </motion.a>
+              </MotionLink>
             );
           })}
         </div>
