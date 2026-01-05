@@ -250,7 +250,7 @@ export default function ContactForm() {
                   </div>
                   <div>
                     <div className="font-semibold mb-1">Telefon</div>
-                    <div className="text-white/80 text-sm">+49 (0) 40 1234 5678</div>
+                    <div className="text-white/80 text-sm">+49 (0) 40 334 668098</div>
                   </div>
                 </div>
 
@@ -287,7 +287,7 @@ export default function ContactForm() {
                 Für allgemeine Fragen können Sie auch unsere FAQ-Sektion besuchen oder uns direkt anrufen. Wir sind gerne für Sie da.
               </p>
               <div className="flex items-center space-x-4">
-                <a href="tel:+4940123456789" className="flex-1 px-4 py-3 bg-primary/5 text-primary text-sm font-semibold rounded-lg hover:bg-primary/10 transition-colors duration-200 text-center whitespace-nowrap">
+                <a href="tel:+4940334668098" className="flex-1 px-4 py-3 bg-primary/5 text-primary text-sm font-semibold rounded-lg hover:bg-primary/10 transition-colors duration-200 text-center whitespace-nowrap">
                   <i className="ri-phone-line mr-2"></i>
                   Anrufen
                 </a>

@@ -137,7 +137,7 @@ export default function RechtlicheHinweisePage() {
                   <p>Sollten Sie Anlass zu einer Beschwerde haben, können Sie sich jederzeit an uns wenden:</p>
                   <p className="mt-2">
                     <span className="font-semibold">E-Mail:</span> beschwerde@fidelia-kapital.de<br />
-                    <span className="font-semibold">Telefon:</span> +49 (0) 40 1234 5678<br />
+                    <span className="font-semibold">Telefon:</span> +49 (0) 40 334 668098<br />
                     <span className="font-semibold">Schriftlich:</span> FIDELIA Kapitalverwaltungsgesellschaft mbH, Kurze Mühren 20, 20095 Hamburg
                   </p>
                   <p className="mt-4">Wir werden Ihre Beschwerde umgehend prüfen und uns bemühen, diese innerhalb angemessener Frist zu beantworten.</p>
@@ -158,7 +158,7 @@ export default function RechtlicheHinweisePage() {
                 <p className="text-neutral-700 mb-4">Bei Fragen zu den rechtlichen Hinweisen oder für weitere Informationen kontaktieren Sie uns bitte:</p>
                 <div className="space-y-2 text-neutral-700">
                   <p><span className="font-semibold">E-Mail:</span> legal@fidelia-kapital.de</p>
-                  <p><span className="font-semibold">Telefon:</span> +49 (0) 40 1234 5678</p>
+                  <p><span className="font-semibold">Telefon:</span> +49 (0) 40 334 668098</p>
                 </div>
               </div>
             </div>

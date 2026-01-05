@@ -33,8 +33,8 @@ export default function ImpressumPage() {
               <div>
                 <h2 className="text-2xl font-heading font-bold text-primary mb-4">Kontakt</h2>
                 <div className="space-y-2 text-neutral-700">
-                  <p><span className="font-semibold">Telefon:</span> +49 (0) 40 1234 5678</p>
-                  <p><span className="font-semibold">Telefax:</span> +49 (0) 40 1234 5679</p>
+                  <p><span className="font-semibold">Telefon:</span> +49 (0) 40 334 668098</p>
+                  <p><span className="font-semibold">Telefax:</span> +49 (0) 40 334 668099</p>
                   <p><span className="font-semibold">E-Mail:</span> info@fidelia-kapital.de</p>
                 </div>
               </div>

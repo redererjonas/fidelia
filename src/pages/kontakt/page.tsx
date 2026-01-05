@@ -67,7 +67,7 @@ const KontaktPage = () => {
     {
       icon: 'ri-phone-line',
       title: 'Telefon',
-      content: '+49 (0) 40 1234 5678',
+      content: '+49 (0) 40 334 668098',
       description: 'Mo-Fr: 9:00 - 18:00 Uhr',
       gradient: 'from-blue-500 to-blue-600'
     },
@@ -98,7 +98,7 @@ const KontaktPage = () => {
     city: 'Hamburg',
     type: 'Hauptsitz',
     address: 'Kurze Mühren 20, 20095 Hamburg',
-    phone: '+49 (0) 40 1234 5678',
+    phone: '+49 (0) 40 334 668098',
     email: 'info@fidelia-kapital.de',
     image: '/images/office1.jpg',
     features: [
@@ -427,7 +427,7 @@ const KontaktPage = () => {
                       </div>
                       <div>
                         <p className="text-sm text-white/70 mb-1">Rufen Sie uns an</p>
-                        <p className="font-bold text-lg">+49 (0) 40 1234 5678</p>
+                        <p className="font-bold text-lg">+49 (0) 40 334 668098</p>
                       </div>
                     </div>
 

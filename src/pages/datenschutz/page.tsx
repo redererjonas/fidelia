@@ -81,7 +81,7 @@ export default function DatenschutzPage() {
                       Deutschland
                     </p>
                     <p className="mt-2">
-                      Telefon: +49 (0) 40 1234 5678<br />
+                      Telefon: +49 (0) 40 334 668098<br />
                       E-Mail: info@fidelia-kapital.de
                     </p>
                     <p className="mt-2">Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z.B. Namen, E-Mail-Adressen o. Ä.) entscheidet.</p>
@@ -136,7 +136,7 @@ export default function DatenschutzPage() {
                 <p className="text-neutral-700 mb-4">Bei Fragen zur Erhebung, Verarbeitung oder Nutzung Ihrer personenbezogenen Daten, bei Auskünften, Berichtigung, Sperrung oder Löschung von Daten wenden Sie sich bitte an:</p>
                 <p className="text-neutral-700">
                   <span className="font-semibold">E-Mail:</span> datenschutz@fidelia-kapital.de<br />
-                  <span className="font-semibold">Telefon:</span> +49 (0) 40 1234 5678
+                  <span className="font-semibold">Telefon:</span> +49 (0) 40 334 668098
                 </p>
               </div>
             </div>

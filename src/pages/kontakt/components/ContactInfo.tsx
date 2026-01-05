@@ -10,7 +10,7 @@ const ContactInfo = () => {
     {
       icon: 'ri-phone-line',
       title: 'Telefon',
-      content: ['+49 (0) 40 123 456 789']
+      content: ['+49 (0) 40 334 668098']
     },
     {
       icon: 'ri-mail-line',
@@ -122,11 +122,11 @@ const ContactInfo = () => {
           Vereinbaren Sie einen Termin mit unseren Experten für eine individuelle Beratung zu Ihren Anlagezielen.
         </p>
         <a
-          href="tel:+4940123456789"
+          href="tel:+4940334668098"
           className="inline-flex items-center space-x-2 text-accent-gold font-semibold hover:text-accent-gold/80 transition-colors duration-300 cursor-pointer"
         >
           <i className="ri-phone-line text-xl"></i>
-          <span>+49 (0) 40 123 456 789</span>
+          <span>+49 (0) 40 334 668098</span>
         </a>
       </div>
     </motion.div>
