@@ -74,7 +74,7 @@ const KontaktPage = () => {
     {
       icon: 'ri-mail-line',
       title: 'E-Mail',
-      content: 'info@fidelia-kapital.de',
+      content: 'info@fidelia-kapital.com',
       description: 'Antwort innerhalb von 24h',
       gradient: 'from-emerald-500 to-emerald-600'
     },
@@ -99,7 +99,7 @@ const KontaktPage = () => {
     type: 'Hauptsitz',
     address: 'Kurze Mühren 20, 20095 Hamburg',
     phone: '+49 (0) 40 334 668098',
-    email: 'info@fidelia-kapital.de',
+    email: 'info@fidelia-kapital.com',
     image: '/images/office1.jpg',
     features: [
       { icon: 'ri-building-4-line', text: 'Modernes Bürogebäude' },
@@ -437,7 +437,7 @@ const KontaktPage = () => {
                       </div>
                       <div>
                         <p className="text-sm text-white/70 mb-1">Schreiben Sie uns</p>
-                        <p className="font-bold text-lg">info@fidelia-kapital.de</p>
+                        <p className="font-bold text-lg">info@fidelia-kapital.com</p>
                       </div>
                     </div>
 

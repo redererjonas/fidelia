@@ -60,12 +60,12 @@ export default function CallUsModal({ isOpen, onClose }: CallUsModalProps) {
               {/* Additional Contact Options */}
               <div className="grid grid-cols-2 gap-3 mb-6">
                 <a
-                  href="mailto:info@fidelia-kapital.de"
+                  href="mailto:info@fidelia-kapital.com"
                   className="bg-neutral-100 hover:bg-neutral-200 rounded-xl p-4 transition-colors group"
                 >
                   <i className="ri-mail-line text-2xl text-primary group-hover:text-accent-gold transition-colors mb-2 block"></i>
                   <p className="text-sm font-medium text-neutral-700">E-Mail</p>
-                  <p className="text-xs text-neutral-500">info@fidelia-kapital.de</p>
+                  <p className="text-xs text-neutral-500">info@fidelia-kapital.com</p>
                 </a>
                 <a
                   href="https://wa.me/4940334668098"

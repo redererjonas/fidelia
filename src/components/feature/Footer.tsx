@@ -188,7 +188,7 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="text-xs font-semibold text-white/90 mb-1">E-Mail</p>
-                    <p className="text-xs text-white/70">info@fidelia-kapital.de</p>
+                    <p className="text-xs text-white/70">info@fidelia-kapital.com</p>
                   </div>
                 </div>
               </div>
