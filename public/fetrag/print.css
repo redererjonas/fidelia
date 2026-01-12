@@ -1,0 +1,402 @@
+/* A4 Yazdırma Optimizasyonu */
+@media print {
+    /* Renk ayarları */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    /* Sayfa ayarları */
+    @page {
+        size: A4;
+        margin: 0;
+    }
+
+    @page :first {
+        margin-top: 0;
+    }
+
+    /* Body reset */
+    body {
+        margin: 0;
+        padding: 0;
+        background: white !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 11pt !important;
+    }
+
+    /* Container */
+    .container {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    /* Sayfa düzeni */
+    .page {
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        padding: 0;
+        box-shadow: none !important;
+        page-break-after: always;
+        page-break-inside: avoid;
+        position: relative;
+        display: flex !important;
+        flex-direction: column !important;
+        background: white !important;
+    }
+
+    /* Son sayfa */
+    .page:last-of-type {
+        page-break-after: auto;
+    }
+
+    /* Header yazdırma */
+    .page-header {
+        position: relative;
+        padding: 10mm 15mm 5mm !important;
+        background: white !important;
+        border-bottom: 2px solid #1e3a5f !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        height: 35mm !important;
+        page-break-inside: avoid;
+    }
+
+    .header-logo {
+        height: 30px !important;
+        width: auto !important;
+    }
+
+    .header-title h1 {
+        font-size: 18pt !important;
+        color: #1e3a5f !important;
+        margin: 0 !important;
+    }
+
+    .header-title p {
+        font-size: 10pt !important;
+        color: #666 !important;
+        margin: 2px 0 !important;
+    }
+
+    .contract-number {
+        font-size: 11pt !important;
+        color: #1e3a5f !important;
+        font-weight: bold !important;
+    }
+
+    /* İçerik alanı */
+    .page-content {
+        flex: 1 !important;
+        padding: 10mm 15mm !important;
+        overflow: visible !important;
+    }
+
+    /* Footer yazdırma */
+    .page-footer {
+        position: relative !important;
+        bottom: auto !important;
+        padding: 8mm 15mm !important;
+        background: #f8f9fa !important;
+        border-top: 1px solid #ddd !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        font-size: 9pt !important;
+        height: 30mm !important;
+        page-break-inside: avoid;
+    }
+
+    .footer-left h4,
+    .footer-right h4 {
+        font-size: 10pt !important;
+        color: #1e3a5f !important;
+        margin: 0 0 5px 0 !important;
+    }
+
+    .footer-left p,
+    .footer-right p {
+        font-size: 9pt !important;
+        margin: 2px 0 !important;
+        line-height: 1.3 !important;
+    }
+
+    /* Kontrol panelini gizle */
+    .control-panel {
+        display: none !important;
+    }
+
+    /* Butonları gizle */
+    button,
+    .clear-signature {
+        display: none !important;
+    }
+
+    /* Section başlıkları */
+    .section-title {
+        background: #1e3a5f !important;
+        color: white !important;
+        padding: 8px 15px !important;
+        margin: 10px -15mm 15px !important;
+        font-size: 13pt !important;
+        text-align: center !important;
+        page-break-after: avoid;
+        -webkit-print-color-adjust: exact;
+    }
+
+    /* Form elemanları */
+    .form-input {
+        border: 1px solid #666 !important;
+        background: white !important;
+        padding: 4px 6px !important;
+        font-size: 10pt !important;
+        height: auto !important;
+    }
+
+    .form-input:placeholder-shown {
+        background: #fafafa !important;
+    }
+
+    /* Düzenlenebilir alanlar */
+    .editable {
+        border-bottom: 1px solid #666 !important;
+        background: transparent !important;
+        min-width: 60px !important;
+        display: inline-block !important;
+        padding: 1px 3px !important;
+    }
+
+    .editable:empty:before {
+        content: "________" !important;
+        color: #ccc !important;
+    }
+
+    /* Checkbox ve Radio */
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 12px !important;
+        height: 12px !important;
+        margin-right: 6px !important;
+        vertical-align: middle !important;
+    }
+
+    /* İmza alanları */
+    .signature-canvas {
+        border: 1px solid #666 !important;
+        background: white !important;
+        width: 100% !important;
+        height: 50px !important;
+        page-break-inside: avoid;
+    }
+
+    .signature-section {
+        page-break-inside: avoid;
+    }
+
+    .signature-row {
+        display: flex !important;
+        gap: 10px !important;
+        page-break-inside: avoid;
+    }
+
+    .signature-box {
+        flex: 1 !important;
+        border: 1px solid #666 !important;
+        padding: 8px !important;
+        page-break-inside: avoid;
+    }
+
+    .signature-box h4 {
+        font-size: 10pt !important;
+        margin: 0 0 5px 0 !important;
+    }
+
+    /* Grid düzenleri */
+    .person-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+        page-break-inside: avoid;
+    }
+
+    .person-box {
+        border: 1px solid #666 !important;
+        padding: 8px !important;
+        page-break-inside: avoid;
+    }
+
+    .person-box h4 {
+        background: #1e3a5f !important;
+        color: white !important;
+        padding: 4px 6px !important;
+        margin: -8px -8px 8px !important;
+        font-size: 10pt !important;
+        -webkit-print-color-adjust: exact;
+    }
+
+    /* Yatırım kutusu */
+    .investment-box {
+        background: #e8f4f8 !important;
+        border: 1px solid #b8d4e3 !important;
+        padding: 10px !important;
+        margin: 10px 0 !important;
+        page-break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .investment-box h4 {
+        font-size: 11pt !important;
+        margin: 0 0 8px 0 !important;
+    }
+
+    .investment-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+    }
+
+    /* Bilgi kutuları */
+    .info-box {
+        border-left: 3px solid #ffc107 !important;
+        background: #fff3cd !important;
+        padding: 8px !important;
+        margin: 10px 0 !important;
+        page-break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .info-box.success {
+        border-left-color: #28a745 !important;
+        background: #d4edda !important;
+    }
+
+    .info-box.warning {
+        border-left-color: #dc3545 !important;
+        background: #f8d7da !important;
+    }
+
+    .info-box p {
+        font-size: 10pt !important;
+        margin: 0 !important;
+        line-height: 1.4 !important;
+    }
+
+    /* Checklist kutusu */
+    .checklist-box {
+        background: #f0f4f8 !important;
+        border: 1px solid #d0d8e0 !important;
+        padding: 10px !important;
+        margin: 10px 0 !important;
+        page-break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .checklist-box h4 {
+        font-size: 11pt !important;
+        margin: 0 0 8px 0 !important;
+    }
+
+    /* Form başlıkları */
+    .form-section {
+        margin: 10px 0 !important;
+        page-break-inside: avoid;
+    }
+
+    .form-section h3 {
+        font-size: 11pt !important;
+        color: #1e3a5f !important;
+        border-bottom: 1px solid #ddd !important;
+        padding-bottom: 3px !important;
+        margin: 0 0 8px 0 !important;
+        page-break-after: avoid;
+    }
+
+    .form-section p {
+        font-size: 10pt !important;
+        line-height: 1.4 !important;
+        margin: 5px 0 !important;
+    }
+
+    /* Grup elemanları */
+    .form-group {
+        margin: 5px 0 !important;
+        page-break-inside: avoid;
+    }
+
+    .form-group label {
+        font-size: 9pt !important;
+        color: #333 !important;
+        margin: 0 0 2px 0 !important;
+        display: block !important;
+    }
+
+    .checkbox-item,
+    .radio-item {
+        margin: 5px 0 !important;
+        font-size: 10pt !important;
+        page-break-inside: avoid;
+    }
+
+    .checkbox-item span,
+    .radio-item span {
+        line-height: 1.3 !important;
+    }
+
+    /* Liste stilleri */
+    .terms-list {
+        padding-left: 18px !important;
+        margin: 10px 0 !important;
+    }
+
+    .terms-list li {
+        font-size: 10pt !important;
+        margin: 6px 0 !important;
+        line-height: 1.4 !important;
+        page-break-inside: avoid;
+        text-align: justify;
+    }
+
+    /* Utility sınıflar */
+    .small-text {
+        font-size: 9pt !important;
+        color: #666 !important;
+    }
+
+    .mt-10 {
+        margin-top: 8px !important;
+    }
+
+    .mb-10 {
+        margin-bottom: 8px !important;
+    }
+
+    /* Font optimizasyonu */
+    h1 { font-size: 18pt !important; }
+    h2 { font-size: 14pt !important; }
+    h3 { font-size: 11pt !important; }
+    h4 { font-size: 10pt !important; }
+    p { font-size: 10pt !important; }
+
+    /* Sayfa numaraları - opsiyonel */
+    .page::after {
+        content: counter(page);
+        position: absolute;
+        bottom: 5mm;
+        right: 10mm;
+        font-size: 9pt;
+        color: #999;
+    }
+
+    /* Notifikasyonları gizle */
+    .notification {
+        display: none !important;
+    }
+
+    /* Boş sayfa önleme */
+    .page:blank {
+        display: none !important;
+    }
+}

@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anleihenempfehlungen - FIDELIA Kapitalverwaltungsgesellschaft mbH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0A2540;
+            --primary-dark: #051729;
+            --primary-light: #1a3a5c;
+            --accent-gold: #D4AF37;
+            --accent-gold-light: #E5C158;
+            --accent-gold-dark: #B8941F;
+            --text-dark: #1A202C;
+            --text-light: #4A5568;
+            --bg-light: #F7FAFC;
+            --bg-lighter: #FFF9E6;
+            --border: #E2E8F0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 10px 30px rgba(10, 37, 64, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #EDF2F7 0%, #E2E8F0 100%);
+            padding: 20px;
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .kontroll-panel {
+            width: 210mm;
+            margin: 0 auto 20px;
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Manrope', sans-serif;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title i { color: var(--accent-gold); }
+
+        .panel-actions { display: flex; gap: 10px; }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(10, 37, 64, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #0ea15e 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+
+        .form-label { font-size: 12px; font-weight: 600; color: var(--text-light); }
+
+        .form-input {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+        }
+
+        .form-textarea { min-height: 60px; resize: vertical; }
+
+        .table-manager {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border);
+        }
+
+        .table-controls { display: flex; gap: 10px; margin-bottom: 15px; }
+        .btn-small { padding: 6px 12px; font-size: 12px; }
+
+        .editable-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .editable-table th, .editable-table td {
+            padding: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .editable-table th { background: var(--bg-light); font-weight: 600; }
+
+        .editable-table input {
+            width: 100%;
+            border: none;
+            padding: 4px;
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .editable-table input:focus {
+            outline: 2px solid var(--accent-gold);
+            outline-offset: -2px;
+        }
+
+        .dokument {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 12mm 15mm 8mm;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 60%;
+            height: 200%;
+            background: rgba(212, 175, 55, 0.05);
+            transform: rotate(45deg);
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 25px;
+            background: white;
+            border-radius: 25px 25px 0 0;
+        }
+
+        .header-content { position: relative; z-index: 1; }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .company-section { display: flex; align-items: center; gap: 12px; }
+        .logo-container { position: relative; }
+
+        .logo-glow {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+            border-radius: 12px;
+            filter: blur(10px);
+            opacity: 0.5;
+        }
+
+        .logo {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .logo span {
+            font-size: 26px;
+            font-weight: 800;
+            font-family: 'Manrope', sans-serif;
+            color: white;
+        }
+
+        .company-name {
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'Manrope', sans-serif;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .company-tagline {
+            font-size: 10px;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin: 2px 0 0;
+        }
+
+        .doc-info { text-align: right; }
+
+        .doc-title {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Manrope', sans-serif;
+            margin: 0;
+        }
+
+        .doc-date { font-size: 10px; opacity: 0.9; margin: 2px 0 0; }
+
+        .header-stats {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            padding: 8px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            flex: 1;
+            max-width: 140px;
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            display: block;
+            color: var(--accent-gold-light);
+        }
+
+        .stat-label { font-size: 9px; opacity: 0.9; margin-top: 2px; }
+
+        .content { padding: 12mm 15mm; height: calc(297mm - 75mm); }
+
+        .overview {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, var(--bg-light) 0%, white 100%);
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .info-title {
+            font-size: 15.6px;
+            font-family: 'Manrope', sans-serif;
+            color: var(--primary);
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .info-text { font-size: 12px; line-height: 1.6; color: var(--text-light); }
+
+        .highlight-card {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .highlight-value { font-size: 31px; font-weight: 800; font-family: 'Manrope', sans-serif; }
+        .highlight-label { font-size: 10.8px; margin-top: 4px; opacity: 0.95; }
+
+        .highlight-sublabel {
+            font-size: 10.8px;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-weight: 600;
+        }
+
+        .table-section { margin-bottom: 15px; }
+
+        .section-title {
+            font-size: 15.6px;
+            font-family: 'Manrope', sans-serif;
+            color: var(--primary);
+            margin-bottom: 8px;
+            padding-left: 10px;
+            border-left: 3px solid var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 10.8px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(10, 37, 64, 0.08);
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+        }
+
+        .data-table th {
+            padding: 7.2px 9.6px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 10.8px;
+        }
+
+        .data-table td {
+            padding: 7.2px 9.6px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table tbody tr:nth-child(even) { background: var(--bg-light); }
+        .data-table tbody tr:first-child { background: linear-gradient(90deg, var(--bg-lighter) 0%, transparent 100%); }
+
+        .best-rate { color: var(--accent-gold-dark); font-weight: 700; }
+
+        /* Rating Badges */
+        .rating-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .rating-aaa {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
+        }
+
+        .rating-aa {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .rating-a {
+            background: rgba(245, 158, 11, 0.15);
+            color: #D97706;
+        }
+
+        .rating-bbb {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .rating-low {
+            background: rgba(239, 68, 68, 0.15);
+            color: #DC2626;
+        }
+
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 12px;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 10.8px;
+        }
+
+        .recommendation-card {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 10.8px;
+        }
+
+        .card-title {
+            font-size: 13.2px;
+            font-family: 'Manrope', sans-serif;
+            margin-bottom: 7px;
+            font-weight: 700;
+        }
+
+        .card-text { line-height: 1.7; }
+
+        .trust-badges { display: flex; gap: 8px; margin-top: 8px; }
+
+        .trust-badge {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .feature-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+        .feature-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-light);
+            padding: 6px 15mm;
+            border-top: 1px solid var(--border);
+            font-size: 8px;
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background: var(--accent-gold);
+            color: white;
+            border-radius: 8px;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media print {
+            body { margin: 0; padding: 0; background: white; }
+            .kontroll-panel { display: none !important; }
+            .dokument { margin: 0; box-shadow: none; width: 210mm; height: 297mm; }
+            @page { size: A4; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="kontroll-panel">
+        <div class="panel-header">
+            <h2 class="panel-title">
+                <i class="ri-settings-3-line"></i>
+                Anleihen Dokument Konfiguration
+            </h2>
+            <div class="panel-actions">
+                <button class="btn btn-success" onclick="dokumentManager.aktualisieren()">
+                    <i class="ri-refresh-line"></i> Aktualisieren
+                </button>
+                <button class="btn btn-primary" onclick="dokumentManager.drucken()">
+                    <i class="ri-printer-line"></i> Drucken
+                </button>
+                <button class="btn btn-secondary" onclick="dokumentManager.alsPDF()">
+                    <i class="ri-file-pdf-line"></i> Als PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="form-label">Firmenname</label>
+                <input type="text" class="form-input" id="firmenname" value="FIDELIA">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Tagline</label>
+                <input type="text" class="form-input" id="tagline" value="Kapitalverwaltung">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Dokumenttitel</label>
+                <input type="text" class="form-input" id="dokumentTitel" value="Anleihenempfehlungen">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Dokumentdatum</label>
+                <input type="text" class="form-input" id="dokumentDatum" value="Januar 2026 • Fixed Income">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Durchschnittliche Rendite</label>
+                <input type="text" class="form-input" id="durchschnittsRendite" value="4,2%">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Durchschnittliches Rating</label>
+                <input type="text" class="form-input" id="durchschnittsRating" value="A+">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Anzahl Anleihen</label>
+                <input type="text" class="form-input" id="anzahlAnleihen" value="6 Titel">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Top Pick</label>
+                <input type="text" class="form-input" id="topPick" value="Bundesanleihe 2035">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Beste Rendite</label>
+                <input type="text" class="form-input" id="besteRendite" value="5,8%">
+            </div>
+        </div>
+
+        <div class="form-grid" style="margin-top: 15px;">
+            <div class="form-group">
+                <label class="form-label">Marktüberblick</label>
+                <textarea class="form-input form-textarea" id="marktueberblick">Der Anleihenmarkt bietet aktuell attraktive Renditen bei überschaubarem Risiko. Staatsanleihen und Unternehmensanleihen mit Investment-Grade-Rating sind besonders gefragt. Die Zinswende der EZB hat zu einem Renditeanstieg geführt, der Fixed-Income-Investoren zugutekommt.</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Risiko & Sicherheit</label>
+                <textarea class="form-input form-textarea" id="risikoSicherheit">Anleihen bieten planbare Erträge und geringere Volatilität als Aktien. Unsere Auswahl konzentriert sich auf Emittenten mit soliden Ratings. Alle Anleihen wurden nach FIDELIA-Qualitätskriterien geprüft und diversifizieren Ihr Portfolio optimal.</textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Empfehlung</label>
+                <textarea class="form-input form-textarea" id="empfehlung">Die Deutsche Telekom Anleihe 2030 bietet mit 4,5% Kupon und AA-Rating ein exzellentes Chance-Risiko-Verhältnis. Für sicherheitsorientierte Anleger empfehlen wir die Bundesanleihe 2035.</textarea>
+            </div>
+        </div>
+
+        <div class="table-manager">
+            <h3 class="panel-title" style="font-size: 16px; margin-bottom: 10px;">
+                <i class="ri-table-line"></i> Anleihen-Tabelle verwalten
+            </h3>
+            <div class="table-controls">
+                <button class="btn btn-success btn-small" onclick="dokumentManager.zeileHinzufuegen()">
+                    <i class="ri-add-line"></i> Zeile hinzufügen
+                </button>
+                <button class="btn btn-primary btn-small" onclick="dokumentManager.zeileEntfernen()">
+                    <i class="ri-subtract-line"></i> Letzte Zeile entfernen
+                </button>
+            </div>
+            <table class="editable-table" id="bankenTabelle">
+                <thead>
+                    <tr>
+                        <th>Emittent</th>
+                        <th>Kupon</th>
+                        <th>Laufzeit</th>
+                        <th>Rendite</th>
+                        <th>Rating</th>
+                        <th>Stückelung</th>
+                        <th>Währung</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelleBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="dokument" id="dokument">
+        <div class="header">
+            <div class="header-content">
+                <div class="header-row">
+                    <div class="company-section">
+                        <div class="logo-container">
+                            <div class="logo-glow"></div>
+                            <div class="logo"><span>F</span></div>
+                        </div>
+                        <div>
+                            <h1 class="company-name" id="output-firmenname">FIDELIA</h1>
+                            <p class="company-tagline" id="output-tagline">Kapitalverwaltung</p>
+                        </div>
+                    </div>
+                    <div class="doc-info">
+                        <h2 class="doc-title" id="output-dokumentTitel">Anleihenempfehlungen</h2>
+                        <p class="doc-date" id="output-dokumentDatum">Januar 2026 • Fixed Income</p>
+                    </div>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-card">
+                        <span class="stat-value" id="output-durchschnittsRendite">4,2%</span>
+                        <span class="stat-label">Ø Rendite</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="output-durchschnittsRating">A+</span>
+                        <span class="stat-label">Ø Rating</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="output-anzahlAnleihen">6 Titel</span>
+                        <span class="stat-label">Empfehlungen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="overview">
+                <div class="info-card">
+                    <h3 class="info-title"><i class="ri-stock-line"></i> Anleihenmarkt Überblick</h3>
+                    <p class="info-text" id="output-marktueberblick">
+                        Der Anleihenmarkt bietet aktuell attraktive Renditen bei überschaubarem Risiko. Staatsanleihen und Unternehmensanleihen mit Investment-Grade-Rating sind besonders gefragt.
+                    </p>
+                    <div class="feature-list">
+                        <span class="feature-badge"><i class="ri-shield-check-line"></i> Investment Grade</span>
+                        <span class="feature-badge"><i class="ri-calendar-check-line"></i> Feste Laufzeit</span>
+                        <span class="feature-badge"><i class="ri-percent-line"></i> Planbare Erträge</span>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-value" id="output-besteRendite">5,8%</div>
+                    <div class="highlight-label">Beste Rendite</div>
+                    <div class="highlight-sublabel" id="output-topPick">Bundesanleihe 2035</div>
+                </div>
+            </div>
+
+            <div class="table-section">
+                <h3 class="section-title">Detaillierte Anleihenanalyse</h3>
+                <table class="data-table" id="outputTabelle"></table>
+            </div>
+
+            <div class="info-card" style="margin: 10px 0;">
+                <h3 class="info-title"><i class="ri-shield-star-line"></i> Risiko & Sicherheit</h3>
+                <p class="info-text" id="output-risikoSicherheit">
+                    Anleihen bieten planbare Erträge und geringere Volatilität als Aktien. Unsere Auswahl konzentriert sich auf Emittenten mit soliden Ratings.
+                </p>
+            </div>
+
+            <div class="bottom-grid">
+                <div class="contact-card">
+                    <h4 class="card-title"><i class="ri-customer-service-2-line"></i> Ihr Ansprechpartner</h4>
+                    <div class="card-text">
+                        <strong>FIDELIA Kapitalverwaltungsgesellschaft mbH</strong><br>
+                        Kurze Mühren 20, 20095 Hamburg<br><br>
+                        <strong>Kontakt:</strong><br>
+                        Tel: +49 (0) 40 334 668098<br>
+                        E-Mail: info@fidelia-kapital.com
+                    </div>
+                    <div class="trust-badges">
+                        <span class="trust-badge"><i class="ri-shield-check-line"></i> KAGB Registriert</span>
+                        <span class="trust-badge"><i class="ri-shield-star-line"></i> BaFin-ID: 10146931</span>
+                    </div>
+                </div>
+                <div class="recommendation-card">
+                    <h4 class="card-title"><i class="ri-lightbulb-line"></i> Unsere Top-Empfehlung</h4>
+                    <div class="card-text">
+                        <p id="output-empfehlung">Die Deutsche Telekom Anleihe 2030 bietet mit 4,5% Kupon und AA-Rating ein exzellentes Chance-Risiko-Verhältnis.</p>
+                        <p style="margin-top: 6px;">
+                            <strong><i class="ri-check-line"></i> Feste Kupons</strong><br>
+                            <strong><i class="ri-check-line"></i> Solide Ratings</strong><br>
+                            <strong><i class="ri-check-line"></i> Planbare Erträge</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>© 2026 FIDELIA Kapitalverwaltungsgesellschaft mbH • Hamburg</span>
+            <span>Stand: Januar 2026 | Dokument: AN-2026-01 | Seite 1/1</span>
+        </div>
+    </div>
+
+    <script>
+        const dokumentManager = {
+            tabellenDaten: [
+                ['Bundesrepublik Deutschland', '2,50%', '2035', '2,8%', 'AAA', '€1.000', 'EUR'],
+                ['Deutsche Telekom AG', '4,50%', '2030', '4,2%', 'AA-', '€1.000', 'EUR'],
+                ['Siemens AG', '3,75%', '2028', '3,5%', 'A+', '€1.000', 'EUR'],
+                ['BMW Finance NV', '4,25%', '2029', '4,0%', 'A', '€1.000', 'EUR'],
+                ['Volkswagen Intl Finance', '5,00%', '2031', '5,2%', 'BBB+', '€1.000', 'EUR'],
+                ['EIB (Europäische Investitionsbank)', '3,00%', '2033', '3,1%', 'AAA', '€1.000', 'EUR']
+            ],
+
+            tabellenHeader: ['Emittent', 'Kupon', 'Laufzeit', 'Rendite', 'Rating', 'Stückelung', 'Währung'],
+
+            init: function() {
+                this.erstelleEditierbareTabelle();
+                this.erstelleAusgabeTabelle();
+                this.bindEvents();
+                this.ladeGespeicherteDaten();
+            },
+
+            erstelleEditierbareTabelle: function() {
+                const tbody = document.getElementById('tabelleBody');
+                tbody.innerHTML = '';
+                this.tabellenDaten.forEach((zeile, index) => {
+                    const tr = document.createElement('tr');
+                    zeile.forEach((zelle, zellenIndex) => {
+                        const td = document.createElement('td');
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.value = zelle;
+                        input.onchange = () => {
+                            this.tabellenDaten[index][zellenIndex] = input.value;
+                            this.aktualisieren();
+                        };
+                        td.appendChild(input);
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                });
+            },
+
+            erstelleAusgabeTabelle: function() {
+                const tabelle = document.getElementById('outputTabelle');
+                tabelle.innerHTML = '';
+
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                this.tabellenHeader.forEach(kopf => {
+                    const th = document.createElement('th');
+                    th.textContent = kopf;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                tabelle.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+                this.tabellenDaten.forEach((zeile, index) => {
+                    const tr = document.createElement('tr');
+                    zeile.forEach((zelle, zellenIndex) => {
+                        const td = document.createElement('td');
+
+                        if (index === 0 && zellenIndex === 3) {
+                            td.className = 'best-rate';
+                        }
+
+                        if (zellenIndex === 4) {
+                            const badge = document.createElement('span');
+                            badge.className = 'rating-badge';
+                            if (zelle.startsWith('AAA')) {
+                                badge.classList.add('rating-aaa');
+                            } else if (zelle.startsWith('AA')) {
+                                badge.classList.add('rating-aa');
+                            } else if (zelle.startsWith('A')) {
+                                badge.classList.add('rating-a');
+                            } else if (zelle.startsWith('BBB')) {
+                                badge.classList.add('rating-bbb');
+                            } else {
+                                badge.classList.add('rating-low');
+                            }
+                            badge.textContent = zelle;
+                            td.appendChild(badge);
+                        } else {
+                            td.textContent = zelle;
+                        }
+
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                });
+                tabelle.appendChild(tbody);
+            },
+
+            bindEvents: function() {
+                document.querySelectorAll('.form-input').forEach(input => {
+                    input.addEventListener('input', () => this.aktualisieren());
+                });
+            },
+
+            aktualisieren: function() {
+                const felder = [
+                    'firmenname', 'tagline', 'dokumentTitel', 'dokumentDatum',
+                    'durchschnittsRendite', 'durchschnittsRating', 'anzahlAnleihen', 'topPick', 'besteRendite',
+                    'marktueberblick', 'risikoSicherheit', 'empfehlung'
+                ];
+
+                felder.forEach(feld => {
+                    const input = document.getElementById(feld);
+                    const output = document.getElementById('output-' + feld);
+                    if (input && output) output.textContent = input.value;
+                });
+
+                this.erstelleAusgabeTabelle();
+                this.speichern();
+                this.benachrichtigung('Dokument aktualisiert', 'success');
+            },
+
+            zeileHinzufuegen: function() {
+                this.tabellenDaten.push(['Neuer Emittent', '0,00%', '2030', '0,0%', 'A', '€1.000', 'EUR']);
+                this.erstelleEditierbareTabelle();
+                this.aktualisieren();
+            },
+
+            zeileEntfernen: function() {
+                if (this.tabellenDaten.length > 1) {
+                    this.tabellenDaten.pop();
+                    this.erstelleEditierbareTabelle();
+                    this.aktualisieren();
+                } else {
+                    this.benachrichtigung('Mindestens eine Zeile muss vorhanden sein', 'error');
+                }
+            },
+
+            drucken: function() {
+                window.print();
+                this.benachrichtigung('Druckdialog geöffnet', 'info');
+            },
+
+            alsPDF: function() {
+                window.print();
+                this.benachrichtigung('Wählen Sie "Als PDF speichern" im Druckdialog', 'info');
+            },
+
+            speichern: function() {
+                const daten = { felder: {}, tabelle: this.tabellenDaten };
+                const felderIds = [
+                    'firmenname', 'tagline', 'dokumentTitel', 'dokumentDatum',
+                    'durchschnittsRendite', 'durchschnittsRating', 'anzahlAnleihen', 'topPick', 'besteRendite',
+                    'marktueberblick', 'risikoSicherheit', 'empfehlung'
+                ];
+                felderIds.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) daten.felder[id] = element.value;
+                });
+                localStorage.setItem('fidelia-anleihen-dokument', JSON.stringify(daten));
+            },
+
+            ladeGespeicherteDaten: function() {
+                const gespeichert = localStorage.getItem('fidelia-anleihen-dokument');
+                if (gespeichert) {
+                    const daten = JSON.parse(gespeichert);
+                    Object.keys(daten.felder).forEach(id => {
+                        const element = document.getElementById(id);
+                        if (element) element.value = daten.felder[id];
+                    });
+                    if (daten.tabelle) {
+                        this.tabellenDaten = daten.tabelle;
+                        this.erstelleEditierbareTabelle();
+                    }
+                    this.aktualisieren();
+                }
+            },
+
+            benachrichtigung: function(text, typ = 'info') {
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.style.background = typ === 'success' ? '#10b981' : typ === 'error' ? '#ef4444' : '#D4AF37';
+                notification.textContent = text;
+                document.body.appendChild(notification);
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            }
+        };
+
+        const style = document.createElement('style');
+        style.textContent = `@keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }`;
+        document.head.appendChild(style);
+
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') { e.preventDefault(); dokumentManager.drucken(); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') { e.preventDefault(); dokumentManager.speichern(); dokumentManager.benachrichtigung('Dokument gespeichert', 'success'); }
+        });
+
+        window.addEventListener('DOMContentLoaded', function() { dokumentManager.init(); });
+    </script>
+</body>
+</html>

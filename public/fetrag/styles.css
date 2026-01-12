@@ -1,0 +1,569 @@
+/* Reset ve Temel Stiller */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    background-color: #e5e5e5;
+    color: #333;
+    line-height: 1.4;
+    font-size: 11pt;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+/* A4 Sayfa Stilleri */
+.page {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto 10px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sayfa İçerik Alanı */
+.page-content {
+    flex: 1;
+    padding: 15mm 15mm;
+    overflow-y: auto;
+}
+
+/* Evrensel Header */
+.page-header {
+    background: white;
+    padding: 10mm 15mm 5mm;
+    border-bottom: 2px solid #0A2540;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 35mm;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    height: 35px;
+    width: auto;
+    margin-right: 20px;
+}
+
+/* --- FIDELIA LOGO FROM REFERENCE --- */
+.logo-container {
+    position: relative;
+    margin-right: 15px;
+}
+
+.logo-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #D4AF37, #E5C158);
+    border-radius: 12px;
+    filter: blur(10px);
+    opacity: 0.5;
+}
+
+.logo {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #D4AF37, #E5C158);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+}
+
+.logo span {
+    font-size: 26px;
+    font-weight: 800;
+    font-family: sans-serif;
+    color: white;
+}
+/* ---------------------------------- */
+
+.header-title {
+    color: #0A2540;
+}
+
+.header-title h1 {
+    font-size: 20pt;
+    font-weight: bold;
+    margin: 0;
+}
+
+.header-title p {
+    font-size: 10pt;
+    color: #666;
+    margin: 2px 0 0 0;
+}
+
+.header-right {
+    text-align: right;
+}
+
+.contract-info {
+    font-size: 10pt;
+    color: #666;
+}
+
+.contract-number {
+    font-weight: bold;
+    color: #0A2540;
+    font-size: 11pt;
+    margin-top: 5px;
+}
+
+/* Evrensel Footer */
+.page-footer {
+    background: #f8f9fa;
+    padding: 8mm 15mm;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 9pt;
+    color: #555;
+    height: 30mm;
+}
+
+.footer-left,
+.footer-right {
+    flex: 1;
+}
+
+.footer-left h4,
+.footer-right h4 {
+    font-size: 10pt;
+    color: #0A2540;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.footer-left p,
+.footer-right p {
+    margin: 2px 0;
+    font-size: 9pt;
+    line-height: 1.3;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+/* Sayfa Başlıkları */
+.section-title {
+    background: linear-gradient(90deg, #0A2540 0%, #2c5282 100%);
+    color: white;
+    padding: 8px 15px;
+    margin: 15px -15mm 15px;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Form Elemanları */
+.form-section {
+    margin-bottom: 15px;
+}
+
+.form-section h3 {
+    color: #0A2540;
+    font-size: 12pt;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 5px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    flex: 1;
+    margin-bottom: 8px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 9pt;
+    color: #555;
+    margin-bottom: 3px;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 10pt;
+    background: white;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0A2540;
+    background: #f8f9ff;
+}
+
+.form-input.small {
+    width: 60px;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+/* Checkbox ve Radio */
+.checkbox-group,
+.radio-group {
+    margin: 10px 0;
+}
+
+.checkbox-item,
+.radio-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    font-size: 10pt;
+}
+
+.checkbox-item input[type="checkbox"],
+.radio-item input[type="radio"] {
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.checkbox-item span,
+.radio-item span {
+    flex: 1;
+    line-height: 1.4;
+}
+
+/* Checklist Bölümü */
+.checklist-box {
+    background: #f0f4f8;
+    border: 1px solid #d0d8e0;
+    border-radius: 5px;
+    padding: 12px;
+    margin: 15px 0;
+}
+
+.checklist-box h4 {
+    color: #0A2540;
+    font-size: 11pt;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* İmza Alanları */
+.signature-section {
+    margin-top: 15px;
+    padding-top: 10px;
+}
+
+.signature-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.signature-box {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background: #fafafa;
+}
+
+.signature-box h4 {
+    font-size: 10pt;
+    color: #0A2540;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.signature-canvas {
+    width: 100%;
+    height: 60px;
+    border: 1px dashed #999;
+    background: white;
+    border-radius: 3px;
+    cursor: crosshair;
+    margin: 5px 0;
+}
+
+.clear-signature {
+    padding: 4px 10px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 9pt;
+    cursor: pointer;
+}
+
+.clear-signature:hover {
+    background: #c82333;
+}
+
+/* Kişi Bilgileri Grid */
+.person-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.person-box {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background: #f8f9fa;
+}
+
+.person-box h4 {
+    background: #0A2540;
+    color: white;
+    padding: 5px 8px;
+    margin: -10px -10px 10px;
+    font-size: 10pt;
+    border-radius: 4px 4px 0 0;
+}
+
+/* Yatırım Bilgileri */
+.investment-box {
+    background: #e8f4f8;
+    border: 1px solid #b8d4e3;
+    border-radius: 5px;
+    padding: 12px;
+    margin: 15px 0;
+}
+
+.investment-box h4 {
+    color: #0A2540;
+    font-size: 11pt;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.investment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+/* Bilgi Kutuları */
+.info-box {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 3px;
+}
+
+.info-box.warning {
+    background: #f8d7da;
+    border-left-color: #dc3545;
+}
+
+.info-box.success {
+    background: #d4edda;
+    border-left-color: #28a745;
+}
+
+.info-box p {
+    font-size: 10pt;
+    margin: 0;
+    color: #333;
+}
+
+/* Metin Listesi */
+.terms-list {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.terms-list li {
+    font-size: 10pt;
+    margin-bottom: 8px;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+/* Tablo Stili */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 10pt;
+}
+
+.data-table th {
+    background: #0A2540;
+    color: white;
+    padding: 6px;
+    text-align: left;
+    font-size: 10pt;
+}
+
+.data-table td {
+    padding: 6px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Düzenlenebilir Alanlar */
+.editable {
+    display: inline-block;
+    min-width: 80px;
+    padding: 2px 4px;
+    border-bottom: 1px dotted #999;
+    background: #fffef0;
+    transition: all 0.2s;
+}
+
+.editable:focus {
+    outline: none;
+    background: #fff3cd;
+    border-bottom: 2px solid #ffc107;
+}
+
+.editable:empty:before {
+    content: "________";
+    color: #ccc;
+}
+
+/* Kontrol Paneli */
+.control-panel {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.control-panel h3 {
+    font-size: 12pt;
+    color: #0A2540;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.control-buttons button {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    background: linear-gradient(90deg, #0A2540 0%, #2c5282 100%);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 10pt;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.control-buttons button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.page-navigation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.page-navigation button {
+    padding: 5px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 9pt;
+    cursor: pointer;
+}
+
+.page-navigation button:hover {
+    background: #e9ecef;
+}
+
+.page-navigation button.active {
+    background: #0A2540;
+    color: white;
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.small-text {
+    font-size: 9pt;
+    color: #666;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/* Responsive */
+@media screen and (max-width: 1200px) {
+    .control-panel {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        max-width: 210mm;
+        margin: 10px auto;
+    }
+
+    .control-buttons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+    }
+}

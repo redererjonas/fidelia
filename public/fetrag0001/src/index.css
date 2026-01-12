@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* A4 Page Dimensions */
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  max-height: 297mm;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+@media print {
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .page-break:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .a4-page {
+    width: 210mm;
+    height: 297mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    page-break-inside: avoid;
+  }
+
+  /* Hide toolbar in print */
+  .print\\:hidden {
+    display: none !important;
+  }
+}
