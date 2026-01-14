@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FestzinsSparen - Deutsche Bank</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 8pt;
+            line-height: 1.3;
+            color: #1a1a1a;
+            background: #eceff1;
+            padding: 8px;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            margin: 0 auto 6mm;
+            box-shadow: 0 2px 12px rgba(0,24,168,0.08);
+            position: relative;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ULTRA MODERN HEADER */
+        .page-header {
+            height: 16mm;
+            background: linear-gradient(135deg, #0018A8 0%, #0056D2 50%, #0018A8 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 12mm;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            right: -20%;
+            width: 60%;
+            height: 300%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.08), transparent);
+            transform: rotate(20deg);
+        }
+
+        .header-content {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 8mm;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .header-logo img {
+            height: 11mm;
+            width: auto;
+            filter: brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+        }
+
+        .header-center {
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 12pt;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .header-subtitle {
+            font-size: 6.5pt;
+            color: rgba(255,255,255,0.9);
+            margin-top: 0.5mm;
+            letter-spacing: 0.3px;
+        }
+
+        .header-meta {
+            text-align: left;
+            background: rgba(255,255,255,0.15);
+            padding: 1.5mm 3mm;
+            border-radius: 3px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-meta-label {
+            font-size: 6pt;
+            color: rgba(255,255,255,0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-meta-value {
+            font-size: 10pt;
+            font-weight: 700;
+            color: white;
+            margin-top: 0.3mm;
+        }
+
+        /* CONTENT AREA */
+        .page-content {
+            flex: 1;
+            padding: 4mm 12mm;
+            overflow: hidden;
+        }
+
+        /* MODERN FOOTER */
+        .page-footer {
+            height: 12mm;
+            background: linear-gradient(to right, #f8f9fa 0%, #ffffff 50%, #f8f9fa 100%);
+            border-top: 2px solid #0018A8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12mm;
+            font-size: 6.5pt;
+            color: #555;
+        }
+
+        .footer-company {
+            font-weight: 600;
+            color: #0018A8;
+            font-size: 7pt;
+            margin-bottom: 0.3mm;
+        }
+
+        /* TYPOGRAPHY */
+        .section {
+            margin-bottom: 2.5mm;
+        }
+
+        .section-header {
+            background: linear-gradient(to right, #0018A8, #0056D2);
+            color: white;
+            padding: 1mm 2.5mm;
+            font-size: 8.5pt;
+            font-weight: 600;
+            margin-bottom: 1.5mm;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,24,168,0.15);
+        }
+
+        .subsection-title {
+            font-size: 7.5pt;
+            font-weight: 600;
+            color: #0018A8;
+            margin: 1.5mm 0 1mm 0;
+            padding-left: 2mm;
+            border-left: 2px solid #0018A8;
+        }
+
+        .text-block {
+            font-size: 7pt;
+            line-height: 1.25;
+            color: #333;
+            margin-bottom: 1.5mm;
+            text-align: justify;
+        }
+
+        /* Page 2 specific styles */
+        .page-2 .text-block {
+            font-size: 8.5pt;
+            line-height: 1.725;
+        }
+
+        .page-2 .checkbox-label {
+            font-size: 8.5pt;
+            line-height: 1.725;
+        }
+
+        .page-2 .info-box-text {
+            font-size: 8pt;
+            line-height: 1.725;
+        }
+
+        /* Page 3 specific styles */
+        .page-3 .text-block {
+            font-size: 8.5pt;
+            line-height: 1.725;
+        }
+
+        .page-3 .checkbox-label {
+            font-size: 8.5pt;
+            line-height: 1.725;
+        }
+
+        .page-3 .compact-list {
+            font-size: 8pt;
+            line-height: 1.656;
+        }
+
+        /* Page 4 specific styles */
+        .page-4 .text-block {
+            font-size: 7.5pt;
+            line-height: 1.4375;
+        }
+
+        .page-4 .checkbox-label {
+            font-size: 7.5pt;
+            line-height: 1.4375;
+        }
+
+        /* INFO GRID */
+        .info-row {
+            display: grid;
+            grid-template-columns: repeat(6, auto 1fr);
+            gap: 1.5mm 3mm;
+            padding: 1.5mm;
+            background: linear-gradient(to right, #f8f9fa, white);
+            border-radius: 2px;
+            margin-bottom: 2mm;
+            font-size: 7pt;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        /* MODERN FORMS */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5mm 2.5mm;
+            margin: 1mm 0;
+        }
+
+        .form-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 6.5pt;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 0.5mm;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1mm 1.5mm;
+            border: 1px solid #d0d7de;
+            border-radius: 2px;
+            font-size: 7.5pt;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            color: #1a1a1a;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0018A8;
+        }
+
+        /* CHECKBOXES */
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5mm;
+            padding: 1mm;
+            border-radius: 2px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 1.5mm;
+            margin-top: 0.5mm;
+            width: 11px;
+            height: 11px;
+            accent-color: #0018A8;
+            flex-shrink: 0;
+        }
+
+        .checkbox-label {
+            flex: 1;
+            font-size: 7pt;
+            line-height: 1.25;
+            color: #333;
+        }
+
+        /* INFO BOX */
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f5f9ff 100%);
+            border-left: 3px solid #0018A8;
+            padding: 2mm;
+            margin: 2mm 0;
+            border-radius: 0 3px 3px 0;
+            box-shadow: 0 1px 3px rgba(0,24,168,0.08);
+        }
+
+        .info-box-title {
+            font-size: 7.5pt;
+            font-weight: 600;
+            color: #0018A8;
+            margin-bottom: 1mm;
+        }
+
+        .info-box-text {
+            font-size: 6.5pt;
+            line-height: 1.25;
+            color: #444;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff9e6 0%, #fffbf0 100%);
+            border: 1px solid #ffd966;
+            border-left-width: 3px;
+            padding: 1.5mm 2mm;
+            margin: 1.5mm 0;
+            border-radius: 2px;
+            font-size: 6.5pt;
+            line-height: 1.2;
+        }
+
+        /* AMOUNT BOX */
+        .amount-display {
+            background: linear-gradient(135deg, #0018A8, #0056D2);
+            color: white;
+            padding: 2mm 3mm;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 1.5mm 0;
+            box-shadow: 0 2px 6px rgba(0,24,168,0.2);
+        }
+
+        .amount-label {
+            font-size: 6.5pt;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .amount-value {
+            font-size: 14pt;
+            font-weight: 700;
+            margin-top: 0.5mm;
+            letter-spacing: -0.3px;
+        }
+
+        /* SIGNATURE */
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5mm;
+            margin: 1.5mm 0;
+        }
+
+        .signature-box {
+            border: 2px solid #e3f2fd;
+            height: 12mm;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,24,168,0.05);
+        }
+
+        .signature-box::after {
+            content: '✎';
+            position: absolute;
+            bottom: 2mm;
+            right: 3mm;
+            font-size: 12pt;
+            color: #cbd5e0;
+            opacity: 0.3;
+        }
+
+        .signature-box:hover {
+            border-color: #0018A8;
+            box-shadow: 0 2px 8px rgba(0,24,168,0.12);
+        }
+
+        .signature-note {
+            font-size: 6pt;
+            color: #999;
+            font-style: italic;
+            margin-top: 0.8mm;
+        }
+
+        /* Modern signature container for page 4 */
+        .page-4 .signature-container {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            padding: 3mm;
+            border-radius: 4px;
+            border: 1px solid #e3f2fd;
+            margin-top: 2mm;
+        }
+
+        .page-4 .signature-box {
+            height: 14mm;
+            border: 2px dashed #0018A8;
+            background: white;
+            box-shadow: inset 0 1px 3px rgba(0,24,168,0.05);
+        }
+
+        /* TWO COLUMN */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3mm;
+        }
+
+        /* EDITABLE - NO COLOR CHANGE ON FOCUS */
+        [contenteditable="true"] {
+            outline: none;
+            padding: 0.3mm 0.7mm;
+            border-radius: 2px;
+            cursor: text;
+        }
+
+        [contenteditable="true"]:focus {
+            outline: none;
+        }
+
+        /* COMPACT LIST */
+        .compact-list {
+            font-size: 6.5pt;
+            line-height: 1.2;
+            margin: 1mm 0;
+            padding-left: 3mm;
+        }
+
+        .compact-list li {
+            margin-bottom: 0.8mm;
+        }
+
+        /* PRINT */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .page {
+                margin: 0;
+                box-shadow: none;
+            }
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .action-buttons {
+                display: none !important;
+            }
+        }
+
+        /* ACTION BUTTONS */
+        .action-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,24,168,0.15);
+            border: 2px solid #e3f2fd;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, #0018A8 0%, #0056D2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,24,168,0.2);
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,24,168,0.3);
+            background: linear-gradient(135deg, #001a8a 0%, #0048b8 100%);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        .action-btn i {
+            font-size: 16px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .action-buttons {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                gap: 8px;
+            }
+
+            .action-btn {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+
+            .action-btn span {
+                display: none;
+            }
+
+            .action-btn i {
+                font-size: 18px;
+            }
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <button class="action-btn" onclick="window.print()">
+            <i class="ri-printer-line"></i>
+            <span>Drucken</span>
+        </button>
+        <button class="action-btn" onclick="downloadPDF()">
+            <i class="ri-download-line"></i>
+            <span>PDF Download</span>
+        </button>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            // Trigger print dialog which allows saving as PDF
+            window.print();
+        }
+    </script>
+    <!-- SEITE 1 -->
+    <div class="page">
+        <header class="page-header">
+            <div class="header-content">
+                <div class="header-meta">
+                    <div class="header-meta-label">Filialnummer</div>
+                    <div class="header-meta-value" contenteditable="true">350</div>
+                </div>
+                <div class="header-center">
+                    <div class="header-title" contenteditable="true">FESTZINSSPAREN</div>
+                    <div class="header-subtitle" contenteditable="true">Deutsche Bank Aktiengesellschaft</div>
+                </div>
+                <div class="header-logo">
+                    <img src="deutsche_bank_logo.png" alt="Deutsche Bank">
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+            <div class="info-row">
+                <span class="info-label">Filialnr.</span>
+                <span class="info-value" contenteditable="true">350</span>
+                <span class="info-label">Kundennummer</span>
+                <span class="info-value" contenteditable="true">1396142</span>
+                <span class="info-label">Unterkontonr.</span>
+                <span class="info-value" contenteditable="true"></span>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Kontoinhaber</div>
+                <div class="subsection-title" contenteditable="true">1. Kontoinhaber</div>
+                <div class="form-grid">
+                    <div>
+                        <label class="form-label">Vorname/n</label>
+                        <input type="text" class="form-input" value="Melanie">
+                    </div>
+                    <div>
+                        <label class="form-label">Nachname</label>
+                        <input type="text" class="form-input" value="Heidicker">
+                    </div>
+                </div>
+                <div class="subsection-title" contenteditable="true">2. Kontoinhaber</div>
+                <div class="form-grid">
+                    <div>
+                        <label class="form-label">Vorname/n</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Nachname</label>
+                        <input type="text" class="form-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Eröffnung eines Sparkontos gemäß nachstehenden Bedingungen bei der Bank</div>
+                <div class="subsection-title" contenteditable="true">FestzinsSparen</div>
+                <div class="amount-display">
+                    <div class="amount-label">Anlagebetrag</div>
+                    <div class="amount-value" contenteditable="true">EUR 250.000</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Zahlung des Anlagebetrages</div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="umbuchung" checked>
+                    <label for="umbuchung" class="checkbox-label">
+                        <strong contenteditable="true">Umbuchung von meinem Deutsche Bank Konto</strong><br>
+                        <span contenteditable="true">Ich beauftrage Sie, den Anlagebetrag von meinem folgenden Konto umzubuchen.</span>
+                    </label>
+                </div>
+                <div class="form-grid">
+                    <div class="form-full">
+                        <label class="form-label">Kontoinhaber</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-full">
+                        <label class="form-label">IBAN</label>
+                        <input type="text" class="form-input">
+                    </div>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="lastschrift">
+                    <label for="lastschrift" class="checkbox-label">
+                        <strong contenteditable="true">Zahlung von einem Konto bei einer anderen Bank (Lastschrift)</strong>
+                    </label>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-box-title" contenteditable="true">Deutsche Bank AG, Taunusanlage 12, 60325 Frankfurt am Main</div>
+                <div class="info-box-text" contenteditable="true">Gläubiger-Identifikationsnummer: DE1900200000106424</div>
+            </div>
+
+            <div class="section">
+                <div class="subsection-title" contenteditable="true">SEPA-Lastschriftmandat</div>
+                <div class="text-block" contenteditable="true">
+                    Ich ermächtige die Deutsche Bank AG, einmalig eine Zahlung von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von der Deutsche Bank AG auf mein Konto gezogene Lastschrift einzulösen.
+                </div>
+                <div class="highlight-box" contenteditable="true">
+                    <strong>Hinweis:</strong> Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div>
+                    <label class="form-label">Vorname/n</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">Nachname (Kontoinhaber)</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">Straße</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">Haus-Nr.</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">PLZ</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">Ort</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">IBAN</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div>
+                    <label class="form-label">BIC</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div class="form-full">
+                    <label class="form-label">Passnummer (Reisepass)</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div class="form-full">
+                    <label class="form-label">Kreditinstitut</label>
+                    <input type="text" class="form-input">
+                </div>
+            </div>
+
+            <div class="signature-grid">
+                <div>
+                    <label class="form-label">Datum</label>
+                    <input type="date" class="form-input" value="2026-01-14">
+                </div>
+                <div>
+                    <label class="form-label">Ort</label>
+                    <input type="text" class="form-input" value="Kamen">
+                </div>
+            </div>
+
+            <div>
+                <label class="form-label">Unterschrift (Kontoinhaberin/Kontoinhaber)</label>
+                <div class="signature-box"></div>
+                <div class="signature-note" contenteditable="true">Autorisiert durch Verfügungsberechtigten Melanie Heidicker am 14.01.2026 um 10:08:21</div>
+            </div>
+
+            <div class="checkbox-item">
+                <input type="checkbox" id="ueberweisung" checked>
+                <label for="ueberweisung" class="checkbox-label" contenteditable="true">
+                    Ich werde den Anlagebetrag unverzüglich nach Erhalt der Kontounterlagen auf das Konto überweisen. Es gilt der bei Eingang des Anlagebetrages gültige Zinssatz.
+                </label>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div>
+                <div class="footer-company" contenteditable="true">Deutsche Bank AG</div>
+                <div contenteditable="true">Taunusanlage 12 • 60325 Frankfurt am Main</div>
+            </div>
+            <div style="text-align: right;">
+                <div contenteditable="true">Gläubiger-ID: DE1900200000106424</div>
+                <div contenteditable="true">OPRA000026 FESD 20260114 1322-9-1</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SEITE 2 -->
+    <div class="page page-2">
+        <header class="page-header">
+            <div class="header-content">
+                <div class="header-meta">
+                    <div class="header-meta-label">Kundennummer</div>
+                    <div class="header-meta-value" contenteditable="true">1396142</div>
+                </div>
+                <div class="header-center">
+                    <div class="header-title" contenteditable="true">FESTZINSSPAREN</div>
+                    <div class="header-subtitle" contenteditable="true">Deutsche Bank Aktiengesellschaft</div>
+                </div>
+                <div class="header-logo">
+                    <img src="deutsche_bank_logo.png" alt="Deutsche Bank">
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+            <div class="section">
+                <div class="section-header" contenteditable="true">Zinsen</div>
+                <div class="text-block" contenteditable="true">
+                    Der Zinssatz ist variabel und wird durch Aushang in den Kundenräumen der kontoführenden Filiale bekanntgegeben. Die Zinsen werden jährlich per 31. Dezember gutgeschrieben.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Bedingungen für das FestzinsSparen Fresh-Money</div>
+                <div class="subsection-title" contenteditable="true">Anlagebetrag</div>
+                <div class="text-block" contenteditable="true">
+                    Der Anlagebetrag muss zwingend in einer Summe gezahlt werden. Während der Festzinsvereinbarung sind weitere Einzahlungen und Verfügungen¹ nicht möglich. Stimmt die Bank im Ausnahmefall gleichwohl einer vorzeitigen Rückzahlung zu, so werden Vorschusszinsen bis zum Ende des vereinbarten Festzins-Zeitraums - mindestens bis zum Ablauf der Kündigungsfrist - gemäß den Bedingungen für Sparkonten bzw. dem Aushang "Zinssätze für Geldanlagen" berechnet.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Festzinsvereinbarung</div>
+                <div class="info-box">
+                    <div class="info-box-title" contenteditable="true">Festzinssatz: 2,00 % p. a. für 12 Monate</div>
+                    <div class="info-box-text" contenteditable="true">
+                        Dieser Festzinssatz gilt nur für Gelder ab 2.500 Euro bis 250.000 Euro, die bisher nicht auf Konten oder Depots der Deutsche Bank Gruppe (Deutsche Bank, Postbank, norisbank, BHW Bausparkasse, DWS) angelegt waren.
+                    </div>
+                </div>
+                <div class="text-block" contenteditable="true">
+                    Der Zinssatz gilt vom Tag der Einzahlung bis zum Tag vor Monatsende der vereinbarten Dauer in Monaten. Die Zinsen werden zum Ende des Festzins-Zeitraums gutgeschrieben. Erfolgt bei einer nicht fristgerechten Kündigung die Auszahlung ausnahmsweise zum Ende des Festzins-Zeitraums, behält sich die Bank das Recht vor, Vorschusszinsen zu berechnen.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Verfügung zum Ende des Festzins-Zeitraums</div>
+                <div class="text-block" contenteditable="true">
+                    Über das Guthaben kann zum Ende des Festzins-Zeitraums verfügt¹ werden, wenn zuvor unter Einhaltung einer Frist von mindestens drei Monaten gekündigt wurde.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Prolongation</div>
+                <div class="text-block" contenteditable="true">
+                    Die Bank wird ermächtigt, die Spareinlage nach Ablauf der Festzinsvereinbarung für den gleichen Zeitraum zu den gleichen Bedingungen und dem dann jeweils geltenden Zinssatz zu verzinsen.
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div class="section">
+                    <div class="subsection-title" contenteditable="true">Kontoauszug</div>
+                    <div class="text-block" contenteditable="true">
+                        Zur Zinsgutschrift wird ein Kontoauszug erstellt.
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="subsection-title" contenteditable="true">Sparurkunde</div>
+                    <div class="text-block" contenteditable="true">
+                        Die Sparurkunde besteht aus der Anlagebestätigung in Verbindung mit dem jeweils letzten Kontoauszug.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Geschäftsbedingungen</div>
+                <div class="text-block" contenteditable="true">
+                    Ergänzend gelten die Bedingungen für Sparkonten sowie die Allgemeinen Geschäftsbedingungen. Diese können Sie jederzeit auf der Homepage www.deutsche-bank.de/start einsehen.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Online-Banking</div>
+                <div class="text-block" contenteditable="true">
+                    Mit der Kontoeröffnung beantrage ich die Freischaltung aller Konten und ggf. Depots unter meiner oben genannten Kundennummer für das Online-Banking. Der Zugang erfolgt über Benutzername und Passwort. Zusätzlich benötige ich ein Sicherheitsverfahren (z.B. BestSign).
+                </div>
+                <div class="text-block" contenteditable="true">
+                    <strong>Allgemeine Geschäftsbedingungen:</strong> Es gelten die Bedingungen für den Zugang zur Bank über elektronische Medien sowie die Bedingungen für den Electronic Broking Service.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Telefon-Banking</div>
+                <div class="text-block" contenteditable="true">
+                    Mit der Kontoeröffnung beantrage ich die Freischaltung aller Konten und ggf. Depots unter meiner oben genannten Kundennummer für das Telefon-Banking. Der Zugang erfolgt über Telefon-Banking-ID und PIN.
+                </div>
+                <div class="highlight-box" contenteditable="true">
+                    <strong>Voraussetzung</strong> für die Teilnahme am Telefon-Banking ist die Aufzeichnung der Telefonate. Die Aufzeichnung erfolgt zu Nachweiszwecken sowie aufgrund gesetzlicher Vorgaben.
+                </div>
+            </div>
+
+            <div class="text-block" style="font-size: 6pt; color: #999; margin-top: 2mm;" contenteditable="true">
+                ¹ Der Begriff kann u.a. die relevanten Zahlungskontendienste "Bargeldauszahlung" und "Überweisung" umfassen.
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div>
+                <div class="footer-company" contenteditable="true">Deutsche Bank AG</div>
+                <div contenteditable="true">Taunusanlage 12 • 60325 Frankfurt am Main</div>
+            </div>
+            <div style="text-align: right;">
+                <div contenteditable="true">Seite 2 von 4</div>
+                <div contenteditable="true">FestzinsSparen</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SEITE 3 -->
+    <div class="page page-3">
+        <header class="page-header">
+            <div class="header-content">
+                <div class="header-meta">
+                    <div class="header-meta-label">Kundennummer</div>
+                    <div class="header-meta-value" contenteditable="true">1396142</div>
+                </div>
+                <div class="header-center">
+                    <div class="header-title" contenteditable="true">FESTZINSSPAREN</div>
+                    <div class="header-subtitle" contenteditable="true">Deutsche Bank Aktiengesellschaft</div>
+                </div>
+                <div class="header-logo">
+                    <img src="deutsche_bank_logo.png" alt="Deutsche Bank">
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+            <div class="section">
+                <div class="section-header" contenteditable="true">Digitales Postfach</div>
+                <div class="text-block" contenteditable="true">
+                    Bitte aktivieren Sie für meine Geschäftsverbindung mit Ihnen das digitale Postfach für den Empfang von Bankmitteilungen. Es gelten die Bedingungen zur Nutzung des digitalen Postfachs im Online-Banking.
+                </div>
+                <div class="text-block" contenteditable="true">
+                    Ich erkläre mich damit einverstanden, dass mir Bankmitteilungen auf einem anderen dauerhaften Datenträger als Papier (digitales Postfach oder E-Mail) übermittelt werden, soweit dies nach den gesetzlichen Vorgaben zulässig ist. Dabei handelt es sich insbesondere um folgende vertragsrelevante Bankerklärungen:
+                </div>
+                <ul class="compact-list" contenteditable="true">
+                    <li>Vorvertragliche Informationen, Vertragsangebote und ggf. Erläuterungen</li>
+                    <li>Bankmitteilungen unter anderem zu Allgemeinen Geschäftsbedingungen sowie ggfs. deren Änderungen, Preisverzeichnis etc.</li>
+                    <li>Kontoabrechnungen, Zinsänderungen, Mitteilungen zu eingeräumten Kontoüberziehungen</li>
+                    <li>Informationen, Mitteilungen und Erklärungen zum Inhalt, der Durchführung und der Beendigung von Darlehensverträgen</li>
+                    <li>Wertpapierabrechnungen, regelmäßige Berichte über Finanzinstrumente oder Wertpapierdienstleistungen</li>
+                    <li>Mahnungen, Kündigungsandrohungen und Kündigungserklärungen</li>
+                </ul>
+                <div class="text-block" contenteditable="true">
+                    Liegt eine Mitteilung im digitalen Postfach vor, werde ich über die von mir hinterlegte E-Mailadresse darüber per E-Mail informiert.
+                </div>
+                <div style="margin-top: 1.5mm;">
+                    <label class="form-label">E-Mail-Adresse</label>
+                    <input type="email" class="form-input" value="melwis@axa-bhw.de">
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Geldwäschegesetz</div>
+                <div class="text-block" contenteditable="true">
+                    Jeder Bankkunde ist nach dem Geldwäschegesetz (GwG) verpflichtet, der Bank unverzüglich und unaufgefordert Änderungen anzuzeigen.
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="eigene-rechnung" checked>
+                    <label for="eigene-rechnung" class="checkbox-label" contenteditable="true">
+                        Ich/Wir handele/n für eigene Rechnung
+                    </label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="fremde-veranlassung">
+                    <label for="fremde-veranlassung" class="checkbox-label" contenteditable="true">
+                        Ich/Wir handele/n auf fremde Veranlassung
+                    </label>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Steuerlich relevante Angaben</div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="privatvermoegen" checked>
+                    <label for="privatvermoegen" class="checkbox-label" contenteditable="true">
+                        Bankverbindung im Privatvermögen
+                    </label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="betrieblich">
+                    <label for="betrieblich" class="checkbox-label" contenteditable="true">
+                        Betrieblicher oder sonstige Anleger
+                    </label>
+                </div>
+                <div style="margin-top: 1.5mm;">
+                    <label class="form-label">Umsatzsteuer-ID-Nr. (freiwillig)</label>
+                    <input type="text" class="form-input">
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="subsection-title" contenteditable="true">Hinweis zur Umsatzsteuer</div>
+                <div class="text-block" contenteditable="true">
+                    Für die in Rechnung gestellten Preise für Leistungen bilden der Konto-/Depotvertrag zusammen mit der Abrechnung die Rechnung im umsatzsteuerlichen Sinne. Sofern keine Umsatzsteuer gesondert ausgewiesen wird, sind die abgerechneten Leistungen als Bank- oder Finanzdienstleistungen von der Umsatzsteuer befreit.
+                </div>
+                <div class="text-block" contenteditable="true">
+                    <strong>Umsatzsteuer-ID-Nr. Deutsche Bank AG, 60262 Frankfurt:</strong> DE114103379
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" contenteditable="true">Unterschriften</div>
+                <div class="signature-grid">
+                    <div>
+                        <label class="form-label">Datum</label>
+                        <input type="date" class="form-input" value="2026-01-14">
+                    </div>
+                    <div>
+                        <label class="form-label">Ort</label>
+                        <input type="text" class="form-input" value="Kamen">
+                    </div>
+                </div>
+                <div style="margin-top: 2mm;">
+                    <label class="form-label">Unterschrift 1. Kontoinhaber</label>
+                    <div class="signature-box"></div>
+                    <div class="signature-note" contenteditable="true">Autorisiert durch Verfügungsberechtigten Melanie Heidicker am 14.01.2026 um 10:08:21</div>
+                </div>
+                <div style="margin-top: 2mm;">
+                    <label class="form-label">Unterschrift 2. Kontoinhaber</label>
+                    <div class="signature-box"></div>
+                    <div class="signature-note" contenteditable="true">Autorisiert durch Verfügungsberechtigten Melanie Heidicker am 14.01.2026 um 10:08:21</div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div>
+                <div class="footer-company" contenteditable="true">Deutsche Bank AG</div>
+                <div contenteditable="true">Taunusanlage 12 • 60325 Frankfurt am Main</div>
+            </div>
+            <div style="text-align: right;">
+                <div contenteditable="true">Seite 3 von 4</div>
+                <div contenteditable="true">OPRA000026 FESD 20260114 1322-9-1</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SEITE 4 -->
+    <div class="page page-4">
+        <header class="page-header">
+            <div class="header-content">
+                <div class="header-meta">
+                    <div class="header-meta-label">Kundennummer</div>
+                    <div class="header-meta-value" contenteditable="true">1396142</div>
+                </div>
+                <div class="header-center">
+                    <div class="header-title" contenteditable="true">FESTZINSSPAREN</div>
+                    <div class="header-subtitle" contenteditable="true">Deutsche Bank Aktiengesellschaft</div>
+                </div>
+                <div class="header-logo">
+                    <img src="deutsche_bank_logo.png" alt="Deutsche Bank">
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+            <div class="section">
+                <div class="section-header" contenteditable="true">Empfangsbestätigungen</div>
+                <div class="text-block" contenteditable="true">
+                    Ich bestätige den Erhalt der folgenden Unterlagen:
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="vorvertragliche" checked>
+                    <label for="vorvertragliche" class="checkbox-label" contenteditable="true">
+                        "Vorvertragliche Informationen bei im Fernabsatz geschlossenen Verträgen über Finanzdienstleistungen"
+                    </label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="kontoeroeffnung" checked>
+                    <label for="kontoeroeffnung" class="checkbox-label" contenteditable="true">
+                        Kontoeröffnungsantrag
+                    </label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="agb" checked>
+                    <label for="agb" class="checkbox-label" contenteditable="true">
+                        Allgemeinen Geschäftsbedingungen der Bank
+                    </label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="bedingungen" checked>
+                    <label for="bedingungen" class="checkbox-label" contenteditable="true">
+                        Die für die Sparkonten, das Zinssparen sowie Online- und Telefon-Banking geltenden Vertragsbestimmungen
+                    </label>
+                </div>
+            </div>
+
+            <div class="signature-container">
+                <div class="signature-grid">
+                    <div>
+                        <label class="form-label">Datum</label>
+                        <input type="date" class="form-input" value="2026-01-14">
+                    </div>
+                    <div>
+                        <label class="form-label">Ort</label>
+                        <input type="text" class="form-input" value="Kamen">
+                    </div>
+                </div>
+
+                <div class="two-col" style="margin-top: 3mm;">
+                    <div>
+                        <label class="form-label">Unterschrift 1. Kontoinhaber</label>
+                        <div class="signature-box"></div>
+                        <div class="signature-note" contenteditable="true">Autorisiert durch Verfügungsberechtigten Melanie Heidicker am 14.01.2026 um 10:08:21</div>
+                    </div>
+                    <div>
+                        <label class="form-label">Unterschrift 2. Kontoinhaber</label>
+                        <div class="signature-box"></div>
+                        <div class="signature-note" contenteditable="true">Autorisiert durch Verfügungsberechtigten Melanie Heidicker am 14.01.2026 um 10:08:21</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div>
+                <div class="footer-company" contenteditable="true">Deutsche Bank AG</div>
+                <div contenteditable="true">Taunusanlage 12 • 60325 Frankfurt am Main</div>
+            </div>
+            <div style="text-align: right;">
+                <div contenteditable="true">Seite 4 von 4</div>
+                <div contenteditable="true">OPRA000026 FESD 20260114 1322-9-1</div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
