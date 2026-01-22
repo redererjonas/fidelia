@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festgeldvertrag - FIDELIA Kapitalverwaltungsgesellschaft mbH</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #e5e5e5;
+            padding: 10px;
+        }
+
+        /* A4: 210mm x 297mm exakt */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            margin: 0 auto 10mm;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            page-break-after: always;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header - Exakt 25mm Höhe - NUR LOGO */
+        .page-header {
+            height: 25mm;
+            background: linear-gradient(135deg, #0A2540 0%, #051729 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15mm;
+            position: relative;
+            overflow: visible;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 40%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(35deg);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .logo-wrapper {
+            width: 200px;
+            height: 23mm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .header-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5mm;
+            z-index: 1;
+        }
+
+        .header-title-main {
+            font-size: 14pt;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.5px;
+            margin-bottom: 1mm;
+        }
+
+        .header-subtitle-main {
+            font-size: 7.5pt;
+            color: white;
+            opacity: 0.95;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .logo-wrapper img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .header-right {
+            text-align: right;
+            color: white;
+            z-index: 1;
+        }
+
+        .contract-info {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .contract-label {
+            font-size: 8pt;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contract-number {
+            font-size: 12pt;
+            font-weight: 700;
+            margin-top: 2px;
+            cursor: text;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .contract-number:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Content Area - Mit 5mm Abstand zu Header und Footer */
+        .page-content {
+            flex: 1;
+            padding: 8mm 15mm;
+            overflow: hidden;
+            font-size: 10pt;
+            line-height: 1.5;
+        }
+
+        /* Footer - 16mm Höhe (20% kleiner als 20mm) */
+        .page-footer {
+            height: 16mm;
+            background: #f8f9fa;
+            border-top: 2px solid #0A2540;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15mm;
+            font-size: 7.5pt;
+            color: #555;
+        }
+
+        .footer-left, .footer-right {
+            line-height: 1.4;
+        }
+
+        .footer-company {
+            font-weight: 700;
+            color: #D4AF37;
+            margin-bottom: 1px;
+        }
+
+        /* Dokumententitel */
+        .document-title {
+            text-align: center;
+            margin-bottom: 8mm;
+            padding-bottom: 3mm;
+            border-bottom: 3px solid #0A2540;
+        }
+
+        .document-title h1 {
+            font-size: 18pt;
+            color: #1a1a1a;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .document-subtitle {
+            font-size: 10pt;
+            color: #666;
+            margin-top: 2mm;
+        }
+
+        /* Paragraphen */
+        .section {
+            margin-bottom: 6mm;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            font-weight: 700;
+            color: #D4AF37;
+            margin-bottom: 3mm;
+            padding-bottom: 1.5mm;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .paragraph {
+            margin-bottom: 3mm;
+            text-align: justify;
+        }
+
+        .paragraph-number {
+            font-weight: 700;
+            color: #D4AF37;
+            margin-right: 2mm;
+        }
+
+        /* Wichtige Informationen */
+        .important-box {
+            background: #F7FAFC;
+            border-left: 4px solid #0A2540;
+            padding: 3mm 4mm;
+            margin: 4mm 0;
+        }
+
+        .important-box strong {
+            color: #D4AF37;
+        }
+
+        /* Formularfelder */
+        .form-section {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            padding: 4mm;
+            margin: 4mm 0;
+            border-radius: 4px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 5mm;
+            margin-bottom: 3mm;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-label {
+            font-size: 9pt;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 1mm;
+            display: block;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 2mm;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 10pt;
+            font-family: 'Roboto', Arial, sans-serif;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0A2540;
+            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.1);
+        }
+
+        /* Tabellen */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 4mm 0;
+            font-size: 9pt;
+        }
+
+        .data-table th {
+            background: #0A2540;
+            color: white;
+            padding: 2mm 3mm;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .data-table td {
+            padding: 2mm 3mm;
+            border: 1px solid #e0e0e0;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        /* Compact Conditions Grid */
+        .conditions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3mm;
+            margin: 3mm 0;
+        }
+
+        .condition-item {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-left: 3px solid #0A2540;
+            padding: 2mm 3mm;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .condition-item:hover {
+            background: #F7FAFC;
+            border-left-color: #051729;
+        }
+
+        .condition-label {
+            font-size: 8pt;
+            font-weight: 600;
+            color: #D4AF37;
+            margin-bottom: 1mm;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .condition-value {
+            font-size: 9pt;
+            color: #1a1a1a;
+        }
+
+        .condition-value input {
+            width: 100%;
+            padding: 1.5mm;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            font-size: 9pt;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: white;
+        }
+
+        .condition-value input:focus {
+            outline: none;
+            border-color: #0A2540;
+            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.1);
+        }
+
+        /* Checkboxen */
+        .checkbox-list {
+            margin: 3mm 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2mm;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 3mm;
+            margin-top: 1mm;
+            width: 14px;
+            height: 14px;
+            accent-color: #0A2540;
+        }
+
+        .checkbox-text {
+            flex: 1;
+            font-size: 9pt;
+            line-height: 1.5;
+        }
+
+        /* Listen */
+        .legal-list {
+            counter-reset: legal-counter;
+            padding-left: 8mm;
+            margin: 3mm 0;
+        }
+
+        .legal-list li {
+            counter-increment: legal-counter;
+            margin-bottom: 2mm;
+            position: relative;
+            list-style: none;
+            text-align: justify;
+            font-size: 9pt;
+        }
+
+        .legal-list li::before {
+            content: "§ " counter(legal-counter);
+            position: absolute;
+            left: -8mm;
+            font-weight: 700;
+            color: #D4AF37;
+        }
+
+        /* Definitionen */
+        .definition-list {
+            margin: 3mm 0;
+        }
+
+        .definition-item {
+            display: flex;
+            margin-bottom: 2mm;
+            font-size: 9pt;
+        }
+
+        .definition-term {
+            font-weight: 700;
+            color: #D4AF37;
+            min-width: 30mm;
+            margin-right: 3mm;
+        }
+
+        .definition-desc {
+            flex: 1;
+            text-align: justify;
+        }
+
+        /* Kontaktblock */
+        .contact-block {
+            background: #f0f4f8;
+            border: 1px solid #d0d8e0;
+            padding: 3mm;
+            margin: 4mm 0;
+            border-radius: 4px;
+        }
+
+        .contact-title {
+            font-size: 10pt;
+            font-weight: 700;
+            color: #D4AF37;
+            margin-bottom: 2mm;
+        }
+
+        .contact-details {
+            font-size: 9pt;
+            line-height: 1.6;
+        }
+
+        /* Editable Content */
+        [contenteditable="true"] {
+            outline: none;
+            padding: 1mm 2mm;
+            border-radius: 3px;
+            transition: all 0.2s;
+            cursor: text;
+        }
+
+        [contenteditable="true"]:hover {
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        [contenteditable="true"]:focus {
+            background: white;
+            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+        }
+
+        /* Header Editable Content - Özel Stil */
+        .page-header [contenteditable="true"] {
+            padding: 1mm 2mm;
+        }
+
+        .page-header [contenteditable="true"]:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .page-header [contenteditable="true"]:focus {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Page Content - Genel Düzenlenebilir Alanlar */
+        .page-content .section-title,
+        .page-content .paragraph,
+        .page-content .contact-details,
+        .page-content .important-box,
+        .page-content .condition-value {
+            cursor: text;
+        }
+
+        /* Print Optimierung */
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        @media print {
+            html {
+                margin: 0;
+                padding: 0;
+                width: 210mm;
+                height: 297mm;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+                width: 210mm;
+            }
+
+            .page {
+                width: 210mm !important;
+                height: 297mm !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none;
+                page-break-after: always;
+                page-break-inside: avoid;
+                overflow: hidden;
+            }
+
+            .page:last-child {
+                page-break-after: auto;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            .action-panel {
+                display: none !important;
+            }
+        }
+
+        /* Notifikation */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background: #10b981;
+            color: white;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+        }
+
+        .notification.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Action Panel */
+        .action-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 999;
+        }
+
+        .action-btn {
+            background: #0A2540;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10pt;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: #051729;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Page Number */
+        .page-number {
+            display: none;
+        }
+
+        /* Empty Content Placeholder */
+        .content-placeholder {
+            min-height: 50mm;
+            border: 2px dashed #e0e0e0;
+            border-radius: 4px;
+            padding: 5mm;
+            background: #fafafa;
+            text-align: center;
+            color: #999;
+            font-size: 10pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .content-placeholder:hover {
+            border-color: #E2E8F0;
+            background: #F7FAFC;
+            color: #D4AF37;
+        }
+
+        .content-placeholder[contenteditable="true"]:focus {
+            border-style: solid;
+            border-color: #0A2540;
+            background: white;
+            color: #1a1a1a;
+            text-align: left;
+        }
+
+        /* FIDELIA LOGO STYLES */
+        .logo-container {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            display: inline-block;
+        }
+
+        .logo-glow {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #D4AF37, #E5C158);
+            border-radius: 12px;
+            filter: blur(8px);
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        .logo {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #D4AF37, #E5C158);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+            z-index: 2;
+        }
+
+        .logo span {
+            font-size: 26px;
+            font-weight: 800;
+            font-family: sans-serif;
+            color: white;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Seite 1 -->
+    <div class="page">
+        <header class="page-header">
+            <div class="header-left">
+                <div class="logo-wrapper">
+                    <img src="fidelia_full_logo.svg" alt="FIDELIA Logo" style="width: 250px; height: 45px;">
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="header-title-main" contenteditable="true">FESTGELDVERTRAG</div>
+                <div class="header-subtitle-main" contenteditable="true">gemäß §§ 488 ff. BGB i.V.m. den Vorschriften des KWG</div>
+            </div>
+            <div class="header-right">
+                <div class="contract-info">
+                    <div class="contract-label" contenteditable="true">Vertragsnummer</div>
+                    <div class="contract-number" contenteditable="true">FG-2026-0001</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
+
+            <div class="section">
+                <div class="section-title">Vertragsparteien</div>
+
+                <div class="paragraph">
+                    <strong>Zwischen</strong>
+                </div>
+
+                <div class="contact-block">
+                    <div class="contact-title">Kreditinstitut (nachfolgend "Bank")</div>
+                    <div class="contact-details">
+                        <strong>FIDELIA Kapitalverwaltungsgesellschaft mbH</strong><br>
+                        Kurze Mühren 20<br>
+                        20095 Hamburg<br>
+                        Deutschland<br>
+                        BaFin-ID: 10146931<br>
+                        KAGB Registriert nach §44 iVm §2 Abs.4<br>
+                        Gläubiger-ID: DE98ZZZ09999999999
+                    </div>
+                </div>
+
+                <div class="paragraph">
+                    <strong>und</strong>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Vorname</label>
+                            <input type="text" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nachname</label>
+                            <input type="text" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Straße und Hausnummer</label>
+                            <input type="text" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" style="flex: 0 0 30%;">
+                            <label class="form-label">PLZ</label>
+                            <input type="text" class="form-input" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Ort</label>
+                            <input type="text" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Geburtsdatum</label>
+                            <input type="date" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Geburtsort</label>
+                            <input type="text" class="form-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="paragraph" style="margin-top: 3mm;">
+                    (nachfolgend "Anleger" oder "Kunde" genannt)
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">§ 1 Vertragsgegenstand</div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(1)</span>
+                    Der Anleger legt bei der Bank einen Festgeldbetrag zu einem fest vereinbarten Zinssatz für eine bestimmte Laufzeit an. Die Bank verpflichtet sich, das eingezahlte Kapital nebst Zinsen nach Ablauf der vereinbarten Laufzeit zurückzuzahlen.
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(2)</span>
+                    Die Festgeldanlage unterliegt den gesetzlichen Bestimmungen des Bürgerlichen Gesetzbuches (BGB) sowie den aufsichtsrechtlichen Vorschriften des Kreditwesengesetzes (KWG) und der Einlagensicherung gemäß Einlagensicherungsgesetz (EinSiG).
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div class="footer-left">
+                <div class="footer-company" contenteditable="true">FIDELIA Kapitalverwaltungsgesellschaft mbH</div>
+                <div contenteditable="true">Kurze Mühren 20 • 20095 Hamburg • Deutschland</div>
+            </div>
+            <div class="footer-right">
+                <div contenteditable="true">Tel: +49 (0) 40 334 668098</div>
+                <div contenteditable="true">info@fidelia-kapital.com • www.fidelia-kapital.de</div>
+            </div>
+        </footer>
+        <div class="page-number">Seite 1 von 6</div>
+    </div>
+
+    <!-- Seite 2 -->
+    <div class="page">
+        <header class="page-header">
+            <div class="header-left">
+                <div class="logo-wrapper">
+                    <img src="fidelia_full_logo.svg" alt="FIDELIA Logo" style="width: 250px; height: 45px;">
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="header-title-main" contenteditable="true">FESTGELDVERTRAG</div>
+                <div class="header-subtitle-main" contenteditable="true">gemäß §§ 488 ff. BGB i.V.m. den Vorschriften des KWG</div>
+            </div>
+            <div class="header-right">
+                <div class="contract-info">
+                    <div class="contract-label" contenteditable="true">Vertragsnummer</div>
+                    <div class="contract-number" contenteditable="true">FG-2026-0001</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content" style="line-height: 1.7;">
+            <div class="section">
+                <div class="section-title">§ 2 Anlagebedingungen</div>
+
+                <div class="conditions-grid">
+                    <div class="condition-item">
+                        <div class="condition-label">Anlagebetrag</div>
+                        <div class="condition-value">
+                            <input type="number" min="10000" step="1000" placeholder="Mindestens 10.000,00 EUR">
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-label">Laufzeit</div>
+                        <div class="condition-value">
+                            <input type="number" min="3" max="60" placeholder="3-60 Monate">
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-label">Zinssatz p.a.</div>
+                        <div class="condition-value">
+                            <input type="number" step="0.01" min="0" placeholder="z.B. 3,50 %">
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-label">Vertragsbeginn</div>
+                        <div class="condition-value">
+                            <input type="date">
+                        </div>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-label">Zinszahlung</div>
+                        <div class="condition-value">Endfällig bei Laufzeitende</div>
+                    </div>
+
+                    <div class="condition-item">
+                        <div class="condition-label">Prolongation</div>
+                        <div class="condition-value">Keine automatische Verlängerung</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">§ 3 Einzahlung und Verzinsung</div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(1)</span>
+                    Die Einzahlung des Anlagebetrages hat innerhalb von 5 Bankarbeitstagen nach Vertragsabschluss auf das nachfolgend genannte Abwicklungskonto zu erfolgen. Maßgeblich für den Vertragsbeginn ist der Valutatag der Gutschrift auf dem Festgeldkonto.
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(2)</span>
+                    Die Verzinsung beginnt mit dem Valutatag der Gutschrift auf dem Festgeldkonto und endet mit Ablauf des letzten Tages der vereinbarten Laufzeit. Die Zinsberechnung erfolgt nach der Methode actual/360 (tatsächliche Tage/360 Tage).
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(3)</span>
+                    Der Zinssatz ist für die gesamte Laufzeit fest vereinbart und ändert sich nicht. Die Zinsen werden zum Laufzeitende zusammen mit dem Kapital ausgezahlt.
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(4)</span>
+                    Anfallende Steuern werden gemäß den geltenden steuerrechtlichen Bestimmungen abgeführt. Dies umfasst Kapitalertragsteuer (25%), Solidaritätszuschlag (5,5% der Kapitalertragsteuer) und ggf. Kirchensteuer.
+                </div>
+            </div>
+
+            <div class="contact-block">
+                <div class="contact-title">Bankverbindung für die Einzahlung</div>
+                <div class="contact-details">
+                    <strong>Kontoinhaber:</strong> FIDELIA Kapitalverwaltungsgesellschaft mbH - Kundengeldkonto<br>
+                    <strong>IBAN:</strong> DE89 3704 0044 0532 0130 00<br>
+                    <strong>BIC:</strong> COBADEFFXXX<br>
+                    <strong>Bank:</strong> Commerzbank AG<br>
+                    <strong>Verwendungszweck:</strong> Vertragsnummer (bitte angeben)
+                </div>
+            </div>
+
+            <div class="important-box">
+                <strong>Wichtiger Hinweis:</strong> Dieses Festgeldkonto dient ausschließlich der Geldanlage. Zahlungsverkehr ist not möglich. Eine vorzeitige Kündigung ist grundsätzlich ausgeschlossen, außer bei Vorliegen eines wichtigen Grundes gemäß § 314 BGB.
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div class="footer-left">
+                <div class="footer-company" contenteditable="true">FIDELIA Kapitalverwaltungsgesellschaft mbH</div>
+                <div contenteditable="true">Kurze Mühren 20 • 20095 Hamburg • Deutschland</div>
+            </div>
+            <div class="footer-right">
+                <div contenteditable="true">Tel: +49 (0) 40 334 668098</div>
+                <div contenteditable="true">info@fidelia-kapital.com • www.fidelia-kapital.de</div>
+            </div>
+        </footer>
+        <div class="page-number">Seite 2 von 6</div>
+    </div>
+
+    <!-- Seite 3 -->
+    <div class="page">
+        <header class="page-header">
+            <div class="header-left">
+                <div class="logo-wrapper">
+                    <img src="fidelia_full_logo.svg" alt="FIDELIA Logo" style="width: 250px; height: 45px;">
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="header-title-main" contenteditable="true">FESTGELDVERTRAG</div>
+                <div class="header-subtitle-main" contenteditable="true">gemäß §§ 488 ff. BGB i.V.m. den Vorschriften des KWG</div>
+            </div>
+            <div class="header-right">
+                <div class="contract-info">
+                    <div class="contract-label" contenteditable="true">Vertragsnummer</div>
+                    <div class="contract-number" contenteditable="true">FG-2026-0001</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content" style="line-height: 1.25;">
+            <div class="section">
+                <div class="section-title">§ 4 Kündigungsbestimmungen</div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(1)</span>
+                    Eine ordentliche Kündigung der Festgeldanlage während der vereinbarten Laufzeit ist ausgeschlossen. Der vereinbarte Zinssatz gilt für die gesamte Laufzeit.
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(2)</span>
+                    Das Recht zur außerordentlichen Kündigung aus wichtigem Grund gemäß § 314 BGB bleibt unberührt. Ein wichtiger Grund liegt insbesondere vor bei:
+                </div>
+                <ul class="legal-list" style="padding-left: 10mm; list-style: disc;">
+                    <li style="list-style: disc;">Tod des Anlegers oder eines Kontoinhabers</li>
+                    <li style="list-style: disc;">Insolvenz einer der Vertragsparteien</li>
+                    <li style="list-style: disc;">Wesentliche Verschlechterung der Vermögensverhältnisse des Anlegers</li>
+                    <li style="list-style: disc;">Schwere Erkrankung oder Pflegebedürftigkeit des Anlegers</li>
+                </ul>
+                <div class="paragraph">
+                    <span class="paragraph-number">(3)</span>
+                    Im Falle einer außerordentlichen Kündigung erfolgt die Rückzahlung des Anlagebetrages innerhalb von 30 Bankarbeitstagen nach Zugang der Kündigungserklärung. Die Zinsen werden zeitanteilig bis zum Kündigungszeitpunkt berechnet, jedoch mit einem reduzierten Zinssatz von 50% des vereinbarten Zinssatzes.
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(4)</span>
+                    Die Kündigung bedarf der Schriftform gemäß § 126 BGB or der Textform gemäß § 126b BGB (z.B. E-Mail mit qualifizierter elektronischer Signatur).
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">§ 5 Einlagensicherung</div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(1)</span>
+                    Die Einlagen bei der FIDELIA Kapitalverwaltungsgesellschaft mbH sind durch die gesetzliche Einlagensicherung gemäß Einlagensicherungsgesetz (EinSiG) geschützt. Die Entschädigungseinrichtung deutscher Banken GmbH (EdB) ist zuständige Einlagensicherungseinrichtung.
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(2)</span>
+                    Der gesetzliche Schutzumfang beträgt bis zu 100.000 EUR je Kunde und Kreditinstitut. Bei Gemeinschaftskonten erhöht sich der Schutz entsprechend der Anzahl der berechtigten Personen (z.B. 200.000 EUR bei zwei Kontoinhabern).
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(3)</span>
+                    Zusätzlich zur gesetzlichen Einlagensicherung ist die Bank Mitglied im Einlagensicherungsfonds des Bundesverbandes deutscher Banken e.V., der darüber hinausgehenden Schutz gewährt.
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(4)</span>
+                    Detaillierte Informationen zur Einlagensicherung, einschließlich der Höhe des Schutzes, sind auf der Internetseite der Bank sowie im Informationsbogen zur Einlagensicherung verfügbar.
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">§ 6 Geldwäscheprävention und Compliance</div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(1)</span>
+                    Der Anleger versichert, dass er im eigenen Namen und auf eigene Rechnung handelt und nicht als Treuhänder or wirtschaftlich Berechtigter für Dritte auftritt.
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(2)</span>
+                    Die Gelder stammen aus legalen Quellen und stehen nicht im Zusammenhang mit Geldwäsche, Terrorismusfinanzierung or sonstigen strafbaren Handlungen.
+                </div>
+                <div class="paragraph">
+                    <span class="paragraph-number">(3)</span>
+                    Die Bank ist berechtigt und verpflichtet, die gesetzlichen Bestimmungen zur Geldwäscheprävention gemäß Geldwäschegesetz (GwG) einzuhalten. Dies umfasst die Identifizierung des Kunden sowie die Aufzeichnung und Aufbewahrung der erforderlichen Daten.
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div class="footer-left">
+                <div class="footer-company" contenteditable="true">FIDELIA Kapitalverwaltungsgesellschaft mbH</div>
+                <div contenteditable="true">Kurze Mühren 20 • 20095 Hamburg • Deutschland</div>
+            </div>
+            <div class="footer-right">
+                <div contenteditable="true">Tel: +49 (0) 40 334 668098</div>
+                <div contenteditable="true">info@fidelia-kapital.com • www.fidelia-kapital.de</div>
+            </div>
+        </footer>
+        <div class="page-number">Seite 3 von 6</div>
+    </div>
+
+    <!-- Seite 4 -->
+    <div class="page">
+        <header class="page-header">
+            <div class="header-left">
+                <div class="logo-wrapper">
+                    <img src="fidelia_full_logo.svg" alt="FIDELIA Logo" style="width: 250px; height: 45px;">
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="header-title-main" contenteditable="true">FESTGELDVERTRAG</div>
+                <div class="header-subtitle-main" contenteditable="true">gemäß §§ 488 ff. BGB i.V.m. den Vorschriften des KWG</div>
+            </div>
+            <div class="header-right">
+                <div class="contract-info">
+                    <div class="contract-label" contenteditable="true">Vertragsnummer</div>
+                    <div class="contract-number" contenteditable="true">FG-2026-0001</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content" style="line-height: 1.23; font-size: 9.5pt;">
+            <div class="section" style="margin-bottom: 4mm;">
+                <div class="section-title">§ 7 Datenschutz</div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(1)</span>
+                    Die Bank verarbeitet personenbezogene Daten des Anlegers ausschließlich zur Erfüllung dieses Vertrages, zur Einhaltung gesetzlicher Verpflichtungen sowie zur Wahrung berechtigter Interessen.
+                </div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(2)</span>
+                    Die Datenverarbeitung erfolgt gemäß der EU-Datenschutz-Grundverordnung (DSGVO) und dem Bundesdatenschutzgesetz (BDSG). Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) sowie Art. 6 Abs. 1 lit. c DSGVO (rechtliche Verpflichtung).
+                </div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(3)</span>
+                    Der Anleger hat folgende Rechte: Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO), Einschränkung der Verarbeitung (Art. 18 DSGVO), Datenübertragbarkeit (Art. 20 DSGVO) and Widerspruch (Art. 21 DSGVO).
+                </div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(4)</span>
+                    Die personenbezogenen Daten werden für die Dauer der Geschäftsbeziehung sowie darüber hinaus gemäß den gesetzlichen Aufbewahrungsfristen (insbesondere § 147 AO, § 257 HGB) gespeichert.
+                </div>
+            </div>
+
+            <div class="section" style="margin-bottom: 4mm;">
+                <div class="section-title">§ 8 Kommunikation und Mitteilungen</div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(1)</span>
+                    Sämtliche Mitteilungen der Bank an den Anleger erfolgen schriftlich or elektronisch an die vom Anleger zuletzt bekannt gegebene Adresse or E-Mail-Adresse.
+                </div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(2)</span>
+                    Der Anleger ist verpflichtet, Änderungen seiner Kontaktdaten (Anschrift, Telefonnummer, E-Mail-Adresse) unverzüglich der Bank mitzuteilen. Mitteilungen an die zuletzt bekannt gegebene Adresse gelten als zugegangen.
+                </div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(3)</span>
+                    Die Bank stellt dem Anleger Kontoauszüge, Zinsgutschriften and Jahressteuerbescheinigungen in elektronischer Form zur Verfügung, sofern der Anleger dem nicht widerspricht. In diesem Fall erfolgt die Zustellung in Papierform.
+                </div>
+            </div>
+
+            <div class="section" style="margin-bottom: 4mm;">
+                <div class="section-title">§ 9 Allgemeine Geschäftsbedingungen</div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(1)</span>
+                    Für die Geschäftsbeziehung zwischen dem Anleger and der Bank gelten ergänzend die Allgemeinen Geschäftsbedingungen (AGB) der Bank in ihrer jeweils gültigen Fassung, soweit diese mit den Bestimmungen dieses Vertrages vereinbar sind.
+                </div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(2)</span>
+                    Die Bank ist berechtigt, Änderungen or Ergänzungen der AGB vorzunehmen, sofern dies zur Anpassung an geänderte rechtliche or wirtschaftliche Rahmenbedingungen erforderlich ist.
+                </div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(3)</span>
+                    Änderungen werden dem Anleger spätestens zwei Monate vor dem vorgeschlagenen Zeitpunkt ihres Wirksamwerdens in Textform angeboten. Die Zustimmung des Anlegers gilt als erteilt, wenn er seine Ablehnung nicht vor dem vorgeschlagenen Zeitpunkt des Wirksamwerdens der Änderungen angezeigt hat.
+                </div>
+            </div>
+
+            <div class="section" style="margin-bottom: 4mm;">
+                <div class="section-title">§ 10 Freistellungsauftrag und Steueridentifikationsnummer</div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    Der Anleger kann bei der Bank einen Freistellungsauftrag gemäß § 44a EStG einreichen, um Kapitalerträge bis zur Höhe des Sparer-Pauschbetrags (derzeit 1.000 EUR für Alleinstehende bzw. 2.000 EUR für Verheiratete) von der Kapitalertragsteuer freizustellen.
+                </div>
+                <div class="form-section" style="margin-top: 2mm;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Steuer-Identifikationsnummer</label>
+                            <input type="text" class="form-input" placeholder="TIN / Steuer-ID">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Geburtsland</label>
+                            <input type="text" class="form-input" placeholder="Deutschland">
+                        </div>
+                    </div>
+                    <div class="checkbox-list" style="margin-top: 1.5mm;">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="freistellung">
+                            <label for="freistellung" class="checkbox-text">
+                                Ich reiche einen Freistellungsauftrag ein (separates Formular erforderlich)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div class="footer-left">
+                <div class="footer-company" contenteditable="true">FIDELIA Kapitalverwaltungsgesellschaft mbH</div>
+                <div contenteditable="true">Kurze Mühren 20 • 20095 Hamburg • Deutschland</div>
+            </div>
+            <div class="footer-right">
+                <div contenteditable="true">Tel: +49 (0) 40 334 668098</div>
+                <div contenteditable="true">info@fidelia-kapital.com • www.fidelia-kapital.de</div>
+            </div>
+        </footer>
+        <div class="page-number">Seite 4 von 6</div>
+    </div>
+
+    <!-- Seite 5 -->
+    <div class="page">
+        <header class="page-header">
+            <div class="header-left">
+                <div class="logo-wrapper">
+                    <img src="fidelia_full_logo.svg" alt="FIDELIA Logo" style="width: 250px; height: 45px;">
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="header-title-main" contenteditable="true">FESTGELDVERTRAG</div>
+                <div class="header-subtitle-main" contenteditable="true">gemäß §§ 488 ff. BGB i.V.m. den Vorschriften des KWG</div>
+            </div>
+            <div class="header-right">
+                <div class="contract-info">
+                    <div class="contract-label" contenteditable="true">Vertragsnummer</div>
+                    <div class="contract-number" contenteditable="true">FG-2026-0001</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content" style="line-height: 1.23; font-size: 9.5pt;">
+            <div class="section" style="margin-bottom: 4mm;">
+                <div class="section-title">§ 11 Widerrufsbelehrung</div>
+
+                <div class="important-box" style="background: #F7FAFC; border-left: 4px solid #0A2540; margin: 2mm 0;">
+                    <div style="font-size: 11pt; font-weight: 700; margin-bottom: 1.5mm; color: #D4AF37;">WIDERRUFSRECHT</div>
+                    <div style="font-size: 9pt; line-height: 1.5;">
+                        Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.
+                    </div>
+                </div>
+
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <strong>Ausübung des Widerrufsrechts</strong><br>
+                    Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (FIDELIA Kapitalverwaltungsgesellschaft mbH, Kurze Mühren 20, 20095 Hamburg, E-Mail: info@fidelia-kapital.com, Tel: +49 (0) 40 334 668098) mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandter Brief, Telefax or E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren.
+                </div>
+
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.
+                </div>
+
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <strong>Folgen des Widerrufs</strong><br>
+                    Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten, unverzüglich and spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist.
+                </div>
+
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    Sie sind zur Zahlung von Wertersatz für die bis zum Widerruf erbrachte Dienstleistung verpflichtet, wenn Sie vor Abgabe Ihrer Vertragserklärung auf diese Rechtsfolge hingewiesen wurden and ausdrücklich zugestimmt haben, dass wir vor dem Ende der Widerrufsfrist mit der Ausführung der Gegenleistung beginnen sollen.
+                </div>
+            </div>
+
+            <div class="section" style="margin-bottom: 4mm;">
+                <div class="section-title">§ 12 Schlussbestimmungen</div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(1)</span>
+                    Änderungen or Ergänzungen dieses Vertrages bedürfen zu ihrer Wirksamkeit der Schriftform. Dies gilt auch für die Aufhebung des Schriftformerfordernisses selbst.
+                </div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(2)</span>
+                    Sollten einzelne Bestimmungen dieses Vertrages unwirksam sein or werden, so berührt dies die Wirksamkeit der übrigen Bestimmungen nicht. Die Parteien verpflichten sich, anstelle der unwirksamen Bestimmung eine wirksame Regelung zu treffen, die dem wirtschaftlichen Zweck der unwirksamen Bestimmung am nächsten kommt.
+                </div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(3)</span>
+                    Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts (CISG).
+                </div>
+                <div class="paragraph" style="margin-bottom: 2mm;">
+                    <span class="paragraph-number">(4)</span>
+                    Erfüllungsort and ausschließlicher Gerichtsstand für alle Streitigkeiten aus diesem Vertrag ist Hamburg, soweit der Anleger Kaufmann, juristische Person des öffentlichen Rechts or öffentlich-rechtliches Sondervermögen ist or keinen allgemeinen Gerichtsstand im Inland hat.
+                </div>
+            </div>
+
+            <div class="section" style="margin-bottom: 4mm;">
+                <div class="section-title">§ 13 Einverständniserklärungen und Bestätigungen</div>
+
+                <div class="checkbox-list" style="margin: 2mm 0;">
+                    <div class="checkbox-item" style="margin-bottom: 1.5mm;">
+                        <input type="checkbox" id="confirm1">
+                        <label for="confirm1" class="checkbox-text">
+                            Ich bestätige, die Vertragsbedingungen einschließlich der Widerrufsbelehrung erhalten and zur Kenntnis genommen zu haben.
+                        </label>
+                    </div>
+                    <div class="checkbox-item" style="margin-bottom: 1.5mm;">
+                        <input type="checkbox" id="confirm2">
+                        <label for="confirm2" class="checkbox-text">
+                            Ich bin damit einverstanden, dass mit der Ausführung der Dienstleistung vor Ablauf der Widerrufsfrist begonnen wird and mir bewusst ist, dass ich bei vollständiger Vertragserfüllung mein Widerrufsrecht verliere.
+                        </label>
+                    </div>
+                    <div class="checkbox-item" style="margin-bottom: 1.5mm;">
+                        <input type="checkbox" id="confirm3">
+                        <label for="confirm3" class="checkbox-text">
+                            Ich bestätige, dass ich im eigenen Namen and auf eigene Rechnung handle (keine Treuhandschaft für Dritte).
+                        </label>
+                    </div>
+                    <div class="checkbox-item" style="margin-bottom: 1.5mm;">
+                        <input type="checkbox" id="confirm4">
+                        <label for="confirm4" class="checkbox-text">
+                            Ich wurde über die steuerlichen Folgen der Festgeldanlage sowie über die Einlagensicherung informiert.
+                        </label>
+                    </div>
+                    <div class="checkbox-item" style="margin-bottom: 1.5mm;">
+                        <input type="checkbox" id="confirm5">
+                        <label for="confirm5" class="checkbox-text">
+                            Ich stimme der elektronischen Zustellung von Kontoauszügen and Mitteilungen zu.
+                        </label>
+                    </div>
+                    <div class="checkbox-item" style="margin-bottom: 1.5mm;">
+                        <input type="checkbox" id="us-person">
+                        <label for="us-person" class="checkbox-text">
+                            Ich bestätige, dass ich keine US-Person im Sinne des Foreign Account Tax Compliance Act (FATCA) bin.
+                        </label>
+                    </div>
+                    <div class="checkbox-item" style="margin-bottom: 1.5mm;">
+                        <input type="checkbox" id="pep">
+                        <label for="pep" class="checkbox-text">
+                            Ich bestätige, dass ich keine politisch exponierte Person (PEP) gemäß § 1 Abs. 12 GwG bin.
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div class="footer-left">
+                <div class="footer-company" contenteditable="true">FIDELIA Kapitalverwaltungsgesellschaft mbH</div>
+                <div contenteditable="true">Kurze Mühren 20 • 20095 Hamburg • Deutschland</div>
+            </div>
+            <div class="footer-right">
+                <div contenteditable="true">Tel: +49 (0) 40 334 668098</div>
+                <div contenteditable="true">info@fidelia-kapital.com • www.fidelia-kapital.de</div>
+            </div>
+        </footer>
+        <div class="page-number">Seite 5 von 6</div>
+    </div>
+
+    <!-- Seite 6 -->
+    <div class="page">
+        <header class="page-header">
+            <div class="header-left">
+                <div class="logo-wrapper">
+                    <img src="fidelia_full_logo.svg" alt="FIDELIA Logo" style="width: 250px; height: 45px;">
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="header-title-main" contenteditable="true">FESTGELDVERTRAG</div>
+                <div class="header-subtitle-main" contenteditable="true">gemäß §§ 488 ff. BGB i.V.m. den Vorschriften des KWG</div>
+            </div>
+            <div class="header-right">
+                <div class="contract-info">
+                    <div class="contract-label" contenteditable="true">Vertragsnummer</div>
+                    <div class="contract-number" contenteditable="true">FG-2026-0001</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content" style="line-height: 1.3;">
+            <div class="section">
+                <div class="section-title">Vertragsunterzeichnung</div>
+
+                <div class="paragraph" style="text-align: center; margin-bottom: 2mm;" contenteditable="true">
+                    Die unterzeichnenden Parteien bestätigen hiermit, diesen Vertrag gelesen, verstanden and akzeptiert zu haben.
+                </div>
+
+                <div style="border: 1px solid #0A2540; border-radius: 3px; padding: 2mm; background: #FFFFFF; margin-bottom: 3mm;">
+                    <div style="font-size: 9pt; font-weight: 700; color: #D4AF37; margin-bottom: 1.5mm; text-align: center;" contenteditable="true">
+                        UNTERSCHRIFT DES ANLEGERS / KONTOINHABERS
+                    </div>
+
+                    <div class="form-section" style="padding: 1mm; margin: 0;">
+                        <div class="form-row" style="margin-bottom: 1.5mm;">
+                            <div class="form-group">
+                                <label class="form-label" contenteditable="true" style="font-size: 8pt;">Ort</label>
+                                <input type="text" class="form-input" style="padding: 1mm; font-size: 9pt;">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" contenteditable="true" style="font-size: 8pt;">Datum</label>
+                                <input type="date" class="form-input" style="padding: 1mm; font-size: 9pt;">
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 1.5mm;">
+                            <div class="form-group">
+                                <label class="form-label" contenteditable="true" style="font-size: 8pt;">Unterschrift</label>
+                                <div style="border: 1px dashed #ccc; height: 12mm; border-radius: 2px; background: white;"></div>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 0;">
+                            <div class="form-group">
+                                <label class="form-label" contenteditable="true" style="font-size: 8pt;">Name in Druckbuchstaben</label>
+                                <input type="text" class="form-input" style="padding: 1mm; font-size: 9pt;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="border: 1px solid #0A2540; border-radius: 3px; padding: 2mm; background: #F7FAFC; margin-bottom: 3mm;">
+                    <div style="font-size: 9pt; font-weight: 700; color: #D4AF37; margin-bottom: 1.5mm; text-align: center;" contenteditable="true">
+                        FÜR DIE FIDELIA Kapitalverwaltungsgesellschaft mbH
+                    </div>
+
+                    <div class="form-section" style="padding: 1mm; margin: 0;">
+                        <div class="form-row" style="margin-bottom: 1.5mm;">
+                            <div class="form-group">
+                                <label class="form-label" contenteditable="true" style="font-size: 8pt;">Ort</label>
+                                <input type="text" class="form-input" value="Hamburg" readonly style="background: #f9f9f9; padding: 1mm; font-size: 9pt;">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" contenteditable="true" style="font-size: 8pt;">Datum</label>
+                                <input type="date" class="form-input" style="padding: 1mm; font-size: 9pt;">
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 1.5mm;">
+                            <div class="form-group">
+                                <label class="form-label" contenteditable="true" style="font-size: 8pt;">Unterschrift Prokurist / Bevollmächtigter</label>
+                                <div style="border: 1px dashed #999; height: 12mm; border-radius: 2px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; color: #999; font-size: 7.5pt;" contenteditable="true">
+                                    [Wird von der Bank ausgefüllt]
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row" style="margin-bottom: 0;">
+                            <div class="form-group">
+                                <label class="form-label" contenteditable="true" style="font-size: 8pt;">Name and Funktion</label>
+                                <input type="text" class="form-input" readonly style="background: #f9f9f9; padding: 1mm; font-size: 9pt;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="important-box">
+                    <strong>Hinweise zur Vertragsausfertigung:</strong>
+                    <ul style="margin-top: 2mm; padding-left: 5mm; font-size: 9pt; line-height: 1.6;">
+                        <li>Dieser Vertrag wird in zweifacher Ausfertigung erstellt. Jede Partei erhält eine Originalausfertigung.</li>
+                        <li>Der Vertrag wird mit beiderseitiger Unterschrift rechtswirksam.</li>
+                        <li>Bitte senden Sie eine unterschriebene Ausfertigung an: FIDELIA Kapitalverwaltungsgesellschaft mbH, Kurze Mühren 20, 20095 Hamburg</li>
+                        <li>Alternativ: E-Mail an info@fidelia-kapital.com (als PDF mit digitaler Signatur)</li>
+                    </ul>
+                </div>
+
+                <div class="contact-block">
+                    <div class="contact-title">Kontakt für Rückfragen</div>
+                    <div class="contact-details">
+                        <strong>FIDELIA Kapitalverwaltungsgesellschaft mbH - Kundenservice Festgeld</strong><br>
+                        Telefon: +49 (0) 40 334 668098<br>
+                        E-Mail: info@fidelia-kapital.com<br>
+                        Öffnungszeiten: Mo-Fr 09:00-17:00 Uhr
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div class="footer-left">
+                <div class="footer-company" contenteditable="true">FIDELIA Kapitalverwaltungsgesellschaft mbH</div>
+                <div contenteditable="true">Kurze Mühren 20 • 20095 Hamburg • Deutschland</div>
+            </div>
+            <div class="footer-right">
+                <div contenteditable="true">Tel: +49 (0) 40 334 668098</div>
+                <div contenteditable="true">info@fidelia-kapital.com • www.fidelia-kapital.de</div>
+            </div>
+        </footer>
+        <div class="page-number">Seite 6 von 6</div>
+    </div>
+
+    <!-- Action Panel -->
+    <div class="action-panel">
+        <div style="background: #F7FAFC; border: 1px solid #0A2540; padding: 10px; border-radius: 4px; margin-bottom: 10px; font-size: 9pt; line-height: 1.5;">
+            <strong style="color: #D4AF37;">Druckeinstellungen:</strong><br>
+            Format: A4 Hochformat<br>
+            Ränder: Minimal/Ohne<br>
+            Hintergrundgrafiken: Ein
+        </div>
+        <button class="action-btn" onclick="printDocument()">🖨️ Drucken</button>
+        <button class="action-btn" onclick="exportToPDF()">📄 Als PDF exportieren</button>
+    </div>
+
+    <script>
+        // Alle Inhalte editierbar machen
+        document.addEventListener('DOMContentLoaded', () => {
+            // Section Titles
+            document.querySelectorAll('.section-title').forEach(elem => {
+                elem.setAttribute('contenteditable', 'true');
+            });
+
+            // Paragraphs
+            document.querySelectorAll('.paragraph').forEach(elem => {
+                elem.setAttribute('contenteditable', 'true');
+            });
+
+            // Contact Details
+            document.querySelectorAll('.contact-details').forEach(elem => {
+                elem.setAttribute('contenteditable', 'true');
+            });
+
+            // Important Box Content
+            document.querySelectorAll('.important-box').forEach(elem => {
+                elem.setAttribute('contenteditable', 'true');
+            });
+
+            // Contact Title
+            document.querySelectorAll('.contact-title').forEach(elem => {
+                elem.setAttribute('contenteditable', 'true');
+            });
+
+            // Condition Values (non-input)
+            document.querySelectorAll('.condition-value').forEach(elem => {
+                if (!elem.querySelector('input')) {
+                    elem.setAttribute('contenteditable', 'true');
+                }
+            });
+
+            // List Items
+            document.querySelectorAll('.legal-list li').forEach(elem => {
+                elem.setAttribute('contenteditable', 'true');
+            });
+
+            // Checkbox Labels
+            document.querySelectorAll('.checkbox-text').forEach(elem => {
+                elem.setAttribute('contenteditable', 'true');
+            });
+
+            // Definition Terms and Descriptions
+            document.querySelectorAll('.definition-term, .definition-desc').forEach(elem => {
+                elem.setAttribute('contenteditable', 'true');
+            });
+        });
+
+        // Vertragsnummer Synchronisation
+        document.querySelectorAll('.contract-number').forEach((elem, index) => {
+            if (index === 0) {
+                elem.addEventListener('input', () => {
+                    const newNumber = elem.textContent;
+                    document.querySelectorAll('.contract-number').forEach((el, i) => {
+                        if (i !== 0) el.textContent = newNumber;
+                    });
+                });
+            }
+        });
+
+        // Drucken
+        function printDocument() {
+            window.print();
+        }
+
+        // PDF Export (Browser Print Dialog mit PDF Option)
+        function exportToPDF() {
+            // Browser's native print dialog - user can choose "Save as PDF"
+            window.print();
+        }
+    </script>
+</body>
+</html>

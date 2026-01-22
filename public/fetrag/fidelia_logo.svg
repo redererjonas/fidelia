@@ -1,0 +1,17 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="logoGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#D4AF37"/>
+            <stop offset="1" stop-color="#E5C158"/>
+        </linearGradient>
+        <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.2"/>
+        </filter>
+    </defs>
+    
+    <!-- Rounded Rectangle -->
+    <rect width="100" height="100" rx="22" fill="url(#logoGrad)" filter="url(#shadow)"/>
+    
+    <!-- Letter F (Professionally Aligned) -->
+    <text x="50" y="68" font-family="Arial, sans-serif" font-size="60" font-weight="900" fill="white" text-anchor="middle">F</text>
+</svg>
