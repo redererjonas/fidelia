@@ -16,7 +16,7 @@
         body {
             font-family: 'Inter', -apple-system, sans-serif;
             font-size: 8pt;
-            line-height: 1.3;
+            line-height: 1.2;
             color: #1a1a1a;
             background: #eceff1;
             padding: 8px;
@@ -141,7 +141,7 @@
 
         /* TYPOGRAPHY */
         .section {
-            margin-bottom: 2.5mm;
+            margin-bottom: 1.8mm;
         }
 
         .section-header {
@@ -150,7 +150,7 @@
             padding: 1mm 2.5mm;
             font-size: 8.5pt;
             font-weight: 600;
-            margin-bottom: 1.5mm;
+            margin-bottom: 1mm;
             border-radius: 2px;
             box-shadow: 0 1px 3px rgba(0,24,168,0.15);
         }
@@ -159,7 +159,7 @@
             font-size: 7.5pt;
             font-weight: 600;
             color: #0018A8;
-            margin: 1.5mm 0 1mm 0;
+            margin: 1mm 0 0.5mm 0;
             padding-left: 2mm;
             border-left: 2px solid #0018A8;
         }
@@ -241,8 +241,8 @@
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5mm 2.5mm;
-            margin: 1mm 0;
+            gap: 1mm 2.5mm;
+            margin: 0.8mm 0;
         }
 
         .form-full {
@@ -277,8 +277,8 @@
         .checkbox-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 1.5mm;
-            padding: 1mm;
+            margin-bottom: 0.8mm;
+            padding: 0.8mm;
             border-radius: 2px;
         }
 
@@ -537,6 +537,35 @@
                 font-size: 18px;
             }
         }
+        .investment-summary-bar {
+            background: #f0f4f8;
+            border-left: 4px solid #0018A8;
+            padding: 12px 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 8px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .summary-label {
+            font-size: 8pt;
+            color: #555;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .summary-value {
+            font-size: 11pt;
+            font-weight: 700;
+            color: #0018A8;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
 </head>
@@ -599,6 +628,34 @@
                         <label class="form-label">Nachname</label>
                         <input type="text" class="form-input" value="Heidicker">
                     </div>
+                    <div>
+                        <label class="form-label">Geburtsdatum</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Telefon</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-full">
+                        <label class="form-label">E-Mail</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Straße</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Haus-Nr.</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">PLZ</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Ort</label>
+                        <input type="text" class="form-input">
+                    </div>
                 </div>
                 <div class="subsection-title" contenteditable="true">2. Kontoinhaber</div>
                 <div class="form-grid">
@@ -610,57 +667,54 @@
                         <label class="form-label">Nachname</label>
                         <input type="text" class="form-input">
                     </div>
+                    <div>
+                        <label class="form-label">Geburtsdatum</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Telefon</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div class="form-full">
+                        <label class="form-label">E-Mail</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Straße</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Haus-Nr.</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">PLZ</label>
+                        <input type="text" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Ort</label>
+                        <input type="text" class="form-input">
+                    </div>
                 </div>
             </div>
 
             <div class="section">
                 <div class="section-header" contenteditable="true">Eröffnung eines Sparkontos gemäß nachstehenden Bedingungen bei der Bank</div>
                 <div class="subsection-title" contenteditable="true">FestzinsSparen</div>
-                <div class="amount-display">
-                    <div class="amount-label">Anlagebetrag</div>
-                    <div class="amount-value" contenteditable="true">EUR 250.000</div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-header" contenteditable="true">Zahlung des Anlagebetrages</div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="umbuchung" checked>
-                    <label for="umbuchung" class="checkbox-label">
-                        <strong contenteditable="true">Umbuchung von meinem Deutsche Bank Konto</strong><br>
-                        <span contenteditable="true">Ich beauftrage Sie, den Anlagebetrag von meinem folgenden Konto umzubuchen.</span>
-                    </label>
-                </div>
-                <div class="form-grid">
-                    <div class="form-full">
-                        <label class="form-label">Kontoinhaber</label>
-                        <input type="text" class="form-input">
+                
+                <div class="investment-summary-bar">
+                    <div class="summary-item">
+                        <span class="summary-label">Anlagebetrag</span>
+                        <span class="summary-value" contenteditable="true">250.000 EUR</span>
                     </div>
-                    <div class="form-full">
-                        <label class="form-label">IBAN</label>
-                        <input type="text" class="form-input">
+                    <div class="summary-item">
+                        <span class="summary-label">Laufzeit</span>
+                        <span class="summary-value" contenteditable="true">12 Monate</span>
                     </div>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="lastschrift">
-                    <label for="lastschrift" class="checkbox-label">
-                        <strong contenteditable="true">Zahlung von einem Konto bei einer anderen Bank (Lastschrift)</strong>
-                    </label>
-                </div>
-            </div>
-
-            <div class="info-box">
-                <div class="info-box-title" contenteditable="true">Deutsche Bank AG, Taunusanlage 12, 60325 Frankfurt am Main</div>
-                <div class="info-box-text" contenteditable="true">Gläubiger-Identifikationsnummer: DE1900200000106424</div>
-            </div>
-
-            <div class="section">
-                <div class="subsection-title" contenteditable="true">SEPA-Lastschriftmandat</div>
-                <div class="text-block" contenteditable="true">
-                    Ich ermächtige die Deutsche Bank AG, einmalig eine Zahlung von meinem Konto mittels Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von der Deutsche Bank AG auf mein Konto gezogene Lastschrift einzulösen.
-                </div>
-                <div class="highlight-box" contenteditable="true">
-                    <strong>Hinweis:</strong> Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit dem Kreditinstitut vereinbarten Bedingungen.
+                    <div class="summary-item">
+                        <span class="summary-label">Zinssatz</span>
+                        <span class="summary-value" contenteditable="true">3,50 % p.a.</span>
+                    </div>
                 </div>
             </div>
 
