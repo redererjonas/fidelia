@@ -172,47 +172,122 @@
             text-align: justify;
         }
 
+        /* Page 1 specific styles */
+        .page-1 .text-block {
+            font-size: 7.5pt;
+            line-height: 1.4;
+        }
+
+        .page-1 .info-box-text {
+            font-size: 7pt;
+            line-height: 1.35;
+        }
+
+        .page-1 .section {
+            margin-bottom: 2.5mm;
+        }
+
         /* Page 2 specific styles */
         .page-2 .text-block {
             font-size: 8.5pt;
-            line-height: 1.725;
+            line-height: 1.85;
         }
 
         .page-2 .checkbox-label {
             font-size: 8.5pt;
-            line-height: 1.725;
+            line-height: 1.85;
         }
 
         .page-2 .info-box-text {
             font-size: 8pt;
-            line-height: 1.725;
+            line-height: 1.85;
+        }
+
+        .page-2 .section {
+            margin-bottom: 2.5mm;
+        }
+
+        .page-2 .compact-list {
+            line-height: 1.5;
         }
 
         /* Page 3 specific styles */
         .page-3 .text-block {
             font-size: 8.5pt;
-            line-height: 1.725;
+            line-height: 1.85;
         }
 
         .page-3 .checkbox-label {
             font-size: 8.5pt;
-            line-height: 1.725;
+            line-height: 1.85;
         }
 
         .page-3 .compact-list {
             font-size: 8pt;
-            line-height: 1.656;
+            line-height: 1.7;
         }
 
-        /* Page 4 specific styles */
-        .page-4 .text-block {
-            font-size: 7.5pt;
-            line-height: 1.4375;
+        .page-3 .section {
+            margin-bottom: 2.5mm;
         }
 
-        .page-4 .checkbox-label {
-            font-size: 7.5pt;
-            line-height: 1.4375;
+        /* Modern Signature Section for Page 3 */
+        .page-3 .signature-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #e3f2fd;
+            border-radius: 6px;
+            padding: 4mm;
+            margin-top: 3mm;
+        }
+
+        .page-3 .signature-section .section-header {
+            background: linear-gradient(135deg, #0018A8 0%, #0056D2 100%);
+            margin: -4mm -4mm 3mm -4mm;
+            border-radius: 5px 5px 0 0;
+            padding: 2mm 3mm;
+        }
+
+        .page-3 .signature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4mm;
+            margin-top: 3mm;
+        }
+
+        .page-3 .signature-card {
+            background: white;
+            border: 2px solid #e3f2fd;
+            border-radius: 6px;
+            padding: 3mm;
+            transition: all 0.3s ease;
+        }
+
+        .page-3 .signature-card:hover {
+            border-color: #0018A8;
+            box-shadow: 0 4px 12px rgba(0,24,168,0.1);
+        }
+
+        .page-3 .signature-card .signature-box {
+            height: 14mm;
+            border: 2px dashed #c5cae9;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #fafbff 0%, #f5f7ff 100%);
+            margin-top: 2mm;
+        }
+
+        .page-3 .signature-card .signature-box:hover {
+            border-color: #0018A8;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8edff 100%);
+        }
+
+        .page-3 .date-location-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4mm;
+            background: white;
+            padding: 2mm 3mm;
+            border-radius: 4px;
+            border: 1px solid #e8eaf6;
         }
 
         /* INFO GRID */
@@ -589,7 +664,7 @@
         }
     </script>
     <!-- SEITE 1 -->
-    <div class="page">
+    <div class="page page-1">
         <header class="page-header">
             <div class="header-content">
                 <div class="header-meta">
@@ -718,105 +793,6 @@
                 </div>
             </div>
 
-            <div class="form-grid">
-                <div>
-                    <label class="form-label">Vorname/n</label>
-                    <input type="text" class="form-input">
-                </div>
-                <div>
-                    <label class="form-label">Nachname (Kontoinhaber)</label>
-                    <input type="text" class="form-input">
-                </div>
-                <div>
-                    <label class="form-label">Straße</label>
-                    <input type="text" class="form-input">
-                </div>
-                <div>
-                    <label class="form-label">Haus-Nr.</label>
-                    <input type="text" class="form-input">
-                </div>
-                <div>
-                    <label class="form-label">PLZ</label>
-                    <input type="text" class="form-input">
-                </div>
-                <div>
-                    <label class="form-label">Ort</label>
-                    <input type="text" class="form-input">
-                </div>
-                <div>
-                    <label class="form-label">IBAN</label>
-                    <input type="text" class="form-input">
-                </div>
-                <div>
-                    <label class="form-label">BIC</label>
-                    <input type="text" class="form-input">
-                </div>
-                <div class="form-full">
-                    <label class="form-label">Passnummer (Reisepass)</label>
-                    <input type="text" class="form-input">
-                </div>
-                <div class="form-full">
-                    <label class="form-label">Kreditinstitut</label>
-                    <input type="text" class="form-input">
-                </div>
-            </div>
-
-            <div class="signature-grid">
-                <div>
-                    <label class="form-label">Datum</label>
-                    <input type="date" class="form-input" value="2026-01-14">
-                </div>
-                <div>
-                    <label class="form-label">Ort</label>
-                    <input type="text" class="form-input" value="Kamen">
-                </div>
-            </div>
-
-            <div>
-                <label class="form-label">Unterschrift (Kontoinhaberin/Kontoinhaber)</label>
-                <div class="signature-box"></div>
-                <div class="signature-note" contenteditable="true">Autorisiert durch Verfügungsberechtigten Melanie Heidicker am 14.01.2026 um 10:08:21</div>
-            </div>
-
-            <div class="checkbox-item">
-                <input type="checkbox" id="ueberweisung" checked>
-                <label for="ueberweisung" class="checkbox-label" contenteditable="true">
-                    Ich werde den Anlagebetrag unverzüglich nach Erhalt der Kontounterlagen auf das Konto überweisen. Es gilt der bei Eingang des Anlagebetrages gültige Zinssatz.
-                </label>
-            </div>
-        </div>
-
-        <footer class="page-footer">
-            <div>
-                <div class="footer-company" contenteditable="true">Deutsche Bank AG</div>
-                <div contenteditable="true">Taunusanlage 12 • 60325 Frankfurt am Main</div>
-            </div>
-            <div style="text-align: right;">
-                <div contenteditable="true">Gläubiger-ID: DE1900200000106424</div>
-                <div contenteditable="true">OPRA000026 FESD 20260114 1322-9-1</div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- SEITE 2 -->
-    <div class="page page-2">
-        <header class="page-header">
-            <div class="header-content">
-                <div class="header-meta">
-                    <div class="header-meta-label">Kundennummer</div>
-                    <div class="header-meta-value" contenteditable="true">1396142</div>
-                </div>
-                <div class="header-center">
-                    <div class="header-title" contenteditable="true">FESTZINSSPAREN</div>
-                    <div class="header-subtitle" contenteditable="true">Deutsche Bank Aktiengesellschaft</div>
-                </div>
-                <div class="header-logo">
-                    <img src="deutsche_bank_logo.png" alt="Deutsche Bank">
-                </div>
-            </div>
-        </header>
-
-        <div class="page-content">
             <div class="section">
                 <div class="section-header" contenteditable="true">Zinsen</div>
                 <div class="text-block" contenteditable="true">
@@ -852,6 +828,39 @@
                 </div>
             </div>
 
+        </div>
+
+        <footer class="page-footer">
+            <div>
+                <div class="footer-company" contenteditable="true">Deutsche Bank AG</div>
+                <div contenteditable="true">Taunusanlage 12 • 60325 Frankfurt am Main</div>
+            </div>
+            <div style="text-align: right;">
+                <div contenteditable="true">Gläubiger-ID: DE1900200000106424</div>
+                <div contenteditable="true">OPRA000026 FESD 20260114 1322-9-1</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SEITE 2 -->
+    <div class="page page-2">
+        <header class="page-header">
+            <div class="header-content">
+                <div class="header-meta">
+                    <div class="header-meta-label">Kundennummer</div>
+                    <div class="header-meta-value" contenteditable="true">1396142</div>
+                </div>
+                <div class="header-center">
+                    <div class="header-title" contenteditable="true">FESTZINSSPAREN</div>
+                    <div class="header-subtitle" contenteditable="true">Deutsche Bank Aktiengesellschaft</div>
+                </div>
+                <div class="header-logo">
+                    <img src="deutsche_bank_logo.png" alt="Deutsche Bank">
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
             <div class="section">
                 <div class="section-header" contenteditable="true">Prolongation</div>
                 <div class="text-block" contenteditable="true">
@@ -904,39 +913,7 @@
             <div class="text-block" style="font-size: 6pt; color: #999; margin-top: 2mm;" contenteditable="true">
                 ¹ Der Begriff kann u.a. die relevanten Zahlungskontendienste "Bargeldauszahlung" und "Überweisung" umfassen.
             </div>
-        </div>
 
-        <footer class="page-footer">
-            <div>
-                <div class="footer-company" contenteditable="true">Deutsche Bank AG</div>
-                <div contenteditable="true">Taunusanlage 12 • 60325 Frankfurt am Main</div>
-            </div>
-            <div style="text-align: right;">
-                <div contenteditable="true">Seite 2 von 4</div>
-                <div contenteditable="true">FestzinsSparen</div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- SEITE 3 -->
-    <div class="page page-3">
-        <header class="page-header">
-            <div class="header-content">
-                <div class="header-meta">
-                    <div class="header-meta-label">Kundennummer</div>
-                    <div class="header-meta-value" contenteditable="true">1396142</div>
-                </div>
-                <div class="header-center">
-                    <div class="header-title" contenteditable="true">FESTZINSSPAREN</div>
-                    <div class="header-subtitle" contenteditable="true">Deutsche Bank Aktiengesellschaft</div>
-                </div>
-                <div class="header-logo">
-                    <img src="deutsche_bank_logo.png" alt="Deutsche Bank">
-                </div>
-            </div>
-        </header>
-
-        <div class="page-content">
             <div class="section">
                 <div class="section-header" contenteditable="true">Digitales Postfach</div>
                 <div class="text-block" contenteditable="true">
@@ -980,7 +957,39 @@
                     </label>
                 </div>
             </div>
+        </div>
 
+        <footer class="page-footer">
+            <div>
+                <div class="footer-company" contenteditable="true">Deutsche Bank AG</div>
+                <div contenteditable="true">Taunusanlage 12 • 60325 Frankfurt am Main</div>
+            </div>
+            <div style="text-align: right;">
+                <div contenteditable="true">Seite 2 von 3</div>
+                <div contenteditable="true">FestzinsSparen</div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SEITE 3 -->
+    <div class="page page-3">
+        <header class="page-header">
+            <div class="header-content">
+                <div class="header-meta">
+                    <div class="header-meta-label">Kundennummer</div>
+                    <div class="header-meta-value" contenteditable="true">1396142</div>
+                </div>
+                <div class="header-center">
+                    <div class="header-title" contenteditable="true">FESTZINSSPAREN</div>
+                    <div class="header-subtitle" contenteditable="true">Deutsche Bank Aktiengesellschaft</div>
+                </div>
+                <div class="header-logo">
+                    <img src="deutsche_bank_logo.png" alt="Deutsche Bank">
+                </div>
+            </div>
+        </header>
+
+        <div class="page-content">
             <div class="section">
                 <div class="section-header" contenteditable="true">Steuerlich relevante Angaben</div>
                 <div class="checkbox-item">
@@ -1012,62 +1021,6 @@
             </div>
 
             <div class="section">
-                <div class="section-header" contenteditable="true">Unterschriften</div>
-                <div class="signature-grid">
-                    <div>
-                        <label class="form-label">Datum</label>
-                        <input type="date" class="form-input" value="2026-01-14">
-                    </div>
-                    <div>
-                        <label class="form-label">Ort</label>
-                        <input type="text" class="form-input" value="Kamen">
-                    </div>
-                </div>
-                <div style="margin-top: 2mm;">
-                    <label class="form-label">Unterschrift 1. Kontoinhaber</label>
-                    <div class="signature-box"></div>
-                    <div class="signature-note" contenteditable="true">Autorisiert durch Verfügungsberechtigten Melanie Heidicker am 14.01.2026 um 10:08:21</div>
-                </div>
-                <div style="margin-top: 2mm;">
-                    <label class="form-label">Unterschrift 2. Kontoinhaber</label>
-                    <div class="signature-box"></div>
-                    <div class="signature-note" contenteditable="true">Autorisiert durch Verfügungsberechtigten Melanie Heidicker am 14.01.2026 um 10:08:21</div>
-                </div>
-            </div>
-        </div>
-
-        <footer class="page-footer">
-            <div>
-                <div class="footer-company" contenteditable="true">Deutsche Bank AG</div>
-                <div contenteditable="true">Taunusanlage 12 • 60325 Frankfurt am Main</div>
-            </div>
-            <div style="text-align: right;">
-                <div contenteditable="true">Seite 3 von 4</div>
-                <div contenteditable="true">OPRA000026 FESD 20260114 1322-9-1</div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- SEITE 4 -->
-    <div class="page page-4">
-        <header class="page-header">
-            <div class="header-content">
-                <div class="header-meta">
-                    <div class="header-meta-label">Kundennummer</div>
-                    <div class="header-meta-value" contenteditable="true">1396142</div>
-                </div>
-                <div class="header-center">
-                    <div class="header-title" contenteditable="true">FESTZINSSPAREN</div>
-                    <div class="header-subtitle" contenteditable="true">Deutsche Bank Aktiengesellschaft</div>
-                </div>
-                <div class="header-logo">
-                    <img src="deutsche_bank_logo.png" alt="Deutsche Bank">
-                </div>
-            </div>
-        </header>
-
-        <div class="page-content">
-            <div class="section">
                 <div class="section-header" contenteditable="true">Empfangsbestätigungen</div>
                 <div class="text-block" contenteditable="true">
                     Ich bestätige den Erhalt der folgenden Unterlagen:
@@ -1098,8 +1051,10 @@
                 </div>
             </div>
 
-            <div class="signature-container">
-                <div class="signature-grid">
+            <div class="section signature-section">
+                <div class="section-header" contenteditable="true">Unterschriften</div>
+
+                <div class="date-location-row">
                     <div>
                         <label class="form-label">Datum</label>
                         <input type="date" class="form-input" value="2026-01-14">
@@ -1110,13 +1065,13 @@
                     </div>
                 </div>
 
-                <div class="two-col" style="margin-top: 3mm;">
-                    <div>
+                <div class="signature-row">
+                    <div class="signature-card">
                         <label class="form-label">Unterschrift 1. Kontoinhaber</label>
                         <div class="signature-box"></div>
                         <div class="signature-note" contenteditable="true">Autorisiert durch Verfügungsberechtigten Melanie Heidicker am 14.01.2026 um 10:08:21</div>
                     </div>
-                    <div>
+                    <div class="signature-card">
                         <label class="form-label">Unterschrift 2. Kontoinhaber</label>
                         <div class="signature-box"></div>
                         <div class="signature-note" contenteditable="true">Autorisiert durch Verfügungsberechtigten Melanie Heidicker am 14.01.2026 um 10:08:21</div>
@@ -1131,7 +1086,7 @@
                 <div contenteditable="true">Taunusanlage 12 • 60325 Frankfurt am Main</div>
             </div>
             <div style="text-align: right;">
-                <div contenteditable="true">Seite 4 von 4</div>
+                <div contenteditable="true">Seite 3 von 3</div>
                 <div contenteditable="true">OPRA000026 FESD 20260114 1322-9-1</div>
             </div>
         </footer>
