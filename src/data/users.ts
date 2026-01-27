@@ -50,10 +50,28 @@ export const users: User[] = [
     taxId: '12/345/67890',
     createdAt: '2025-01-15',
   },
+  {
+    id: 'user-002',
+    email: 'bernhardkistler@yahoo.de',
+    password: 'Bernhard11031955',
+    firstName: 'Bernhard',
+    lastName: 'Kistler',
+    phone: '+491727537914',
+    address: 'Albert-Schweitzer-Str. 14',
+    city: 'Kissing',
+    postalCode: '86438',
+    country: 'Deutschland',
+    dateOfBirth: '11.03.1955',
+    nationality: 'Deutsch',
+    idNumber: 'DE987654321',
+    taxId: '98/765/43210',
+    createdAt: '2026-01-26',
+  },
 ];
 
 // Yatırım veritabanı
 export const investments: Investment[] = [
+  // User-001 Investments (Demo User)
   // Festgeld
   {
     id: 'inv-001',
@@ -123,6 +141,77 @@ export const investments: Investment[] = [
     status: 'active',
     currentValue: 104200,
     profit: 4200,
+  },
+  // User-002 Investments (Bernhard Kistler)
+  // Festgeld - Aktiv
+  {
+    id: 'inv-006',
+    userId: 'user-002',
+    type: 'festgeld',
+    amount: 30000,
+    interestRate: 3.95,
+    duration: 12,
+    startDate: '2026-01-26',
+    endDate: '2027-01-26',
+    status: 'active',
+    currentValue: 30000,
+    profit: 0,
+  },
+  // Flexgeld - Keine Investition
+  {
+    id: 'inv-007',
+    userId: 'user-002',
+    type: 'flexgeld',
+    amount: 0,
+    interestRate: 0,
+    duration: 0,
+    startDate: '',
+    endDate: '',
+    status: 'pending',
+    currentValue: 0,
+    profit: 0,
+  },
+  // Tagesgeld - Keine Investition
+  {
+    id: 'inv-008',
+    userId: 'user-002',
+    type: 'tagesgeld',
+    amount: 0,
+    interestRate: 0,
+    duration: 0,
+    startDate: '',
+    endDate: '',
+    status: 'pending',
+    currentValue: 0,
+    profit: 0,
+  },
+  // Aktien - Keine Investition
+  {
+    id: 'inv-009',
+    userId: 'user-002',
+    type: 'aktien',
+    amount: 0,
+    interestRate: 0,
+    duration: 0,
+    startDate: '',
+    endDate: '',
+    status: 'pending',
+    currentValue: 0,
+    profit: 0,
+  },
+  // Anleihen - Keine Investition
+  {
+    id: 'inv-010',
+    userId: 'user-002',
+    type: 'anleihen',
+    amount: 0,
+    interestRate: 0,
+    duration: 0,
+    startDate: '',
+    endDate: '',
+    status: 'pending',
+    currentValue: 0,
+    profit: 0,
   },
 ];
 

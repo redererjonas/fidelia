@@ -8,7 +8,6 @@ import { motion } from 'framer-motion';
 export default function FestgeldPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [showDownloadModal, setShowDownloadModal] = useState(false);
   const [showCallModal, setShowCallModal] = useState(false);
 
   useEffect(() => {
@@ -32,22 +31,11 @@ export default function FestgeldPage() {
   const remainingDays = Math.max(0, totalDays - elapsedDays);
   const progress = Math.min((elapsedDays / totalDays) * 100, 100);
 
-  const currentValue = investment.amount + investment.profit;
-  const dailyInterest = (investment.amount * investment.interestRate / 100) / 365;
-  const monthlyInterest = (investment.amount * investment.interestRate / 100) / 12;
-
-  // Monatliche Zinshistorie
-  const monthlyHistory = [];
-  for (let i = 0; i < 12; i++) {
-    const month = new Date(2025, i, 1);
-    const monthName = month.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
-    const monthlyProfit = monthlyInterest * (i + 1);
-    monthlyHistory.push({
-      month: monthName,
-      interest: monthlyInterest,
-      cumulative: monthlyProfit
-    });
-  }
+  // Berechnete Zinsen basierend auf dem Zinssatz
+  const expectedYearlyInterest = investment.amount * investment.interestRate / 100;
+  const dailyInterest = expectedYearlyInterest / 365;
+  const monthlyInterest = expectedYearlyInterest / 12;
+  const expectedTotalValue = investment.amount + expectedYearlyInterest;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-100">
@@ -109,15 +97,15 @@ export default function FestgeldPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="bg-white/15 backdrop-blur-sm rounded-xl p-5 border border-white/20 shadow-lg">
                 <p className="text-white/80 text-sm mb-2 font-medium">Investierter Betrag</p>
-                <p className="text-2xl font-bold">{investment.amount.toLocaleString('de-DE')} €</p>
+                <p className="text-2xl font-bold">{investment.amount.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
               </div>
               <div className="bg-white/15 backdrop-blur-sm rounded-xl p-5 border border-white/20 shadow-lg">
-                <p className="text-white/80 text-sm mb-2 font-medium">Aktueller Wert</p>
-                <p className="text-2xl font-bold">{currentValue.toLocaleString('de-DE')} €</p>
+                <p className="text-white/80 text-sm mb-2 font-medium">Auszahlung (12M)</p>
+                <p className="text-2xl font-bold">{expectedTotalValue.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
               </div>
               <div className="bg-white/15 backdrop-blur-sm rounded-xl p-5 border border-white/20 shadow-lg">
-                <p className="text-white/80 text-sm mb-2 font-medium">Erzielter Gewinn</p>
-                <p className="text-2xl font-bold text-amber-200">+{investment.profit.toLocaleString('de-DE')} €</p>
+                <p className="text-white/80 text-sm mb-2 font-medium">Erwarteter Gewinn</p>
+                <p className="text-2xl font-bold text-amber-200">+{expectedYearlyInterest.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
               </div>
               <div className="bg-white/15 backdrop-blur-sm rounded-xl p-5 border border-white/20 shadow-lg">
                 <p className="text-white/80 text-sm mb-2 font-medium">Verbleibende Tage</p>
@@ -229,10 +217,10 @@ export default function FestgeldPage() {
                     {monthlyInterest.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
                   </p>
                 </div>
-                <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-xl p-5 border border-green-100">
+                <div className="bg-gradient-to-br from-green-50 to-green-100/50 rounded-xl p-5 border border-green-200">
                   <p className="text-sm text-green-700 mb-2 font-medium">Gesamtzins (12M)</p>
                   <p className="text-xl font-bold text-green-700">
-                    {investment.profit.toLocaleString('de-DE')} €
+                    +{expectedYearlyInterest.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
                   </p>
                 </div>
               </div>
@@ -250,16 +238,16 @@ export default function FestgeldPage() {
                     <div className="bg-white rounded-lg p-4 border border-neutral-200">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-sm text-neutral-600">Kapital:</span>
-                        <span className="font-bold text-neutral-800">{investment.amount.toLocaleString('de-DE')} €</span>
+                        <span className="font-bold text-neutral-800">{investment.amount.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
                       </div>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-neutral-600">Zinsen:</span>
-                        <span className="font-bold text-green-600">+{investment.profit.toLocaleString('de-DE')} €</span>
+                        <span className="text-sm text-neutral-600">Zinsen ({investment.interestRate}% p.a.):</span>
+                        <span className="font-bold text-green-600">+{expectedYearlyInterest.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
                       </div>
                       <div className="border-t border-neutral-200 pt-2 mt-2">
                         <div className="flex items-center justify-between">
                           <span className="text-sm font-bold text-neutral-700">Auszahlung gesamt:</span>
-                          <span className="text-xl font-bold text-primary">{currentValue.toLocaleString('de-DE')} €</span>
+                          <span className="text-xl font-bold text-primary">{expectedTotalValue.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
                         </div>
                       </div>
                     </div>
@@ -268,56 +256,123 @@ export default function FestgeldPage() {
               </div>
             </motion.div>
 
-            {/* Monatliche Zinshistorie */}
+            {/* Auszahlungsübersicht - Ihre Rendite */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-white rounded-2xl shadow-xl border border-neutral-100 p-8"
+              className="bg-gradient-to-br from-primary via-primary-dark to-slate-900 rounded-3xl shadow-2xl p-8 text-white relative overflow-hidden"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center shadow-lg">
-                  <i className="ri-line-chart-line text-2xl text-white"></i>
-                </div>
-                <h2 className="text-2xl font-heading font-bold text-primary">Monatliche Zinsentwicklung</h2>
-              </div>
+              <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/20 rounded-full -mr-40 -mt-40"></div>
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full -ml-32 -mb-32"></div>
 
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b-2 border-neutral-200">
-                      <th className="text-left py-4 px-4 text-sm font-bold text-neutral-700">Monat</th>
-                      <th className="text-right py-4 px-4 text-sm font-bold text-neutral-700">Monatszins</th>
-                      <th className="text-right py-4 px-4 text-sm font-bold text-neutral-700">Kumuliert</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {monthlyHistory.map((item, index) => (
-                      <motion.tr
-                        key={item.month}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4 + index * 0.05 }}
-                        className="border-b border-neutral-100 hover:bg-gradient-to-r hover:from-amber-50 hover:to-primary/5 transition-colors"
-                      >
-                        <td className="py-4 px-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-md">
-                              {index + 1}
-                            </div>
-                            <span className="font-medium text-neutral-700">{item.month}</span>
-                          </div>
-                        </td>
-                        <td className="py-4 px-4 text-right font-bold text-green-600">
-                          +{item.interest.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
-                        </td>
-                        <td className="py-4 px-4 text-right font-bold text-accent-gold600">
-                          {item.cumulative.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
-                        </td>
-                      </motion.tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-xl">
+                    <i className="ri-gift-line text-3xl"></i>
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-heading font-bold">Ihre garantierte Auszahlung</h2>
+                    <p className="text-white/80">Nach 12 Monaten Laufzeit</p>
+                  </div>
+                </div>
+
+                {/* Countdown Kalender */}
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-white/20">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <i className="ri-calendar-check-line text-2xl text-amber-400"></i>
+                      <span className="font-semibold text-lg">Auszahlungstermin</span>
+                    </div>
+                    <div className="bg-amber-500 text-primary px-4 py-2 rounded-xl font-bold text-lg shadow-lg">
+                      {endDate.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' })}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-4 gap-3">
+                    {[...Array(12)].map((_, i) => {
+                      const monthDate = new Date(startDate);
+                      monthDate.setMonth(monthDate.getMonth() + i);
+                      const isPast = monthDate < today;
+                      const isCurrent = monthDate.getMonth() === today.getMonth() && monthDate.getFullYear() === today.getFullYear();
+                      const isLast = i === 11;
+
+                      return (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.4 + i * 0.05 }}
+                          className={`relative p-3 rounded-xl text-center transition-all ${
+                            isLast
+                              ? 'bg-gradient-to-br from-amber-400 to-amber-500 text-primary shadow-lg shadow-amber-500/50 ring-2 ring-amber-300'
+                              : isPast
+                                ? 'bg-green-500/30 border border-green-400/50'
+                                : isCurrent
+                                  ? 'bg-white/30 border-2 border-white animate-pulse'
+                                  : 'bg-white/10 border border-white/20'
+                          }`}
+                        >
+                          {isPast && !isLast && (
+                            <i className="ri-check-line absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full text-white text-xs flex items-center justify-center"></i>
+                          )}
+                          {isLast && (
+                            <i className="ri-gift-2-line absolute -top-2 -right-2 w-6 h-6 bg-primary rounded-full text-amber-400 text-sm flex items-center justify-center shadow-lg"></i>
+                          )}
+                          <p className={`text-xs mb-1 ${isLast ? 'text-primary/70' : 'text-white/70'}`}>
+                            {monthDate.toLocaleDateString('de-DE', { month: 'short' })}
+                          </p>
+                          <p className={`font-bold ${isLast ? 'text-primary' : ''}`}>
+                            {i + 1}
+                          </p>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Auszahlungsbetrag */}
+                <div className="bg-gradient-to-r from-amber-500 to-amber-400 rounded-2xl p-6 text-primary shadow-xl">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                        <i className="ri-bank-line text-2xl text-primary"></i>
+                      </div>
+                      <div>
+                        <p className="text-primary/70 text-sm font-medium">Gesamtauszahlung am {endDate.toLocaleDateString('de-DE')}</p>
+                        <p className="text-3xl font-bold">{(investment.amount + (investment.amount * investment.interestRate / 100)).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-primary/10 rounded-xl p-4">
+                      <p className="text-primary/70 text-xs mb-1">Ihr Kapital</p>
+                      <p className="text-xl font-bold">{investment.amount.toLocaleString('de-DE')} €</p>
+                    </div>
+                    <div className="bg-primary/10 rounded-xl p-4">
+                      <p className="text-primary/70 text-xs mb-1">+ Zinsen ({investment.interestRate}%)</p>
+                      <p className="text-xl font-bold text-green-700">+{(investment.amount * investment.interestRate / 100).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Garantie Badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="mt-6 flex items-center justify-center gap-4"
+                >
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                    <i className="ri-shield-check-line text-green-400"></i>
+                    <span className="text-sm font-medium">100% Kapitalgarantie</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
+                    <i className="ri-lock-line text-amber-400"></i>
+                    <span className="text-sm font-medium">Garantierter Zinssatz</span>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
@@ -350,7 +405,7 @@ export default function FestgeldPage() {
                 </div>
                 <div className="flex items-center justify-between py-3">
                   <span className="text-sm text-neutral-600">Rendite</span>
-                  <span className="font-bold text-green-600">+{((investment.profit / investment.amount) * 100).toFixed(2)}%</span>
+                  <span className="font-bold text-green-600">+{investment.interestRate}%</span>
                 </div>
               </div>
             </motion.div>
@@ -367,13 +422,6 @@ export default function FestgeldPage() {
                 Aktionen
               </h3>
               <div className="space-y-3">
-                <button
-                  onClick={() => setShowDownloadModal(true)}
-                  className="w-full bg-white hover:bg-gradient-to-r hover:from-primary hover:to-primary-dark text-accent-gold700 hover:text-white py-3.5 px-4 rounded-xl font-semibold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap border border-amber-200"
-                >
-                  <i className="ri-download-line text-xl"></i>
-                  Kontoauszug
-                </button>
                 <button
                   onClick={() => setShowCallModal(true)}
                   className="w-full bg-white hover:bg-gradient-to-r hover:from-primary hover:to-primary-dark text-accent-gold700 hover:text-white py-3.5 px-4 rounded-xl font-semibold transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap border border-amber-200"
@@ -423,61 +471,6 @@ export default function FestgeldPage() {
 
       {/* Call Us Modal */}
       <CallUsModal isOpen={showCallModal} onClose={() => setShowCallModal(false)} />
-
-      {/* Download Modal */}
-      {showDownloadModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center shadow-lg">
-                <i className="ri-download-cloud-line text-3xl text-white"></i>
-              </div>
-              <h3 className="text-2xl font-bold text-primary">Kontoauszug herunterladen</h3>
-            </div>
-            
-            <p className="text-neutral-600 mb-6">
-              Ihr Kontoauszug wird als PDF-Datei heruntergeladen und enthält alle Details zu Ihrer Festgeld-Anlage.
-            </p>
-
-            <div className="bg-gradient-to-br from-amber-50 to-primary/5 rounded-xl p-4 mb-6 border border-amber-100">
-              <div className="flex items-center gap-3 mb-3">
-                <i className="ri-file-text-line text-2xl text-accent-gold600"></i>
-                <div>
-                  <p className="font-bold text-accent-gold700">Festgeld_Kontoauszug_2025.pdf</p>
-                  <p className="text-xs text-accent-gold600">Erstellt am {new Date().toLocaleDateString('de-DE')}</p>
-                </div>
-              </div>
-              <div className="text-xs text-accent-gold700 space-y-1">
-                <p>✓ Investitionsdetails</p>
-                <p>✓ Zinsentwicklung</p>
-                <p>✓ Auszahlungsinformationen</p>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowDownloadModal(false)}
-                className="flex-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 py-3.5 rounded-xl font-semibold transition-all cursor-pointer whitespace-nowrap"
-              >
-                Abbrechen
-              </button>
-              <button
-                onClick={() => {
-                  alert('Download wird vorbereitet...');
-                  setShowDownloadModal(false);
-                }}
-                className="flex-1 bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-slate-800 text-white py-3.5 rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl cursor-pointer whitespace-nowrap"
-              >
-                Herunterladen
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      )}
     </div>
   );
 }

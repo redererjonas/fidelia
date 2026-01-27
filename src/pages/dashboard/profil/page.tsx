@@ -8,20 +8,12 @@ import DashboardHeader from '../components/DashboardHeader';
 export default function ProfilPage() {
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  // Alle useState Hooks müssen vor jeder bedingten Rückgabe stehen
   const [isEditing, setIsEditing] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    }
-  }, [user, navigate]);
-
-  if (!user) {
-    return null;
-  }
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -34,8 +26,6 @@ export default function ProfilPage() {
     country: '',
     dateOfBirth: '',
     nationality: '',
-    idNumber: '',
-    taxId: '',
   });
 
   const [passwordData, setPasswordData] = useState({
@@ -53,23 +43,24 @@ export default function ProfilPage() {
       return;
     }
 
-    if (user) {
-      setFormData({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        address: user.address,
-        city: user.city,
-        postalCode: user.postalCode,
-        country: user.country,
-        dateOfBirth: user.dateOfBirth,
-        nationality: user.nationality,
-        idNumber: user.idNumber,
-        taxId: user.taxId,
-      });
-    }
+    setFormData({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phone,
+      address: user.address,
+      city: user.city,
+      postalCode: user.postalCode,
+      country: user.country,
+      dateOfBirth: user.dateOfBirth,
+      nationality: user.nationality,
+    });
   }, [user, navigate]);
+
+  // Bedingte Rückgabe nach allen Hooks
+  if (!user) {
+    return null;
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -330,29 +321,6 @@ export default function ProfilPage() {
                       type="text"
                       name="nationality"
                       value={formData.nationality}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all text-sm bg-neutral-50 hover:bg-white"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-neutral-700 mb-2">Ausweisnummer</label>
-                    <input
-                      type="text"
-                      name="idNumber"
-                      value={formData.idNumber}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all text-sm bg-neutral-50 hover:bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-neutral-700 mb-2">Steuer-ID</label>
-                    <input
-                      type="text"
-                      name="taxId"
-                      value={formData.taxId}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all text-sm bg-neutral-50 hover:bg-white"
                     />

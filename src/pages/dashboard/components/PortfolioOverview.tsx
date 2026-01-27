@@ -9,9 +9,11 @@ interface PortfolioOverviewProps {
 }
 
 export default function PortfolioOverview({ investments }: PortfolioOverviewProps) {
-  const totalInvested = investments.reduce((sum, inv) => sum + inv.amount, 0);
+  // Nur aktive Investitionen mit Betrag > 0 berücksichtigen
+  const activeInvestments = investments.filter(inv => inv.amount > 0);
+  const totalInvested = activeInvestments.reduce((sum, inv) => sum + inv.amount, 0);
 
-  const investmentsByType = investments.reduce((acc, inv) => {
+  const investmentsByType = activeInvestments.reduce((acc, inv) => {
     const existing = acc.find(item => item.type === inv.type);
     if (existing) {
       existing.amount += inv.amount;
@@ -96,8 +98,8 @@ export default function PortfolioOverview({ investments }: PortfolioOverviewProp
         {/* Investment Types Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {investmentsByType.map((item, index) => {
-            const percentage = (item.amount / totalInvested) * 100;
-            const profitPercentage = (item.profit / item.amount) * 100;
+            const percentage = totalInvested > 0 ? (item.amount / totalInvested) * 100 : 0;
+            const profitPercentage = item.amount > 0 ? (item.profit / item.amount) * 100 : 0;
 
             return (
               <MotionLink
@@ -192,7 +194,7 @@ export default function PortfolioOverview({ investments }: PortfolioOverviewProp
               </div>
               <div className="bg-white rounded-xl px-4 py-3 shadow-sm border border-neutral-200">
                 <p className="text-xs text-neutral-600 mb-1 font-medium">Positionen</p>
-                <p className="text-lg font-bold text-primary">{investments.length}</p>
+                <p className="text-lg font-bold text-primary">{activeInvestments.length}</p>
               </div>
               <div className="bg-white rounded-xl px-4 py-3 shadow-sm border border-neutral-200">
                 <p className="text-xs text-neutral-600 mb-1 font-medium">Diversifikation</p>

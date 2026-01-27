@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import DashboardHeader from './components/DashboardHeader';
 import PortfolioOverview from './components/PortfolioOverview';
 import PerformanceChart from './components/PerformanceChart';
-import InvestmentCards from './components/InvestmentCards';
 import CallUsModal from './components/CallUsModal';
 import { motion } from 'framer-motion';
 
@@ -25,10 +24,23 @@ export default function DashboardPage() {
 
   // Sicherheitsüberprüfung für investments
   const investments = user.investments || [];
-  const totalValue = investments.reduce((sum, inv) => sum + inv.amount + inv.profit, 0);
-  const totalInvested = investments.reduce((sum, inv) => sum + inv.amount, 0);
-  const totalProfit = investments.reduce((sum, inv) => sum + inv.profit, 0);
-  const averageReturn = totalInvested > 0 ? (totalProfit / totalInvested) * 100 : 0;
+  // Nur aktive Investitionen mit Betrag > 0 für Berechnungen
+  const activeInvestments = investments.filter(inv => inv.amount > 0);
+  const totalInvested = activeInvestments.reduce((sum, inv) => sum + inv.amount, 0);
+
+  // Erwarteter Jahresgewinn basierend auf Zinssatz berechnen
+  const expectedYearlyProfit = activeInvestments.reduce((sum, inv) => {
+    return sum + (inv.amount * inv.interestRate / 100);
+  }, 0);
+
+  // Gesamtwert = Investiert + erwarteter Gewinn
+  const totalValue = totalInvested + expectedYearlyProfit;
+  const totalProfit = expectedYearlyProfit;
+
+  // Durchschnittliche Rendite (gewichtet nach Betrag)
+  const averageReturn = totalInvested > 0
+    ? activeInvestments.reduce((sum, inv) => sum + (inv.interestRate * inv.amount / totalInvested), 0)
+    : 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-100">
@@ -101,13 +113,13 @@ export default function DashboardPage() {
                 Gesamt
               </div>
             </div>
-            <p className="text-neutral-600 text-sm font-medium mb-2">Gesamtwert</p>
+            <p className="text-neutral-600 text-sm font-medium mb-2">Erwarteter Gesamtwert</p>
             <p className="text-3xl font-bold text-primary mb-1">
-              {totalValue.toLocaleString('de-DE')} €
+              {totalValue.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
             </p>
             <div className="flex items-center gap-1 text-green-600 text-sm font-semibold">
               <i className="ri-arrow-up-line"></i>
-              <span>+{averageReturn.toFixed(2)}%</span>
+              <span>+{averageReturn.toFixed(2)}% p.a.</span>
             </div>
           </motion.div>
 
@@ -131,7 +143,7 @@ export default function DashboardPage() {
             </p>
             <div className="flex items-center gap-1 text-neutral-500 text-sm font-semibold">
               <i className="ri-funds-line"></i>
-              <span>{investments.length} Positionen</span>
+              <span>{activeInvestments.length} Position{activeInvestments.length !== 1 ? 'en' : ''}</span>
             </div>
           </motion.div>
 
@@ -149,13 +161,13 @@ export default function DashboardPage() {
                 Gewinn
               </div>
             </div>
-            <p className="text-neutral-600 text-sm font-medium mb-2">Gesamtgewinn</p>
+            <p className="text-neutral-600 text-sm font-medium mb-2">Erwarteter Gewinn</p>
             <p className="text-3xl font-bold text-green-600 mb-1">
-              +{totalProfit.toLocaleString('de-DE')} €
+              +{totalProfit.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
             </p>
             <div className="flex items-center gap-1 text-green-600 text-sm font-semibold">
-              <i className="ri-trophy-line"></i>
-              <span>Ausgezeichnet</span>
+              <i className="ri-calendar-check-line"></i>
+              <span>Nach 12 Monaten</span>
             </div>
           </motion.div>
 
@@ -173,13 +185,13 @@ export default function DashboardPage() {
                 Rendite
               </div>
             </div>
-            <p className="text-neutral-600 text-sm font-medium mb-2">Durchschn. Rendite</p>
+            <p className="text-neutral-600 text-sm font-medium mb-2">Durchschn. Zinssatz</p>
             <p className="text-3xl font-bold text-primary mb-1">
-              {averageReturn.toFixed(2)}%
+              {averageReturn.toFixed(2)}% p.a.
             </p>
             <div className="flex items-center gap-1 text-green-600 text-sm font-semibold">
-              <i className="ri-arrow-up-circle-line"></i>
-              <span>Über Ziel</span>
+              <i className="ri-shield-check-line"></i>
+              <span>Garantiert</span>
             </div>
           </motion.div>
         </div>
@@ -191,34 +203,7 @@ export default function DashboardPage() {
           transition={{ delay: 0.5 }}
           className="mb-8"
         >
-          <PerformanceChart />
-        </motion.div>
-
-        {/* Investment Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="mb-8"
-        >
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-2xl font-heading font-bold text-primary mb-1">
-                Ihre Investitionen
-              </h2>
-              <p className="text-neutral-600">
-                Detaillierte Übersicht aller aktiven Anlagen
-              </p>
-            </div>
-            <button
-              onClick={() => setShowCallModal(true)}
-              className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-accent-gold to-accent-gold-light text-primary px-5 py-3 rounded-xl font-semibold hover:from-accent-gold-dark hover:to-accent-gold transition-all shadow-lg shadow-amber-500/30 hover:shadow-xl hover:-translate-y-0.5 cursor-pointer whitespace-nowrap"
-            >
-              <i className="ri-add-line text-xl"></i>
-              Neue Investition
-            </button>
-          </div>
-          <InvestmentCards investments={investments} />
+          <PerformanceChart investments={investments} />
         </motion.div>
 
         {/* Portfolio Overview */}

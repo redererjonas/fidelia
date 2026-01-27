@@ -21,15 +21,112 @@ export default function AktienDetailPage() {
 
   const investment = user.investments?.find(inv => inv.type === 'aktien');
 
-  if (!investment) {
+  // Keine Investition oder Betrag ist 0 - Zeige "Kontaktieren Sie uns" Nachricht
+  if (!investment || investment.amount === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-100">
         <DashboardHeader />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center py-12">
-            <p className="text-neutral-600">Keine Aktien-Investition gefunden</p>
-          </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center"
+          >
+            {/* Hero Icon */}
+            <div className="mb-8">
+              <div className="w-32 h-32 mx-auto bg-gradient-to-br from-primary via-primary-dark to-slate-900 rounded-3xl flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                <i className="ri-stock-line text-6xl text-white"></i>
+              </div>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-6">
+              Aktien-Portfolio
+            </h1>
+            <p className="text-xl text-neutral-600 mb-8 max-w-2xl mx-auto">
+              Sie haben derzeit kein aktives Aktien-Portfolio.
+            </p>
+
+            {/* Benefits Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-white rounded-3xl shadow-2xl border border-neutral-100 p-8 md:p-12 mb-8"
+            >
+              <div className="flex items-center justify-center gap-3 mb-8">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center shadow-lg">
+                  <i className="ri-line-chart-line text-2xl text-white"></i>
+                </div>
+                <h2 className="text-2xl font-heading font-bold text-primary">Warum Aktien?</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-6 border border-primary/20">
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center shadow-md mb-4 mx-auto">
+                    <i className="ri-funds-line text-2xl text-white"></i>
+                  </div>
+                  <h3 className="font-bold text-primary mb-2 text-lg">Hohe Renditechancen</h3>
+                  <p className="text-sm text-neutral-700">Langfristig überdurchschnittliche Ertragsmöglichkeiten</p>
+                </div>
+                <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-2xl p-6 border border-amber-100">
+                  <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-md mb-4 mx-auto">
+                    <i className="ri-pie-chart-line text-2xl text-white"></i>
+                  </div>
+                  <h3 className="font-bold text-accent-gold700 mb-2 text-lg">Diversifikation</h3>
+                  <p className="text-sm text-accent-gold700">Risikostreuung über verschiedene Branchen</p>
+                </div>
+                <div className="bg-gradient-to-br from-green-50 to-green-100/50 rounded-2xl p-6 border border-green-100">
+                  <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-md mb-4 mx-auto">
+                    <i className="ri-money-euro-circle-line text-2xl text-white"></i>
+                  </div>
+                  <h3 className="font-bold text-green-700 mb-2 text-lg">Dividenden</h3>
+                  <p className="text-sm text-green-700">Regelmäßige Gewinnausschüttungen</p>
+                </div>
+              </div>
+
+              {/* CTA Section */}
+              <div className="bg-gradient-to-br from-primary via-primary-dark to-slate-900 rounded-2xl p-8 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-amber-500/20 rounded-full -ml-24 -mb-24"></div>
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-heading font-bold mb-4">
+                    Interessiert an Aktien?
+                  </h3>
+                  <p className="text-white/90 mb-6 text-lg">
+                    Kontaktieren Sie uns für eine individuelle Beratung. Unser Expertenteam erstellt für Sie ein maßgeschneidertes Aktienportfolio.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a
+                      href="tel:+4940334668098"
+                      className="inline-flex items-center justify-center gap-3 bg-white text-primary px-8 py-4 rounded-xl font-bold text-lg hover:bg-amber-50 transition-all shadow-lg hover:shadow-xl"
+                    >
+                      <i className="ri-phone-line text-2xl"></i>
+                      +49 40 334668098
+                    </a>
+                    <button
+                      onClick={() => setShowCallModal(true)}
+                      className="inline-flex items-center justify-center gap-3 bg-amber-500 hover:bg-amber-400 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl cursor-pointer"
+                    >
+                      <i className="ri-customer-service-2-line text-2xl"></i>
+                      Rückruf anfordern
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Back Button */}
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="inline-flex items-center gap-2 text-neutral-600 hover:text-primary transition-colors cursor-pointer"
+            >
+              <i className="ri-arrow-left-line"></i>
+              Zurück zum Dashboard
+            </button>
+          </motion.div>
         </div>
+        <CallUsModal isOpen={showCallModal} onClose={() => setShowCallModal(false)} />
       </div>
     );
   }

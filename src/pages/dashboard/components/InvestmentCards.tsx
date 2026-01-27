@@ -74,16 +74,22 @@ export default function InvestmentCards({ investments }: InvestmentCardsProps) {
     return Math.max(Math.ceil(diff / (1000 * 60 * 60 * 24)), 0);
   };
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {investments.map((investment, index) => {
-        const progress = calculateProgress(investment);
-        const daysRemaining = calculateDaysRemaining(investment.endDate);
-        const currentValue = investment.amount + investment.profit;
-        const profitPercentage = (investment.profit / investment.amount) * 100;
+  // Nur Investitionen mit Betrag > 0 anzeigen
+  const activeInvestments = investments.filter(inv => inv.amount > 0);
+  const inactiveInvestments = investments.filter(inv => inv.amount === 0);
 
-        return (
-          <motion.div
+  return (
+    <div className="space-y-8">
+      {/* Aktive Investitionen */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {activeInvestments.map((investment, index) => {
+          const progress = calculateProgress(investment);
+          const daysRemaining = calculateDaysRemaining(investment.endDate);
+          const currentValue = investment.amount + investment.profit;
+          const profitPercentage = investment.amount > 0 ? (investment.profit / investment.amount) * 100 : 0;
+
+          return (
+            <motion.div
             key={investment.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -224,6 +230,53 @@ export default function InvestmentCards({ investments }: InvestmentCardsProps) {
           </motion.div>
         );
       })}
+      </div>
+
+      {/* Inaktive Investitionen - Werbung für weitere Produkte */}
+      {inactiveInvestments.length > 0 && (
+        <div>
+          <h3 className="text-lg font-heading font-bold text-neutral-500 mb-4 flex items-center gap-2">
+            <i className="ri-add-circle-line text-accent-gold"></i>
+            Weitere Anlageprodukte entdecken
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {inactiveInvestments.map((investment, index) => (
+              <motion.div
+                key={investment.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -4, scale: 1.02 }}
+                className="group"
+              >
+                <Link
+                  to={`/dashboard/${investment.type}`}
+                  className="block bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-200 hover:border-accent-gold/50 p-6"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className={`w-14 h-14 bg-gradient-to-br ${getGradient(investment.type)} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg`}>
+                      <i className={`${getIcon(investment.type)} text-2xl text-white`}></i>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-primary text-lg">
+                        {getTypeName(investment.type)}
+                      </h4>
+                      <p className="text-sm text-neutral-500">Noch nicht aktiviert</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-neutral-600 mb-4">
+                    Erfahren Sie mehr über unsere {getTypeName(investment.type)}-Angebote und profitieren Sie von attraktiven Konditionen.
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-accent-gold font-semibold text-sm">Mehr erfahren</span>
+                    <i className="ri-arrow-right-line text-accent-gold group-hover:translate-x-2 transition-transform"></i>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

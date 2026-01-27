@@ -22,16 +22,112 @@ export default function TagesgeldDetailPage() {
   }
 
   const investment = user.investments?.find(inv => inv.type === 'tagesgeld');
-  
-  if (!investment) {
+
+  // Keine Investition oder Betrag ist 0 - Zeige "Kontaktieren Sie uns" Nachricht
+  if (!investment || investment.amount === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-amber-100/50/30">
+      <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-100">
         <DashboardHeader />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center py-12">
-            <p className="text-neutral-600">Keine Tagesgeld-Investition gefunden</p>
-          </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center"
+          >
+            {/* Hero Icon */}
+            <div className="mb-8">
+              <div className="w-32 h-32 mx-auto bg-gradient-to-br from-amber-500 via-green-500 to-lime-600 rounded-3xl flex items-center justify-center shadow-2xl transform -rotate-3 hover:rotate-0 transition-transform duration-500">
+                <i className="ri-calendar-line text-6xl text-white"></i>
+              </div>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-6">
+              Tagesgeld-Anlage
+            </h1>
+            <p className="text-xl text-neutral-600 mb-8 max-w-2xl mx-auto">
+              Sie haben derzeit keine aktive Tagesgeld-Investition.
+            </p>
+
+            {/* Benefits Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-white rounded-3xl shadow-2xl border border-neutral-100 p-8 md:p-12 mb-8"
+            >
+              <div className="flex items-center justify-center gap-3 mb-8">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <i className="ri-star-line text-2xl text-white"></i>
+                </div>
+                <h2 className="text-2xl font-heading font-bold text-primary">Warum Tagesgeld?</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div className="bg-gradient-to-br from-green-50 to-green-100/50 rounded-2xl p-6 border border-green-100">
+                  <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-md mb-4 mx-auto">
+                    <i className="ri-flashlight-line text-2xl text-white"></i>
+                  </div>
+                  <h3 className="font-bold text-green-700 mb-2 text-lg">Sofortige Verfügbarkeit</h3>
+                  <p className="text-sm text-green-700">Ihr Geld ist jederzeit und sofort abrufbar</p>
+                </div>
+                <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-2xl p-6 border border-amber-100">
+                  <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-md mb-4 mx-auto">
+                    <i className="ri-percent-line text-2xl text-white"></i>
+                  </div>
+                  <h3 className="font-bold text-primary mb-2 text-lg">Variable Zinsen</h3>
+                  <p className="text-sm text-primary">Profitieren Sie von aktuellen Marktentwicklungen</p>
+                </div>
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-2xl p-6 border border-blue-100">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md mb-4 mx-auto">
+                    <i className="ri-wallet-3-line text-2xl text-white"></i>
+                  </div>
+                  <h3 className="font-bold text-blue-700 mb-2 text-lg">Keine Mindestanlage</h3>
+                  <p className="text-sm text-blue-700">Starten Sie bereits mit kleinen Beträgen</p>
+                </div>
+              </div>
+
+              {/* CTA Section */}
+              <div className="bg-gradient-to-br from-green-600 via-green-700 to-green-800 rounded-2xl p-8 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-heading font-bold mb-4">
+                    Interessiert an Tagesgeld?
+                  </h3>
+                  <p className="text-white/90 mb-6 text-lg">
+                    Kontaktieren Sie uns für eine persönliche Beratung. Wir helfen Ihnen gerne, Ihre Liquiditätsreserve optimal anzulegen.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a
+                      href="tel:+4940334668098"
+                      className="inline-flex items-center justify-center gap-3 bg-white text-green-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-green-50 transition-all shadow-lg hover:shadow-xl"
+                    >
+                      <i className="ri-phone-line text-2xl"></i>
+                      +49 40 334668098
+                    </a>
+                    <button
+                      onClick={() => setShowCallModal(true)}
+                      className="inline-flex items-center justify-center gap-3 bg-amber-500 hover:bg-amber-400 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-lg hover:shadow-xl cursor-pointer"
+                    >
+                      <i className="ri-customer-service-2-line text-2xl"></i>
+                      Rückruf anfordern
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Back Button */}
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="inline-flex items-center gap-2 text-neutral-600 hover:text-primary transition-colors cursor-pointer"
+            >
+              <i className="ri-arrow-left-line"></i>
+              Zurück zum Dashboard
+            </button>
+          </motion.div>
         </div>
+        <CallUsModal isOpen={showCallModal} onClose={() => setShowCallModal(false)} />
       </div>
     );
   }

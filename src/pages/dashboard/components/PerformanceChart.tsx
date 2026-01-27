@@ -1,35 +1,115 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Investment } from '../../../data/users';
 
-export default function PerformanceChart() {
+interface PerformanceChartProps {
+  investments: Investment[];
+}
+
+export default function PerformanceChart({ investments }: PerformanceChartProps) {
   const [timeRange, setTimeRange] = useState('1Y');
 
-  const monthlyData = [
-    { month: 'Jan 2025', value: 500000, profit: 0 },
-    { month: 'Feb 2025', value: 502083, profit: 2083 },
-    { month: 'Mär 2025', value: 504167, profit: 4167 },
-    { month: 'Apr 2025', value: 506250, profit: 6250 },
-    { month: 'Mai 2025', value: 508333, profit: 8333 },
-    { month: 'Jun 2025', value: 510417, profit: 10417 },
-    { month: 'Jul 2025', value: 512500, profit: 12500 },
-    { month: 'Aug 2025', value: 514583, profit: 14583 },
-    { month: 'Sep 2025', value: 516667, profit: 16667 },
-    { month: 'Okt 2025', value: 518750, profit: 18750 },
-    { month: 'Nov 2025', value: 520833, profit: 20833 },
-    { month: 'Dez 2025', value: 522917, profit: 22917 },
+  // Nur aktive Investitionen mit Betrag > 0 berücksichtigen
+  const activeInvestments = investments.filter(inv => inv.amount > 0);
+
+  // Gesamtinvestition berechnen
+  const totalInvested = activeInvestments.reduce((sum, inv) => sum + inv.amount, 0);
+
+  // Wenn keine aktiven Investitionen, zeige eine leere Ansicht
+  if (activeInvestments.length === 0 || totalInvested === 0) {
+    return (
+      <div className="bg-white rounded-3xl shadow-xl border border-neutral-100 overflow-hidden">
+        <div className="bg-gradient-to-br from-primary via-primary-dark to-slate-900 p-8 text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-lg">
+                <i className="ri-bar-chart-box-line text-2xl"></i>
+              </div>
+              <h2 className="text-2xl font-heading font-bold">Performance-Entwicklung</h2>
+            </div>
+          </div>
+        </div>
+        <div className="p-12 text-center">
+          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-neutral-100 to-neutral-200 rounded-2xl flex items-center justify-center">
+            <i className="ri-line-chart-line text-4xl text-neutral-400"></i>
+          </div>
+          <h3 className="text-xl font-bold text-neutral-700 mb-2">Noch keine Performance-Daten</h3>
+          <p className="text-neutral-500">
+            Ihre Performance-Entwicklung wird hier angezeigt, sobald Ihre Investitionen Erträge generieren.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Durchschnittliche Zinssatz berechnen (gewichtet nach Betrag)
+  const weightedInterestRate = activeInvestments.reduce((sum, inv) => {
+    return sum + (inv.interestRate * inv.amount / totalInvested);
+  }, 0);
+
+  // Monatliche Daten basierend auf den tatsächlichen Investitionen generieren
+  const generateMonthlyData = () => {
+    const data = [];
+    const monthlyRate = weightedInterestRate / 100 / 12;
+
+    // Startdatum ermitteln (früheste Investition)
+    const startDates = activeInvestments
+      .filter(inv => inv.startDate)
+      .map(inv => new Date(inv.startDate));
+
+    const earliestDate = startDates.length > 0
+      ? new Date(Math.min(...startDates.map(d => d.getTime())))
+      : new Date();
+
+    const startYear = earliestDate.getFullYear();
+    const startMonth = earliestDate.getMonth();
+
+    for (let i = 0; i < 12; i++) {
+      const monthDate = new Date(startYear, startMonth + i, 1);
+      const monthName = monthDate.toLocaleDateString('de-DE', { month: 'short', year: 'numeric' });
+
+      // Kumulierter Gewinn bis zu diesem Monat
+      const cumulativeProfit = totalInvested * monthlyRate * i;
+      const value = totalInvested + cumulativeProfit;
+
+      data.push({
+        month: monthName,
+        value: Math.round(value * 100) / 100,
+        profit: Math.round(cumulativeProfit * 100) / 100
+      });
+    }
+
+    return data;
+  };
+
+  const allMonthlyData = generateMonthlyData();
+
+  const timeRanges = [
+    { label: '1M', value: '1M', months: 1 },
+    { label: '3M', value: '3M', months: 3 },
+    { label: '6M', value: '6M', months: 6 },
+    { label: '1J', value: '1Y', months: 12 },
+    { label: 'Alle', value: 'ALL', months: 12 },
   ];
+
+  // Filter data based on selected time range
+  const getFilteredData = () => {
+    const selectedRange = timeRanges.find(r => r.value === timeRange);
+    const monthsToShow = selectedRange?.months || 12;
+
+    // Take the last N months of data
+    return allMonthlyData.slice(-monthsToShow);
+  };
+
+  const monthlyData = getFilteredData();
 
   const maxValue = Math.max(...monthlyData.map(d => d.value));
   const minValue = Math.min(...monthlyData.map(d => d.value));
-  const range = maxValue - minValue;
+  const range = maxValue - minValue || 1; // Prevent division by zero
 
-  const timeRanges = [
-    { label: '1M', value: '1M' },
-    { label: '3M', value: '3M' },
-    { label: '6M', value: '6M' },
-    { label: '1J', value: '1Y' },
-    { label: 'Alle', value: 'ALL' },
-  ];
+  // Erwarteter Jahresgewinn
+  const expectedYearlyProfit = totalInvested * (weightedInterestRate / 100);
 
   return (
     <div className="bg-white rounded-3xl shadow-xl border border-neutral-100 overflow-hidden">
@@ -37,7 +117,7 @@ export default function PerformanceChart() {
       <div className="bg-gradient-to-br from-primary via-primary-dark to-slate-900 p-8 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full -ml-24 -mb-24"></div>
-        
+
         <div className="relative z-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
@@ -78,24 +158,24 @@ export default function PerformanceChart() {
           <div className="bg-gradient-to-br from-amber-50 to-primary/5 rounded-xl p-5 border border-amber-100">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center shadow-md">
-                <i className="ri-arrow-up-line text-xl text-white"></i>
+                <i className="ri-wallet-3-line text-xl text-white"></i>
               </div>
-              <p className="text-sm text-primary font-medium">Höchstwert</p>
+              <p className="text-sm text-primary font-medium">Investiert</p>
             </div>
             <p className="text-2xl font-bold text-primary">
-              {maxValue.toLocaleString('de-DE')} €
+              {totalInvested.toLocaleString('de-DE')} €
             </p>
           </div>
 
           <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-xl p-5 border border-amber-100">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center shadow-md">
-                <i className="ri-line-chart-line text-xl text-white"></i>
+                <i className="ri-percent-line text-xl text-white"></i>
               </div>
-              <p className="text-sm text-amber-700 font-medium">Durchschnitt</p>
+              <p className="text-sm text-amber-700 font-medium">Zinssatz</p>
             </div>
             <p className="text-2xl font-bold text-amber-700">
-              {((monthlyData.reduce((sum, d) => sum + d.value, 0)) / monthlyData.length).toLocaleString('de-DE', { maximumFractionDigits: 0 })} €
+              {weightedInterestRate.toFixed(2)}% p.a.
             </p>
           </div>
 
@@ -104,10 +184,10 @@ export default function PerformanceChart() {
               <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow-md">
                 <i className="ri-trophy-line text-xl text-white"></i>
               </div>
-              <p className="text-sm text-green-700 font-medium">Wachstum</p>
+              <p className="text-sm text-green-700 font-medium">Erw. Jahresertrag</p>
             </div>
             <p className="text-2xl font-bold text-green-700">
-              +{((maxValue - minValue) / minValue * 100).toFixed(2)}%
+              +{expectedYearlyProfit.toLocaleString('de-DE', { maximumFractionDigits: 2 })} €
             </p>
           </div>
         </div>
@@ -116,9 +196,9 @@ export default function PerformanceChart() {
         <div className="relative h-80">
           <div className="absolute inset-0 flex items-end justify-between gap-2">
             {monthlyData.map((data, index) => {
-              const height = ((data.value - minValue) / range) * 100;
+              const height = range > 0 ? ((data.value - minValue) / range) * 80 + 20 : 50;
               const isLast = index === monthlyData.length - 1;
-              
+
               return (
                 <motion.div
                   key={data.month}
@@ -144,7 +224,7 @@ export default function PerformanceChart() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Month Label */}
                   <p className="text-xs text-neutral-600 font-medium text-center mt-3 transform -rotate-45 origin-top-left">
                     {data.month.split(' ')[0]}
