@@ -35,7 +35,8 @@ export default function FestgeldPage() {
   const expectedYearlyInterest = investment.amount * investment.interestRate / 100;
   const dailyInterest = expectedYearlyInterest / 365;
   const monthlyInterest = expectedYearlyInterest / 12;
-  const expectedTotalValue = investment.amount + expectedYearlyInterest;
+  const bonus = investment.bonus || 0;
+  const expectedTotalValue = investment.amount + expectedYearlyInterest + bonus;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-100">
@@ -84,11 +85,15 @@ export default function FestgeldPage() {
                   <p className="text-xs text-white/80 mb-1">Zinssatz</p>
                   <p className="text-2xl font-bold">{investment.interestRate}% p.a.</p>
                 </div>
-                <div className="bg-amber-500/30 backdrop-blur-sm px-4 py-2 rounded-xl shadow-lg">
+                <div className={`backdrop-blur-sm px-4 py-2 rounded-xl shadow-lg ${
+                  investment.status === 'pending' ? 'bg-orange-500/30' : 'bg-amber-500/30'
+                }`}>
                   <p className="text-xs text-white/80 mb-1">Status</p>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                    <p className="text-sm font-bold">Aktiv</p>
+                    <p className="text-sm font-bold">
+                      {investment.status === 'pending' ? 'Ausstehend' : 'Aktiv'}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -105,7 +110,7 @@ export default function FestgeldPage() {
               </div>
               <div className="bg-white/15 backdrop-blur-sm rounded-xl p-5 border border-white/20 shadow-lg">
                 <p className="text-white/80 text-sm mb-2 font-medium">Erwarteter Gewinn</p>
-                <p className="text-2xl font-bold text-amber-200">+{expectedYearlyInterest.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
+                <p className="text-2xl font-bold text-amber-200">+{(expectedYearlyInterest + bonus).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
               </div>
               <div className="bg-white/15 backdrop-blur-sm rounded-xl p-5 border border-white/20 shadow-lg">
                 <p className="text-white/80 text-sm mb-2 font-medium">Verbleibende Tage</p>
@@ -244,6 +249,12 @@ export default function FestgeldPage() {
                         <span className="text-sm text-neutral-600">Zinsen ({investment.interestRate}% p.a.):</span>
                         <span className="font-bold text-green-600">+{expectedYearlyInterest.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
                       </div>
+                      {bonus > 0 && (
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm text-neutral-600">Bonus:</span>
+                          <span className="font-bold text-amber-600">+{bonus.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
+                        </div>
+                      )}
                       <div className="border-t border-neutral-200 pt-2 mt-2">
                         <div className="flex items-center justify-between">
                           <span className="text-sm font-bold text-neutral-700">Auszahlung gesamt:</span>
@@ -340,12 +351,12 @@ export default function FestgeldPage() {
                       </div>
                       <div>
                         <p className="text-primary/70 text-sm font-medium">Gesamtauszahlung am {endDate.toLocaleDateString('de-DE')}</p>
-                        <p className="text-3xl font-bold">{(investment.amount + (investment.amount * investment.interestRate / 100)).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
+                        <p className="text-3xl font-bold">{(investment.amount + (investment.amount * investment.interestRate / 100) + bonus).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className={`grid ${bonus > 0 ? 'grid-cols-3' : 'grid-cols-2'} gap-4`}>
                     <div className="bg-primary/10 rounded-xl p-4">
                       <p className="text-primary/70 text-xs mb-1">Ihr Kapital</p>
                       <p className="text-xl font-bold">{investment.amount.toLocaleString('de-DE')} €</p>
@@ -354,6 +365,12 @@ export default function FestgeldPage() {
                       <p className="text-primary/70 text-xs mb-1">+ Zinsen ({investment.interestRate}%)</p>
                       <p className="text-xl font-bold text-green-700">+{(investment.amount * investment.interestRate / 100).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
                     </div>
+                    {bonus > 0 && (
+                      <div className="bg-primary/10 rounded-xl p-4">
+                        <p className="text-primary/70 text-xs mb-1">+ Bonus</p>
+                        <p className="text-xl font-bold text-amber-600">+{bonus.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</p>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -438,6 +455,45 @@ export default function FestgeldPage() {
                 </button>
               </div>
             </motion.div>
+
+            {/* Kontoinhaberinformationen */}
+            {user.spouse && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.35 }}
+                className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl border border-blue-200 p-6"
+              >
+                <h3 className="text-lg font-bold text-blue-800 mb-4 flex items-center gap-2">
+                  <i className="ri-group-line"></i>
+                  Gemeinschaftskonto
+                </h3>
+                <div className="space-y-3">
+                  <div className="bg-white/60 rounded-xl p-4 border border-blue-200">
+                    <p className="text-xs text-blue-700 mb-2 font-medium">Kontoinhaber</p>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <i className="ri-user-line text-blue-600"></i>
+                        <span className="text-sm font-semibold text-blue-900">
+                          {user.firstName} {user.lastName}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <i className="ri-user-heart-line text-blue-600"></i>
+                        <span className="text-sm font-semibold text-blue-900">
+                          {user.spouse.firstName} {user.spouse.lastName}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-blue-100/50 rounded-lg p-3">
+                    <p className="text-xs text-blue-800">
+                      Diese Festgeldanlage wird gemeinsam geführt. Beide Kontoinhaber haben die gleichen Rechte bezüglich dieser Investition.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
             {/* Wichtige Hinweise */}
             <motion.div

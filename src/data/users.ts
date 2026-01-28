@@ -1,4 +1,10 @@
 // Kullanıcı veritabanı - Demo amaçlı
+export interface Spouse {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+}
+
 export interface User {
   id: string;
   email: string;
@@ -15,6 +21,7 @@ export interface User {
   idNumber: string;
   taxId: string;
   createdAt: string;
+  spouse?: Spouse; // Opsiyonel eş bilgisi
 }
 
 export interface Investment {
@@ -29,6 +36,7 @@ export interface Investment {
   status: 'active' | 'completed' | 'pending';
   currentValue: number;
   profit: number;
+  bonus?: number; // Opsiyonel bonus (z.B. 360 EUR für Nicolas)
 }
 
 // Kullanıcı veritabanı
@@ -66,6 +74,28 @@ export const users: User[] = [
     idNumber: 'DE987654321',
     taxId: '98/765/43210',
     createdAt: '2026-01-26',
+  },
+  {
+    id: 'user-003',
+    email: 'chmadarlis@hotmail.com',
+    password: 'Nicolas40591Madarlis',
+    firstName: 'Nicolas',
+    lastName: 'Madarlis',
+    phone: '01728812251',
+    address: 'Werstener Friedhof Str. 90',
+    city: 'Düsseldorf',
+    postalCode: '40591',
+    country: 'Deutschland',
+    dateOfBirth: '26.01.1948',
+    nationality: 'Deutsch',
+    idNumber: 'DE456789123',
+    taxId: '45/678/91230',
+    createdAt: '2026-01-28',
+    spouse: {
+      firstName: 'Evagelia',
+      lastName: 'Madarlis',
+      dateOfBirth: '30.04.1949',
+    },
   },
 ];
 
@@ -203,6 +233,79 @@ export const investments: Investment[] = [
   {
     id: 'inv-010',
     userId: 'user-002',
+    type: 'anleihen',
+    amount: 0,
+    interestRate: 0,
+    duration: 0,
+    startDate: '',
+    endDate: '',
+    status: 'pending',
+    currentValue: 0,
+    profit: 0,
+  },
+  // User-003 Investments (Nicolas & Evagelia Madarlis)
+  // Festgeld - Ausstehend/Pending (300.000 EUR, 3.95%, 12 Monate, 720 EUR Bonus)
+  // Wartet auf Kapitaleinlage
+  {
+    id: 'inv-011',
+    userId: 'user-003',
+    type: 'festgeld',
+    amount: 300000,
+    interestRate: 3.95,
+    duration: 12,
+    startDate: '2026-01-28',
+    endDate: '2027-01-28',
+    status: 'pending',
+    currentValue: 0,
+    profit: 0,
+    bonus: 720,
+  },
+  // Flexgeld - Keine Investition
+  {
+    id: 'inv-012',
+    userId: 'user-003',
+    type: 'flexgeld',
+    amount: 0,
+    interestRate: 0,
+    duration: 0,
+    startDate: '',
+    endDate: '',
+    status: 'pending',
+    currentValue: 0,
+    profit: 0,
+  },
+  // Tagesgeld - Keine Investition
+  {
+    id: 'inv-013',
+    userId: 'user-003',
+    type: 'tagesgeld',
+    amount: 0,
+    interestRate: 0,
+    duration: 0,
+    startDate: '',
+    endDate: '',
+    status: 'pending',
+    currentValue: 0,
+    profit: 0,
+  },
+  // Aktien - Keine Investition
+  {
+    id: 'inv-014',
+    userId: 'user-003',
+    type: 'aktien',
+    amount: 0,
+    interestRate: 0,
+    duration: 0,
+    startDate: '',
+    endDate: '',
+    status: 'pending',
+    currentValue: 0,
+    profit: 0,
+  },
+  // Anleihen - Keine Investition
+  {
+    id: 'inv-015',
+    userId: 'user-003',
     type: 'anleihen',
     amount: 0,
     interestRate: 0,

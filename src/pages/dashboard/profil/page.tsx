@@ -183,6 +183,15 @@ export default function ProfilPage() {
                     <p className="font-semibold text-primary">{user.city}, {user.country}</p>
                   </div>
                 </div>
+                {user.spouse && (
+                  <div className="flex items-center gap-3 text-sm pt-3 border-t border-neutral-200">
+                    <i className="ri-user-heart-line text-amber-600 text-lg"></i>
+                    <div>
+                      <p className="text-neutral-500 text-xs">Ehepartner/in</p>
+                      <p className="font-semibold text-primary">{user.spouse.firstName} {user.spouse.lastName}</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
@@ -336,6 +345,52 @@ export default function ProfilPage() {
                 </button>
               </form>
             </motion.div>
+
+            {/* Spouse Information */}
+            {user.spouse && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+                className="bg-gradient-to-br from-amber-50 to-orange-50/50 rounded-2xl p-6 md:p-8 shadow-lg border border-amber-200"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <i className="ri-user-heart-line text-2xl text-white"></i>
+                  </div>
+                  <h2 className="text-2xl font-heading font-bold text-amber-800">Ehepartner/in</h2>
+                </div>
+
+                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-amber-200">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                      <label className="block text-sm font-semibold text-amber-800 mb-2">Vorname</label>
+                      <div className="px-4 py-3 bg-amber-50/50 border border-amber-200 rounded-xl text-sm text-amber-900 font-medium">
+                        {user.spouse.firstName}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-amber-800 mb-2">Nachname</label>
+                      <div className="px-4 py-3 bg-amber-50/50 border border-amber-200 rounded-xl text-sm text-amber-900 font-medium">
+                        {user.spouse.lastName}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-amber-800 mb-2">Geburtsdatum</label>
+                      <div className="px-4 py-3 bg-amber-50/50 border border-amber-200 rounded-xl text-sm text-amber-900 font-medium">
+                        {user.spouse.dateOfBirth}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 flex items-start gap-3 bg-amber-100/50 rounded-lg p-4">
+                    <i className="ri-information-line text-amber-700 text-xl mt-0.5"></i>
+                    <p className="text-xs text-amber-800">
+                      Diese Investition wird gemeinsam mit Ihrem Ehepartner verwaltet. Beide Partner haben die gleichen Rechte und Pflichten bezüglich dieser Anlage.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
             {/* Password Change */}
             <motion.div

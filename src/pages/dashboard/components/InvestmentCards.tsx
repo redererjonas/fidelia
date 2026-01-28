@@ -83,10 +83,10 @@ export default function InvestmentCards({ investments }: InvestmentCardsProps) {
       {/* Aktive Investitionen */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {activeInvestments.map((investment, index) => {
-          const progress = calculateProgress(investment);
-          const daysRemaining = calculateDaysRemaining(investment.endDate);
-          const currentValue = investment.amount + investment.profit;
-          const profitPercentage = investment.amount > 0 ? (investment.profit / investment.amount) * 100 : 0;
+          const progress = investment.status === 'pending' ? 0 : calculateProgress(investment);
+          const daysRemaining = investment.status === 'pending' ? 0 : calculateDaysRemaining(investment.endDate);
+          const currentValue = investment.status === 'pending' ? 0 : investment.amount + investment.profit;
+          const profitPercentage = investment.amount > 0 && investment.status !== 'pending' ? (investment.profit / investment.amount) * 100 : 0;
 
           return (
             <motion.div
@@ -220,10 +220,17 @@ export default function InvestmentCards({ investments }: InvestmentCardsProps) {
 
                 {/* Status Badge */}
                 <div className="flex items-center justify-center">
-                  <div className="inline-flex items-center gap-2 bg-amber-50 text-primary px-4 py-2.5 rounded-full text-sm font-bold border border-amber-200">
-                    <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse shadow-lg shadow-amber-500/50"></div>
-                    <span>Aktiv & Rentabel</span>
-                  </div>
+                  {investment.status === 'pending' ? (
+                    <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-4 py-2.5 rounded-full text-sm font-bold border-2 border-orange-300">
+                      <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse shadow-lg shadow-orange-500/50"></div>
+                      <span>Ausstehend</span>
+                    </div>
+                  ) : (
+                    <div className="inline-flex items-center gap-2 bg-amber-50 text-primary px-4 py-2.5 rounded-full text-sm font-bold border border-amber-200">
+                      <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse shadow-lg shadow-amber-500/50"></div>
+                      <span>Aktiv & Rentabel</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </Link>
